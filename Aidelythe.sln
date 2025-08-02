@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA618E78-2E16-46E6-8287-B8970B3B330D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81083165-9584-4E56-8AB0-4393EE2AAA0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Api", "src\Aidelythe.Api\Aidelythe.Api.csproj", "{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
