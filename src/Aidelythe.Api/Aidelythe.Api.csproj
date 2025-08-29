@@ -8,6 +8,24 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Microsoft.AspNetCore.Mvc"/>
+        <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
+        <Using Include="Newtonsoft.Json"/>
+        <Using Include="System.ComponentModel.DataAnnotations"/>
+        <Using Include="System.Diagnostics.CodeAnalysis"/>
+        <Using Include="System.Net.Mime"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="_System\Hosting\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Aidelythe.Application\Aidelythe.Application.csproj" />
     </ItemGroup>
 
 </Project>
