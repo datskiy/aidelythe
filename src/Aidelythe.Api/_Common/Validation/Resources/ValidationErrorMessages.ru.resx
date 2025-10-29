@@ -1,0 +1,86 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AsyncPredicateValidator" xml:space="preserve">
+        <value>Не выполнено указанное условие для значения.</value>
+    </data>
+    <data name="CreditCardValidator" xml:space="preserve">
+        <value>Значение не является номером карты.</value>
+    </data>
+    <data name="EmailValidator" xml:space="preserve">
+        <value>Значение не является адресом электронной почты.</value>
+    </data>
+    <data name="EmptyValidator" xml:space="preserve">
+        <value>Значение должно быть пустым.</value>
+    </data>
+    <data name="EnumValidator" xml:space="preserve">
+        <value>Значение находится вне диапазона допустимых значений.</value>
+    </data>
+    <data name="EqualValidator" xml:space="preserve">
+        <value>Значение должно быть равно '{ComparisonValue}'.</value>
+    </data>
+    <data name="ExactLengthValidator" xml:space="preserve">
+        <value>Значение должно содержать {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
+    </data>
+    <data name="ExclusiveBetweenValidator" xml:space="preserve">
+        <value>Значение должно быть в диапазоне от {From} до {To} (не включая эти значения). Введенное значение: {PropertyValue}.</value>
+    </data>
+    <data name="GreaterThanOrEqualValidator" xml:space="preserve">
+        <value>Значение должно быть больше или равно '{ComparisonValue}'.</value>
+    </data>
+    <data name="GreaterThanValidator" xml:space="preserve">
+        <value>Значение должно быть больше '{ComparisonValue}'.</value>
+    </data>
+    <data name="InclusiveBetweenValidator" xml:space="preserve">
+        <value>Значение должно быть в диапазоне от {From} до {To}. Введенное значение: {PropertyValue}.</value>
+    </data>
+    <data name="InvalidSortedFields" xml:space="preserve">
+        <value>Значениe должно содержать только уникальные сортируемые поля из следующего перечня: {0}</value>
+    </data>
+    <data name="LengthValidator" xml:space="preserve">
+        <value>Значение содержать от {MinLength} до {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
+    </data>
+    <data name="LessThanOrEqualValidator" xml:space="preserve">
+        <value>Значение должно быть меньше или равно '{ComparisonValue}'.</value>
+    </data>
+    <data name="LessThanValidator" xml:space="preserve">
+        <value>Значение должно быть меньше '{ComparisonValue}'.</value>
+    </data>
+    <data name="MaximumLengthValidator" xml:space="preserve">
+        <value>Длина значения не должна превышать {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
+    </data>
+    <data name="MinimumLengthValidator" xml:space="preserve">
+        <value>Длина значения не должна быть меньше {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
+    </data>
+    <data name="NotEmptyValidator" xml:space="preserve">
+        <value>Значение не должно быть пустым.</value>
+    </data>
+    <data name="NotEqualValidator" xml:space="preserve">
+        <value>Значение не должно быть равно '{ComparisonValue}'.</value>
+    </data>
+    <data name="NullValidator" xml:space="preserve">
+        <value>Значение должно быть пустым.</value>
+    </data>
+    <data name="NotNullValidator" xml:space="preserve">
+        <value>Значение не должно быть пустым.</value>
+    </data>
+    <data name="PredicateValidator" xml:space="preserve">
+        <value>Указанное условие не выполнено для значения.</value>
+    </data>
+    <data name="RegularExpressionValidator" xml:space="preserve">
+        <value>Значение имеет неверный формат.</value>
+    </data>
+    <data name="ScalePrecisionValidator" xml:space="preserve">
+        <value>Значение должно содержать в общем не более {ExpectedPrecision} цифр, в том числе {ExpectedScale} десятичных знака(ов). Введенное значение содержит {Digits} цифр(ы) и {ActualScale} десятичных знака(ов).</value>
+    </data>
+</root>

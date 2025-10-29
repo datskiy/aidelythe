@@ -7,17 +7,33 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="12.0.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+        <PackageReference Include="MediatR" Version="13.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="OneOf" Version="3.0.271" />
+        <PackageReference Include="Riok.Mapperly" Version="4.3.0-next.3" />
     </ItemGroup>
 
     <ItemGroup>
+        <Using Include="FluentValidation"/>
+        <Using Include="FluentValidation.Resources"/>
+        <Using Include="FluentValidation.Results"/>
+        <Using Include="MediatR"/>
         <Using Include="Microsoft.AspNetCore.Mvc"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
-        <Using Include="Newtonsoft.Json"/>
+        <Using Include="OneOf"/>
+        <Using Include="Riok.Mapperly.Abstractions"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.Collections.ObjectModel"/>
         <Using Include="System.ComponentModel.DataAnnotations"/>
         <Using Include="System.Diagnostics.CodeAnalysis"/>
+        <Using Include="System.Globalization"/>
+        <Using Include="System.Linq.Expressions"/>
         <Using Include="System.Net.Mime"/>
+        <Using Include="System.Reflection"/>
+        <Using Include="System.Text.Json.Serialization"/>
+        <Using Include="System.Text.RegularExpressions"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -26,6 +42,39 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Aidelythe.Application\Aidelythe.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Organizing\Resources\EventProblemDetails.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>EventProblemDetails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="_Common\Http\Resources\ProblemTypeLinks.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ProblemTypeLinks.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="_Common\Validation\Resources\ValidationErrorMessages.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Organizing\Resources\EventProblemDetails.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>EventProblemDetails.resx</DependentUpon>
+      </Compile>
+      <Compile Update="_Common\Http\Resources\ProblemTypeLinks.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ProblemTypeLinks.resx</DependentUpon>
+      </Compile>
+      <Compile Update="_Common\Validation\Resources\ValidationErrorMessages.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ValidationErrorMessages.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

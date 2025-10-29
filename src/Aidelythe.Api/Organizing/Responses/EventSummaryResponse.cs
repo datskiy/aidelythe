@@ -1,16 +1,19 @@
 namespace Aidelythe.Api.Organizing.Responses;
 
 /// <summary>
-/// TODO: desc here + for all props + add validation attributes for Swagger + finish full MVP contract
+/// A summary of an event.
 /// </summary>
 public sealed class EventSummaryResponse
 {
-    [JsonProperty("id")]
+    /// <summary>
+    /// The unique identifier of the event.
+    /// </summary>
+    [JsonPropertyName("id")]
     public required Guid Id { get; init; }
 
-    [JsonProperty("title")]
+    /// <summary>
+    /// The title of the event.
+    /// </summary>
+    [JsonPropertyName("title")]
     public required string Title { get; init; }
-
-    [JsonProperty("description")]
-    public string? Description { get; init; }
 }

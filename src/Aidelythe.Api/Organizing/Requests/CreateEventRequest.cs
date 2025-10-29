@@ -1,13 +1,19 @@
 namespace Aidelythe.Api.Organizing.Requests;
 
 /// <summary>
-/// TODO: desc here + for all props + add validation attributes for Swagger + finish full MVP contract
+/// A request to create an event.
 /// </summary>
 public sealed class CreateEventRequest
 {
-    [JsonProperty("title")] // TODO: consider [JsonProperty("title", Required = Required.Always)]
-    public string? Title { get; init; } // TODO: fix nullability with validation
+    /// <summary>
+    /// The title of an event.
+    /// </summary>
+    [JsonPropertyName("title")]
+    public required string Title { get; init; }
 
-    [JsonProperty("description")]
+    /// <summary>
+    /// The description of an event.
+    /// </summary>
+    [JsonPropertyName("description")]
     public string? Description { get; init; }
 }

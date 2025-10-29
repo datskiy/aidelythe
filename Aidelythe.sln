@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Api", "src\Aidely
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Application", "src\Aidelythe.Application\Aidelythe.Application.csproj", "{28D45E4F-5AB4-42A9-9FFB-5AA36B94E0D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Domain", "src\Aidelythe.Domain\Aidelythe.Domain.csproj", "{59CBD66A-D39B-4F27-BE52-050613347C19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Shared", "src\Aidelythe.Shared\Aidelythe.Shared.csproj", "{74B4250E-492D-4E7A-B986-EC1DC03B8A39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +20,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
 		{28D45E4F-5AB4-42A9-9FFB-5AA36B94E0D8} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
+		{59CBD66A-D39B-4F27-BE52-050613347C19} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
+		{74B4250E-492D-4E7A-B986-EC1DC03B8A39} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +32,13 @@ Global
 		{28D45E4F-5AB4-42A9-9FFB-5AA36B94E0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28D45E4F-5AB4-42A9-9FFB-5AA36B94E0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28D45E4F-5AB4-42A9-9FFB-5AA36B94E0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CBD66A-D39B-4F27-BE52-050613347C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CBD66A-D39B-4F27-BE52-050613347C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CBD66A-D39B-4F27-BE52-050613347C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CBD66A-D39B-4F27-BE52-050613347C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B4250E-492D-4E7A-B986-EC1DC03B8A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B4250E-492D-4E7A-B986-EC1DC03B8A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B4250E-492D-4E7A-B986-EC1DC03B8A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B4250E-492D-4E7A-B986-EC1DC03B8A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

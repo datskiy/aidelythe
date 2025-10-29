@@ -1,0 +1,24 @@
+using Aidelythe.Api.Organizing.Requests;
+using Aidelythe.Domain.Organizing.ValueObjects;
+
+namespace Aidelythe.Api.Organizing.Validators;
+
+/// <summary>
+/// Represents a validator for event update requests.
+/// </summary>
+public sealed class UpdateEventRequestValidator : AbstractValidator<UpdateEventRequest>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateEventRequestValidator"/> class.
+    /// </summary>
+    public UpdateEventRequestValidator()
+    {
+        RuleFor(request => request.Title)
+            .NotEmpty()
+            .MaximumLength(EventTitle.MaximumLength);
+
+        RuleFor(request => request.Description)
+            .MaximumLength(EventDescription.MaximumLength)
+            .When(request => request.Description is not null);
+    }
+}

@@ -6,4 +6,22 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="13.0.0" />
+      <PackageReference Include="OneOf" Version="3.0.271" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="MediatR"/>
+        <Using Include="OneOf"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
+        <Using Include="System.Collections"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Aidelythe.Domain\Aidelythe.Domain.csproj" />
+      <ProjectReference Include="..\Aidelythe.Shared\Aidelythe.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
