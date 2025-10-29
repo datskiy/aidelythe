@@ -24,4 +24,8 @@
       <ProjectReference Include="..\Aidelythe.Shared\Aidelythe.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Organizing\Events\" />
+    </ItemGroup>
+
 </Project>
