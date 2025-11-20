@@ -151,31 +151,11 @@ public sealed class EventController : BaseApiController
 }
 
 // TODO: list
-// check all possbile ThrowIfNegative and similar check cases
+// check all possible ThrowIfNegative and similar check cases
 // review all code
 // try passing GPT's code review
 // create PR and pass your own review
 // next part: commit as: ADL-13: Finalize MVP data model
-
-// === The Event model should contain:
-// Id (only for responses)
-// UserId (will be done as part of authorization)
-// Title
-// Description (optional)
-// StartsAt
-// EndsAt
-// CreatedAt (only for responses)
-// LastUpdatedAt (only for responses)
-
-// === Roles (at least 1)
-// IsArchived or Status
-// The event role should contain:
-// Id (only for responses)
-// Title
-// Description (optional)
-// MaxParticipants
-// CreatedAt (only for responses) [internal]
-// LastUpdatedAt (only for responses) [internal]
 
 // [SEPARATE TASK] Add Swagger
 // [SEPARATE TASK] Add mocked logging - test, see where it stores, make global error logging

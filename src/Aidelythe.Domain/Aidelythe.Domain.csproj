@@ -10,4 +10,9 @@
       <Folder Include="Organizing\Events\" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.Text.RegularExpressions"/>
+    </ItemGroup>
+    
 </Project>

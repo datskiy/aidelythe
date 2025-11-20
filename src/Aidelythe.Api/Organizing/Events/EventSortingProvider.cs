@@ -30,7 +30,20 @@ public sealed class EventSortingProvider : SortingProvider
                 JsonPropertyNameHelper.TryResolve<EventSummaryResponse>(response => response.Title),
                 nameof(EventSummary.Title)
             },
-            // TODO: in the future remove this from sorting, add more useful fields
+            {
+                JsonPropertyNameHelper.TryResolve<EventSummaryResponse>(response => response.StartsAt),
+                nameof(EventSummary.StartsAt)
+            },
+            {
+                JsonPropertyNameHelper.TryResolve<EventSummaryResponse>(response => response.EndsAt),
+                nameof(EventSummary.EndsAt)
+            },
+            {
+                JsonPropertyNameHelper.TryResolve<EventSummaryResponse>(response => response.CreatedAt),
+                nameof(EventSummary.CreatedAt)
+            },
+            // TODO: in the future add more useful fields
+            // TODO: deal with nested fields (e.g. Location.City)
         };
     }
 }

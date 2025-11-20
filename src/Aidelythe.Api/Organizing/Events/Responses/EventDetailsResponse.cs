@@ -1,9 +1,11 @@
+using Aidelythe.Api._Common.Locality.Responses;
+
 namespace Aidelythe.Api.Organizing.Events.Responses;
 
 /// <summary>
 /// Details of an event.
 /// </summary>
-public sealed class EventDetailsResponse
+public sealed class EventDetailsResponse // TODO: add event owner
 {
     /// <summary>
     /// The unique identifier of the event.
@@ -22,4 +24,34 @@ public sealed class EventDetailsResponse
     /// </summary>
     [JsonPropertyName("description")]
     public string? Description { get; init; }
+
+    /// <summary>
+    /// The location of the event.
+    /// </summary>
+    [JsonPropertyName("location")]
+    public required AddressDetailsResponse Location { get; init; }
+
+    /// <summary>
+    /// The date when the event starts.
+    /// </summary>
+    [JsonPropertyName("startsAt")]
+    public DateTime StartsAt { get; init; }
+
+    /// <summary>
+    /// The date when the event ends.
+    /// </summary>
+    [JsonPropertyName("endsAt")]
+    public DateTime? EndsAt { get; init; }
+
+    /// <summary>
+    /// The date when the event was created.
+    /// </summary>
+    [JsonPropertyName("createdAt")]
+    public DateTime CreatedAt { get; init; }
+
+    /// <summary>
+    /// The date when the event was last updated.
+    /// </summary>
+    [JsonPropertyName("lastUpdatedAt")]
+    public DateTime? LastUpdatedAt { get; init; }
 }

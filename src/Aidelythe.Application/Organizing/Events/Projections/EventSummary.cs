@@ -1,3 +1,5 @@
+using Aidelythe.Application._Common.Locality;
+
 namespace Aidelythe.Application.Organizing.Events.Projections;
 
 /// <summary>
@@ -16,18 +18,61 @@ public sealed class EventSummary
     public string Title { get; }
 
     /// <summary>
+    /// Gets the location of the event.
+    /// </summary>
+    public AddressInfo Location { get; }
+
+    /// <summary>
+    /// Gets the date when the event starts.
+    /// </summary>
+    public DateTime StartsAt { get; }
+
+    /// <summary>
+    /// Gets the date when the event ends.
+    /// </summary>
+    public DateTime? EndsAt { get; }
+
+    /// <summary>
+    /// Gets the date when the event was created.
+    /// </summary>
+    public DateTime CreatedAt { get; }
+
+    /// <summary>
+    /// Gets the date when the event was last updated.
+    /// </summary>
+    public DateTime? LastUpdatedAt { get; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EventSummary"/> class.
     /// </summary>
     /// <param name="id">The unique identifier of the event.</param>
     /// <param name="title">The title of the event.</param>
-    /// <exception cref="ArgumentNullException">The <paramref name="title"/> is null.</exception>
+    /// <param name="location">The location of the event.</param>
+    /// <param name="startsAt">The date when the event starts.</param>
+    /// <param name="endsAt">The date when the event ends.</param>
+    /// <param name="createdAt">The date when the event was created.</param>
+    /// <param name="lastUpdatedAt">The date when the event was last updated.</param>
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="title"/> or <paramref name="location"/> is null.
+    /// </exception>
     public EventSummary(
         Guid id,
-        string title)
+        string title,
+        AddressInfo location,
+        DateTime startsAt,
+        DateTime? endsAt,
+        DateTime createdAt,
+        DateTime? lastUpdatedAt)
     {
         ThrowIfNull(title);
+        ThrowIfNull(location);
 
         Id = id;
         Title = title;
+        Location = location;
+        StartsAt = startsAt;
+        EndsAt = endsAt;
+        CreatedAt = createdAt;
+        LastUpdatedAt = lastUpdatedAt;
     }
 }

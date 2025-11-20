@@ -1,4 +1,4 @@
-using Aidelythe.Api._Common.Http.Parameters;
+using Aidelythe.Api._Common.Paging;
 
 namespace Aidelythe.Api.Organizing.Events;
 

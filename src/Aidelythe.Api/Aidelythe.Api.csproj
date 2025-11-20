@@ -49,13 +49,13 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ProblemTypeLinks.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="_Common\Validation\Resources\ValidationErrorMessages.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Organizing\Events\Resources\EventProblemDetails.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>EventProblemDetails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="_Common\Validation\ValidationErrorMessages.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
@@ -65,7 +65,7 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>ProblemTypeLinks.resx</DependentUpon>
       </Compile>
-      <Compile Update="_Common\Validation\Resources\ValidationErrorMessages.Designer.cs">
+      <Compile Update="_Common\Validation\ValidationErrorMessages.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ValidationErrorMessages.resx</DependentUpon>

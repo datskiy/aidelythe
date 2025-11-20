@@ -1,9 +1,7 @@
-using Aidelythe.Api._Common.Http.Parameters;
-using Aidelythe.Api._Common.Validation.Policies;
 using Aidelythe.Api._Common.Validation.Resources;
 using Aidelythe.Shared.Guards;
 
-namespace Aidelythe.Api._Common.Validation;
+namespace Aidelythe.Api._Common.Paging;
 
 /// <summary>
 /// Represents a base validator for list query parameters.

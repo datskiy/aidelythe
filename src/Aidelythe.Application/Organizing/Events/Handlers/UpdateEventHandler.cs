@@ -1,5 +1,6 @@
-using Aidelythe.Application._Common.Discriminants;
+using Aidelythe.Application._Common.Locality;
 using Aidelythe.Application.Organizing.Events.Commands;
+using Aidelythe.Application.Organizing.Events.Projections;
 using Aidelythe.Application.Organizing.Events.Results;
 
 namespace Aidelythe.Application.Organizing.Events.Handlers;
@@ -27,13 +28,21 @@ public sealed class UpdateEventHandler : IRequestHandler<UpdateEventCommand, Upd
         // TODO: implement
         // TODO: ask and add distributed locking
 
-        // var updatedEvent = new EventDetails(
-        //     Guid.CreateVersion7(),
-        //     "Updated title",
-        //     "Updated description");
-        //
-        //return await Task.FromResult(updatedEvent); // TODO: revert
+         var updatedEvent = new EventDetails(
+             Guid.CreateVersion7(),
+             "Updated title",
+             "Updated description",
+             new AddressInfo(
+                 "Updated country",
+                 "Updated region",
+                 "Updated city",
+                 "Updated postal code",
+                 "Updated street"),
+             new DateTime(2026, 1, 1),
+             new DateTime(2026, 1, 7),
+             DateTime.Now.AddDays(-1),
+             DateTime.Now);
 
-        return await Task.FromResult(new DuplicateTitle());
+        return await Task.FromResult(updatedEvent);
     }
 }

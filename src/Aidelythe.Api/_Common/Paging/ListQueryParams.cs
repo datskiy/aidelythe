@@ -1,4 +1,4 @@
-namespace Aidelythe.Api._Common.Http.Parameters;
+namespace Aidelythe.Api._Common.Paging;
 
 /// <summary>
 /// Represents base parameters used for list queries.
@@ -45,7 +45,7 @@ public abstract class ListQueryParams
     /// All field names and sort order values are case-insensitive.
     /// </summary>
     /// <example>
-    /// field-name1:asc,field-name2:desc
+    /// fieldName1:asc,fieldName2:desc
     /// </example>
     [FromQuery(Name = "sortBy")]
     public string? SortBy

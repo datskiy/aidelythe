@@ -1,6 +1,6 @@
 using Aidelythe.Api._Common.Http.Controllers;
 
-namespace Aidelythe.Api._System.Monitoring.Controllers;
+namespace Aidelythe.Api._System.Monitoring;
 
 /// <summary>
 /// Represents a ping controller to verify the application is responsive.

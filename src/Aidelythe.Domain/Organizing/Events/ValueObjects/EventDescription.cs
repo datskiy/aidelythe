@@ -9,7 +9,7 @@ public readonly record struct EventDescription(string Value)
     /// <summary>
     /// The maximum acceptable length of the description.
     /// </summary>
-    public const int MaximumLength = 500;
+    public const int MaximumLength = 500; // TODO: enforce
 
     public static implicit operator string(EventDescription description) // TODO: make in base class?
     {

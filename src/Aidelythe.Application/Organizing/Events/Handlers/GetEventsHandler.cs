@@ -1,3 +1,4 @@
+using Aidelythe.Application._Common.Locality;
 using Aidelythe.Application._Common.Paging;
 using Aidelythe.Application.Organizing.Events.Projections;
 using Aidelythe.Application.Organizing.Events.Queries;
@@ -30,13 +31,28 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
         {
             new EventSummary(
                 Guid.CreateVersion7(),
-                "My title summary #1"),
+                "My title summary #1",
+                new AddressInfo("My country", "My region", "My city", "My postal code", "My street"),
+                new DateTime(2026, 2, 1),
+                new DateTime(2026, 2, 7),
+                new DateTime(2026, 2, 1),
+                new DateTime(2026, 2, 7)),
             new EventSummary(
                 Guid.CreateVersion7(),
-                "My title summary #2"),
+                "My title summary #2",
+                new AddressInfo("Not my country", "Not my region", null, null, null),
+                new DateTime(2027, 07, 07),
+                null,
+                new DateTime(2026, 2, 1),
+                null),
             new EventSummary(
                 Guid.CreateVersion7(),
-                "My title summary #3"),
+                "My title summary #3",
+                new AddressInfo("Random ass country", "Random ass region", "Random ass city", "Random ass postal code", "Random ass street"),
+                new DateTime(2027, 06, 13),
+                null,
+                DateTime.Now,
+                DateTime.Now)
         };
 
         var pagedCollection = new PagedCollection<EventSummary>(

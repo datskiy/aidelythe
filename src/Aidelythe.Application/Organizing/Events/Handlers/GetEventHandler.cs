@@ -1,3 +1,4 @@
+using Aidelythe.Application._Common.Locality;
 using Aidelythe.Application.Organizing.Events.Projections;
 using Aidelythe.Application.Organizing.Events.Queries;
 
@@ -28,7 +29,17 @@ public sealed class GetEventHandler : IRequestHandler<GetEventQuery, EventDetail
         var eventDetails = new EventDetails(
             Guid.CreateVersion7(),
             "Test title",
-            "Test description");
+            "Test description",
+            new AddressInfo(
+                "Test country",
+                "Test region",
+                "Test city",
+                "Test postal code",
+                "Test street"),
+            new DateTime(2026, 1, 1),
+            new DateTime(2026, 1, 7),
+            DateTime.Now.AddDays(-1),
+            DateTime.Now);
 
         return await Task.FromResult(eventDetails);
     }
