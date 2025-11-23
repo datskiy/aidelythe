@@ -1,37 +1,37 @@
 namespace Aidelythe.Api._Common.Locality.Responses;
 
 /// <summary>
-/// Address details.
+/// Represents details of an address.
 /// </summary>
 public sealed class AddressDetailsResponse
 {
     /// <summary>
-    /// The country name of the address.
+    /// Gets the name of the country.
     /// </summary>
     [JsonPropertyName("country")]
     public required string Country { get; init; }
 
     /// <summary>
-    /// The region name of the address.
+    /// Gets the name of the region.
     /// </summary>
     [JsonPropertyName("region")]
     public string? Region { get; init; }
 
     /// <summary>
-    /// The city name of the address.
+    /// Gets the name of the city.
     /// </summary>
     [JsonPropertyName("city")]
     public string? City { get; init; }
 
     /// <summary>
-    /// The postal or ZIP code of the address.
-    /// </summary>
-    [JsonPropertyName("postalCode")]
-    public string? PostalCode { get; init; }
-
-    /// <summary>
-    /// The street name of the address.
+    /// Gets the name of the street.
     /// </summary>
     [JsonPropertyName("street")]
     public string? Street { get; init; }
+
+    /// <summary>
+    /// Gets the postal or ZIP code.
+    /// </summary>
+    [JsonPropertyName("postalCode")]
+    public string? PostalCode { get; init; }
 }

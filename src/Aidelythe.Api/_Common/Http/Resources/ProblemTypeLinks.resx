@@ -27,4 +27,7 @@
     <data name="BadRequest" xml:space="preserve">
         <value>https://tools.ietf.org/html/rfc7231#section-6.5.1</value>
     </data>
+    <data name="NotFound" xml:space="preserve">
+        <value>https://tools.ietf.org/html/rfc9110#section-15.5.5</value>
+    </data>
 </root>

@@ -10,18 +10,18 @@ public sealed class UnprocessableEntityResponse : ProblemDetailsResponse
     /// <summary>
     /// Initializes a new instance of the <see cref="UnprocessableEntityResponse"/> class.
     /// </summary>
-    /// <param name="traceId">A unique trace identifier that represents the request.</param>
     /// <param name="detail">A human-readable explanation of the problem.</param>
+    /// <param name="traceId">A unique trace identifier that represents the request.</param>
     /// <exception cref="ArgumentNullException">
-    /// The <paramref name="traceId"/> or <paramref name="detail"/> is null.
+    /// The <paramref name="detail"/> or <paramref name="traceId"/> is null.
     /// </exception>
     public UnprocessableEntityResponse(
-        string traceId,
-        string detail) : base(
-            StatusCodes.Status422UnprocessableEntity,
+        string detail,
+        string traceId) : base(
             ProblemTypeLinks.UnprocessableEntity,
-            traceId,
-            detail)
+            StatusCodes.Status422UnprocessableEntity,
+            detail,
+            traceId)
     {
     }
 }

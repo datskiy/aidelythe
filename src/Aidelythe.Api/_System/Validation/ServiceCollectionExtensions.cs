@@ -21,8 +21,7 @@ public static class ServiceCollectionExtensions
         ThrowIfNull(services);
 
         services
-            .Configure<ApiBehaviorOptions>(options =>
-                options.SuppressModelStateInvalidFilter = true)
+            .Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true)
             .AddValidatorsFromAssemblyContaining<Api.AssemblyMarker>();
 
         ValidatorOptions.Global.LanguageManager = new ErrorMessageLanguageManager();

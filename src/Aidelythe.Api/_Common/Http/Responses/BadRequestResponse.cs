@@ -6,14 +6,28 @@ namespace Aidelythe.Api._Common.Http.Responses;
 /// <summary>
 /// Represents a response for a 400 Bad Request error.
 /// </summary>
-public sealed class BadRequestResponse : ProblemDetailsResponse
+public sealed class BadRequestResponse : ProblemResponse
 {
     /// <summary>
-    /// A dictionary for errors keyed by field name.
+    /// Gets a dictionary for errors keyed by field name.
     /// </summary>
+    [JsonPropertyOrder(-2)]
     [JsonPropertyName("errors")]
-    public IDictionary<string, string[]> Errors { get; }
-    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IDictionary<string, string[]>? Errors { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BadRequestResponse"/> class.
+    /// </summary>
+    /// <param name="traceId">A unique trace identifier that represents the request.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="traceId"/> is null.</exception>
+    public BadRequestResponse(string traceId) : base(
+        ProblemTypeLinks.BadRequest,
+        StatusCodes.Status400BadRequest,
+        traceId)
+    {
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BadRequestResponse"/> class.
     /// </summary>
@@ -24,10 +38,7 @@ public sealed class BadRequestResponse : ProblemDetailsResponse
     /// </exception>
     public BadRequestResponse(
         INonEmptyCollection<ValidationFailure> validationFailures,
-        string traceId) : base(
-        StatusCodes.Status400BadRequest,
-        ProblemTypeLinks.BadRequest,
-            traceId)
+        string traceId) : this(traceId)
     {
         ThrowIfNull(validationFailures);
 

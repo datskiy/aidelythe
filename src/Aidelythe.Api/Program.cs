@@ -8,9 +8,12 @@ var services = builder.Services;
 services.AddControllers();
 services.AddValidation();
 services.AddMediator();
+services.AddOpenApi();
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-app.MapControllers();
 app.UseLocalization();
+app.MapControllers();
+app.MapOpenApi();
+app.MapScalarApiReference();
 app.Run();

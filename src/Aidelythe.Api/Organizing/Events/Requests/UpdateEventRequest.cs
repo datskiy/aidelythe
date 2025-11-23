@@ -1,41 +1,44 @@
 using Aidelythe.Api._Common.Locality;
+using Aidelythe.Domain.Organizing.Events.ValueObjects;
 
 namespace Aidelythe.Api.Organizing.Events.Requests;
 
 /// <summary>
-/// A request to update an event.
+/// Represents a request to update an event.
 /// </summary>
 public sealed class UpdateEventRequest
 {
     /// <summary>
-    /// The title of the event.
+    /// Gets the title of the event.
     /// </summary>
-    [Required]
     [JsonPropertyName("title")]
+    [Required]
+    [MaxLength(EventTitle.MaximumLength)]
     public string? Title { get; init; }
 
     /// <summary>
-    /// The description of the event.
+    /// Gets the description of the event.
     /// </summary>
     [JsonPropertyName("description")]
+    [MaxLength(EventDescription.MaximumLength)]
     public string? Description { get; init; }
 
     /// <summary>
-    /// The location of the event.
+    /// Gets the location of the event.
     /// </summary>
-    [Required]
     [JsonPropertyName("location")]
+    [Required]
     public AddressRequest? Location { get; init; }
 
     /// <summary>
-    /// The date when the event starts.
+    /// Gets the date when the event starts.
     /// </summary>
-    [Required]
     [JsonPropertyName("startsAt")]
+    [Required]
     public DateTime? StartsAt { get; init; }
 
     /// <summary>
-    /// The date when the event ends.
+    /// Gets the date when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
     public DateTime? EndsAt { get; init; }

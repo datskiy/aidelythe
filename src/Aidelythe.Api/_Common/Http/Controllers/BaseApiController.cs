@@ -15,7 +15,8 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
 {
     protected const string ResourceLocator = nameof(ResourceLocator);
 
-    // TODO: move this and Conflict with UnprocessableEntity to a separate controller + refactor as part of authorization task
+    // TODO: move Conflict with UnprocessableEntity to a separate controller + refactor as part of authorization task
+
     /// <summary>
     /// Gets a function that maps an <see cref="IDiscriminant"/> instance to a string representation
     /// detailing the problem.
@@ -31,7 +32,7 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
     /// Validates the provided instance using a registered validator
     /// and executes the specified function if validation succeeds.
     /// </summary>
-    /// <typeparam name="T">The type of the instance to validate, constrained to non-nullable types.</typeparam>
+    /// <typeparam name="T">The type of the instance to validate.</typeparam>
     /// <param name="instance">The instance to validate.</param>
     /// <param name="next">The function to execute if validation is successful.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
@@ -40,19 +41,19 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
     /// or the result of the executed function.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// The <paramref name="instance"/> or <paramref name="next"/> is null.
-    /// </exception>
+    /// The <paramref name="next"/> is null.</exception>
     /// <exception cref="InvalidOperationException">
     /// A validator for the specified instance type is not registered.
     /// </exception>
     protected async Task<IActionResult> ValidateAndRunAsync<T>(
-        T instance,
+        T? instance,
         Func<Task<IActionResult>> next,
         CancellationToken cancellationToken)
-        where T : notnull
     {
-        ThrowIfNull(instance);
         ThrowIfNull(next);
+
+        if (instance is null)
+            return BadRequest(new BadRequestResponse(HttpContext.TraceIdentifier));
 
         var validator = HttpContext.RequestServices.GetRequiredService<IValidator<T>>();
         if (validator is null)
@@ -100,6 +101,17 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
     }
 
     /// <summary>
+    /// Returns an <c>HTTP 404 Not Found</c>.
+    /// </summary>
+    /// <returns>
+    /// An <see cref="IActionResult"/> representing an <c>HTTP 404 Not Found</c> response.
+    /// </returns>
+    protected new IActionResult NotFound()
+    {
+        return base.NotFound(new NotFoundResponse(HttpContext.TraceIdentifier));
+    }
+
+    /// <summary>
     /// Produces an <c>HTTP 201 Created</c> response with the resource location HTTP header.
     /// </summary>
     /// <param name="resourceId">The unique identifier of the newly created resource.</param>
@@ -136,8 +148,8 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
         ThrowIfProblemDetailsMapperNull();
 
         return base.Conflict(new ConflictResponse(
-            HttpContext.TraceIdentifier,
-            detail: ProblemDetailsMapper!(discriminant)));
+            detail: ProblemDetailsMapper!(discriminant),
+            HttpContext.TraceIdentifier));
     }
 
     /// <summary>
@@ -161,8 +173,8 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
         ThrowIfProblemDetailsMapperNull();
 
         return base.UnprocessableEntity(new UnprocessableEntityResponse(
-            HttpContext.TraceIdentifier,
-            detail: ProblemDetailsMapper!(discriminant)));
+            detail: ProblemDetailsMapper!(discriminant),
+            HttpContext.TraceIdentifier));
     }
 
     private void ThrowIfProblemDetailsMapperNull()

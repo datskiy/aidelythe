@@ -9,10 +9,11 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="12.0.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
-        <PackageReference Include="MediatR" Version="13.0.0" />
+        <PackageReference Include="MediatR" Version="12.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
         <PackageReference Include="OneOf" Version="3.0.271" />
         <PackageReference Include="Riok.Mapperly" Version="4.3.0-next.3" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.11.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,6 +25,7 @@
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
+        <Using Include="Scalar.AspNetCore"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Collections.ObjectModel"/>
         <Using Include="System.ComponentModel.DataAnnotations"/>

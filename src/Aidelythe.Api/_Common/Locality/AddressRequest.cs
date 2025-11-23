@@ -1,38 +1,46 @@
+using Aidelythe.Domain._Common.Locality;
+
 namespace Aidelythe.Api._Common.Locality;
 
 /// <summary>
-/// A request to define an address.
+/// Represents a request to define an address.
 /// </summary>
 public sealed class AddressRequest
 {
     /// <summary>
-    /// The country name of the address.
+    /// Gets the name of the country.
     /// </summary>
-    [Required]
     [JsonPropertyName("country")]
+    [Required]
+    [MaxLength(Address.MaximumAreaNameLength)]
     public string? Country { get; init; }
 
     /// <summary>
-    /// The region name of the address.
+    /// Gets the name of the region.
     /// </summary>
     [JsonPropertyName("region")]
+    [MaxLength(Address.MaximumAreaNameLength)]
     public string? Region { get; init; }
 
     /// <summary>
-    /// The city name of the address.
+    /// Gets the name of the city.
     /// </summary>
     [JsonPropertyName("city")]
+    [MaxLength(Address.MaximumAreaNameLength)]
     public string? City { get; init; }
 
     /// <summary>
-    /// The postal or ZIP code of the address.
-    /// </summary>
-    [JsonPropertyName("postalCode")]
-    public string? PostalCode { get; init; }
-
-    /// <summary>
-    /// The street name of the address.
+    /// Gets the name of the street.
     /// </summary>
     [JsonPropertyName("street")]
+    [MaxLength(Address.MaximumStreetNameLength)]
     public string? Street { get; init; }
+
+    /// <summary>
+    /// Gets the postal or ZIP code.
+    /// </summary>
+    [JsonPropertyName("postalCode")]
+    [MaxLength(Address.MaximumPostalCodeLength)]
+    [RegularExpression(Address.PostalCodeFormatPattern)]
+    public string? PostalCode { get; init; }
 }

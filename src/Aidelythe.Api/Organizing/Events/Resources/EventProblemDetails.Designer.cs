@@ -25,7 +25,7 @@ namespace Aidelythe.Api.Organizing.Events.Resources {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Aidelythe.Api.Organizing.Resources.EventProblemDetails", typeof(EventProblemDetails).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Aidelythe.Api.Organizing.Events.Resources.EventProblemDetails", typeof(EventProblemDetails).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

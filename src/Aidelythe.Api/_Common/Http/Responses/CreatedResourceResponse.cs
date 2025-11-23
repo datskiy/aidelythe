@@ -6,7 +6,7 @@ namespace Aidelythe.Api._Common.Http.Responses;
 public readonly struct CreatedResourceResponse
 {
     /// <summary>
-    /// The unique identifier of the created resource.
+    /// Gets the unique identifier of the created resource.
     /// </summary>
     [JsonPropertyName("id")]
     public Guid Id { get; init; }

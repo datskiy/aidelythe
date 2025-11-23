@@ -54,7 +54,18 @@ public static class ListQueryPolicies
         public const int MaximumLength = 100;
 
         /// <summary>
-        /// A regular expression pattern representing the correct sorting format.
+        /// A regular expression pattern representing the sorting format.
+        /// Ensures the parameter follows the specified structure of field names and sorting directions
+        /// where field names consist of alphanumeric characters,
+        /// and sorting directions are either "asc" or "desc".
+        /// </summary>
+        /// <example>
+        /// fieldName1:asc,fieldName2:desc
+        /// </example>
+        public const string FormatPattern = @"(?i)^[a-z0-9]+:(asc|desc)(,[a-z0-9]+:(asc|desc))*$";
+
+        /// <summary>
+        /// A regular expression representing the sorting format.
         /// Ensures the parameter follows the specified structure of field names and sorting directions
         /// where field names consist of alphanumeric characters,
         /// and sorting directions are either "asc" or "desc".
@@ -63,7 +74,7 @@ public static class ListQueryPolicies
         /// fieldName1:asc,fieldName2:desc
         /// </example>
         public static readonly Regex FormatRegex = new(
-            pattern: "(?i)^[a-z0-9]+:(asc|desc)(,[a-z0-9]+:(asc|desc))*$",
+            FormatPattern,
             options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
             matchTimeout: TimeSpan.FromMilliseconds(100));
     }

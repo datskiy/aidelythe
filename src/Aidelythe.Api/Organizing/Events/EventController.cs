@@ -1,6 +1,8 @@
 using Aidelythe.Api._Common.Http.Controllers;
+using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Api.Organizing.Events.Mappers;
 using Aidelythe.Api.Organizing.Events.Requests;
+using Aidelythe.Api.Organizing.Events.Responses;
 using Aidelythe.Application.Organizing.Events.Commands;
 using Aidelythe.Application.Organizing.Events.Queries;
 using Aidelythe.Shared.DiscriminatedUnion;
@@ -36,9 +38,12 @@ public sealed class EventController : BaseApiController
     /// <param name="id">The unique identifier of the event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// The details of the specified event. // TODO: check against 'response' and setup for Swagger
+    /// The details of the specified event.
     /// </returns>
     [HttpGet("{id:guid}", Name = nameof(ResourceLocator))]
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)
@@ -57,9 +62,11 @@ public sealed class EventController : BaseApiController
     /// <param name="queryParams">The query parameters for filtering, sorting, and pagination.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A paginated list of events. // TODO: check against 'response' and setup for Swagger
+    /// A paginated list of events.
     /// </returns>
     [HttpGet]
+    [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetListAsync(
         [FromQuery] EventsQueryParams queryParams,
         CancellationToken cancellationToken)
@@ -81,9 +88,13 @@ public sealed class EventController : BaseApiController
     /// <param name="request">The event creation request containing event attributes.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A unique identifier of the created event. // TODO: check against 'response' and setup for Swagger
+    /// A unique identifier of the created event.
     /// </returns>
     [HttpPost]
+    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
     public Task<IActionResult> CreateAsync(
         [FromBody] CreateEventRequest request,
         CancellationToken cancellationToken)
@@ -107,9 +118,14 @@ public sealed class EventController : BaseApiController
     /// <param name="request">The event update request containing event attributes.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A unique identifier of the created event. // TODO: check against 'response' and setup for Swagger
+    /// A unique identifier of the created event.
     /// </returns>
     [HttpPut("{id:guid}")]
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
     public Task<IActionResult> UpdateAsync(
         [FromRoute] Guid id,
         [FromBody] UpdateEventRequest request,
@@ -134,9 +150,11 @@ public sealed class EventController : BaseApiController
     /// <param name="id">The unique identifier of the event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A response indicating whether the event was successfully deleted. // TODO: check against 'response' and setup for Swagger
+    /// A response indicating whether the event was successfully deleted.
     /// </returns>
     [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)
@@ -155,9 +173,7 @@ public sealed class EventController : BaseApiController
 // review all code
 // try passing GPT's code review
 // create PR and pass your own review
-// next part: commit as: ADL-13: Finalize MVP data model
 
-// [SEPARATE TASK] Add Swagger
 // [SEPARATE TASK] Add mocked logging - test, see where it stores, make global error logging
 // [SEPARATE TASK] #WHEN EVERYTHING IS DONE# Add tests (ask GPT should I and about the best practices)
 // [LATER] Ask more about internal, mb you should revert. The problem is testing...

@@ -10,18 +10,18 @@ public sealed class ConflictResponse : ProblemDetailsResponse
     /// <summary>
     /// Initializes a new instance of the <see cref="ConflictResponse"/> class.
     /// </summary>
-    /// <param name="traceId">A unique trace identifier that represents the request.</param>
     /// <param name="detail">A human-readable explanation of the problem.</param>
+    /// <param name="traceId">A unique trace identifier that represents the request.</param>
     /// <exception cref="ArgumentNullException">
-    /// The <paramref name="traceId"/> or <paramref name="detail"/> is null.
+    /// The <paramref name="detail"/> or <paramref name="traceId"/> is null.
     /// </exception>
     public ConflictResponse(
-        string traceId,
-        string detail) : base(
-        StatusCodes.Status409Conflict,
+        string detail,
+        string traceId) : base(
             ProblemTypeLinks.Conflict,
-            traceId,
-            detail)
+            StatusCodes.Status409Conflict,
+            detail,
+            traceId)
     {
     }
 }

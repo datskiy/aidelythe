@@ -21,14 +21,23 @@ public sealed record Address
     public const int MaximumStreetNameLength = 200; // TODO: enforce
 
     /// <summary>
-    /// A regular expression pattern representing the correct postal code format.
+    /// A regular expression pattern representing the postal code format.
+    /// Ensures the postal code is a non-empty string that contains only letters, digits, spaces, and hyphens.
+    /// </summary>
+    /// <example>
+    /// 13-37
+    /// </example>
+    public const string PostalCodeFormatPattern = @"^[A-Za-z0-9\-\s]+$"; // TODO: enforce
+
+    /// <summary>
+    /// A regular expression representing the postal code format.
     /// Ensures the postal code is a non-empty string that contains only letters, digits, spaces, and hyphens.
     /// </summary>
     /// <example>
     /// 13-37
     /// </example>
     public static readonly Regex PostalCodeFormatRegex = new( // TODO: enforce
-        pattern: @"^[A-Za-z0-9\-\s]+$",
+        PostalCodeFormatPattern,
         options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
         matchTimeout: TimeSpan.FromMilliseconds(100));
 

@@ -12,25 +12,28 @@ public abstract class ListQueryParams
     private readonly string? _sortBy;
 
     /// <summary>
-    /// The number of entries to skip before returning the first entry.
+    /// Gets the number of entries to skip before returning the first entry.
     /// Defaults to 0 if not explicitly set.
     /// </summary>
     [FromQuery(Name = "offset")]
+    [Range(ListQueryPolicies.Offset.MinimumValue, int.MaxValue)]
     public int Offset { get; init; } = DefaultOffset;
 
     /// <summary>
-    /// The maximum number of entries to return.
+    /// Gets the maximum number of entries to return.
     /// Defaults to 50 if not explicitly set.
     /// </summary>
     [FromQuery(Name = "limit")]
+    [Range(ListQueryPolicies.Limit.MinimumValue, ListQueryPolicies.Limit.MaximumValue)]
     public int Limit { get; init; } = DefaultLimit;
 
     /// <summary>
-    /// The text used to filter entries by a specific field.
+    /// Gets the text used to filter entries by a specific field.
     /// Allows partial matching and is case-insensitive.
     /// No filtering is applied if not specified.
     /// </summary>
     [FromQuery(Name = "search")]
+    [MaxLength(ListQueryPolicies.SearchText.MaximumLength)]
     public string? SearchText
     {
         get => _searchText;
@@ -38,7 +41,7 @@ public abstract class ListQueryParams
     }
 
     /// <summary>
-    /// The sorting criteria by which the entries should be sorted.
+    /// Gets the sorting criteria by which the entries should be sorted.
     /// The format allows multiple comma-separated pairs of field names and sorting orders.
     /// Each pair consists of a field name followed by a colon
     /// and the sort order ('asc' for ascending or 'desc' for descending).
@@ -48,6 +51,8 @@ public abstract class ListQueryParams
     /// fieldName1:asc,fieldName2:desc
     /// </example>
     [FromQuery(Name = "sortBy")]
+    [MaxLength(ListQueryPolicies.SortBy.MaximumLength)]
+    [RegularExpression(ListQueryPolicies.SortBy.FormatPattern)]
     public string? SortBy
     {
         get => _sortBy;

@@ -1,51 +1,50 @@
-using Aidelythe.Api._Common.Locality;
 using Aidelythe.Api._Common.Locality.Responses;
 
 namespace Aidelythe.Api.Organizing.Events.Responses;
 
 /// <summary>
-/// A summary of an event.
+/// Represents a summary of an event.
 /// </summary>
 public sealed class EventSummaryResponse // TODO: add event owner
 {
     /// <summary>
-    /// The unique identifier of the event.
+    /// Gets the unique identifier of the event.
     /// </summary>
     [JsonPropertyName("id")]
     public required Guid Id { get; init; }
 
     /// <summary>
-    /// The title of the event.
+    /// Gets the title of the event.
     /// </summary>
     [JsonPropertyName("title")]
     public required string Title { get; init; }
 
     /// <summary>
-    /// The location of the event.
+    /// Gets the location of the event.
     /// </summary>
     [JsonPropertyName("location")]
     public required AddressSummaryResponse Location { get; init; }
 
     /// <summary>
-    /// The date when the event starts.
+    /// Gets the date when the event starts.
     /// </summary>
     [JsonPropertyName("startsAt")]
     public DateTime StartsAt { get; init; }
 
     /// <summary>
-    /// The date when the event ends.
+    /// Gets the date when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
     public DateTime? EndsAt { get; init; }
 
     /// <summary>
-    /// The date when the event was created.
+    /// Gets the date when the event was created.
     /// </summary>
     [JsonPropertyName("createdAt")]
     public DateTime CreatedAt { get; init; }
 
     /// <summary>
-    /// The date when the event was last updated.
+    /// Gets the date when the event was last updated.
     /// </summary>
     [JsonPropertyName("lastUpdatedAt")]
     public DateTime? LastUpdatedAt { get; init; }

@@ -62,5 +62,11 @@ namespace Aidelythe.Api._Common.Http.Resources {
                 return ResourceManager.GetString("BadRequest", resourceCulture);
             }
         }
+        
+        internal static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
     }
 }
