@@ -14,6 +14,8 @@
         <PackageReference Include="OneOf" Version="3.0.271" />
         <PackageReference Include="Riok.Mapperly" Version="4.3.0-next.3" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.11.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,8 +25,10 @@
         <Using Include="MediatR"/>
         <Using Include="Microsoft.AspNetCore.Mvc"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
+        <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
+        <Using Include="Serilog"/>
         <Using Include="Scalar.AspNetCore"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Collections.ObjectModel"/>
@@ -39,6 +43,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="_System\Composition\" />
       <Folder Include="_System\Hosting\" />
     </ItemGroup>
 

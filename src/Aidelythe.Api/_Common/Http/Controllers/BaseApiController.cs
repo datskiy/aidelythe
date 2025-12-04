@@ -1,7 +1,6 @@
 using Aidelythe.Api._Common.Http.Metadata;
 using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Application._Common.Paging;
-using Aidelythe.Shared.Collections;
 using Aidelythe.Shared.DiscriminatedUnion;
 
 namespace Aidelythe.Api._Common.Http.Controllers;
@@ -13,6 +12,9 @@ namespace Aidelythe.Api._Common.Http.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public abstract class BaseApiController : ControllerBase // TODO: split into 3 classes: base, public, authenticated
 {
+    /// <summary>
+    /// The name of the route for retrieving a resource by its unique identifier.
+    /// </summary>
     protected const string ResourceLocator = nameof(ResourceLocator);
 
     // TODO: move Conflict with UnprocessableEntity to a separate controller + refactor as part of authorization task
@@ -27,46 +29,6 @@ public abstract class BaseApiController : ControllerBase // TODO: split into 3 c
     /// <see cref="InvalidOperationException"/>.
     /// </remarks>
     protected virtual Func<IDiscriminant, string>? ProblemDetailsMapper => null;
-
-    /// <summary>
-    /// Validates the provided instance using a registered validator
-    /// and executes the specified function if validation succeeds.
-    /// </summary>
-    /// <typeparam name="T">The type of the instance to validate.</typeparam>
-    /// <param name="instance">The instance to validate.</param>
-    /// <param name="next">The function to execute if validation is successful.</param>
-    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
-    /// <returns>
-    /// An <see cref="IActionResult"/> representing <c>HTTP 400 Bad Request</c> response if validation fails,
-    /// or the result of the executed function.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// The <paramref name="next"/> is null.</exception>
-    /// <exception cref="InvalidOperationException">
-    /// A validator for the specified instance type is not registered.
-    /// </exception>
-    protected async Task<IActionResult> ValidateAndRunAsync<T>(
-        T? instance,
-        Func<Task<IActionResult>> next,
-        CancellationToken cancellationToken)
-    {
-        ThrowIfNull(next);
-
-        if (instance is null)
-            return BadRequest(new BadRequestResponse(HttpContext.TraceIdentifier));
-
-        var validator = HttpContext.RequestServices.GetRequiredService<IValidator<T>>();
-        if (validator is null)
-            throw new InvalidOperationException($"Validator for {typeof(T).Name} is not registered.");
-
-        var validationResult = await validator.ValidateAsync(instance, cancellationToken);
-        if (!validationResult.IsValid)
-            return BadRequest(new BadRequestResponse(
-                validationResult.Errors.AsNonEmpty(),
-                HttpContext.TraceIdentifier));
-
-        return await next();
-    }
 
     /// <summary>
     /// Produces an <c>HTTP 200 OK</c> response with pagination-related HTTP headers.

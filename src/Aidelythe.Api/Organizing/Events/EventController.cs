@@ -67,19 +67,16 @@ public sealed class EventController : BaseApiController
     [HttpGet]
     [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetListAsync(
+    public async Task<IActionResult> GetListAsync(
         [FromQuery] EventsQueryParams queryParams,
         CancellationToken cancellationToken)
     {
-        return ValidateAndRunAsync(queryParams, async () =>
-        {
-            var query = queryParams.ToQuery();
-            var pagedCollection = await _mediator.Send(query, cancellationToken);
+        var query = queryParams.ToQuery();
+        var pagedCollection = await _mediator.Send(query, cancellationToken);
 
-            return PagedOk(
-                pagedCollection,
-                mapper: eventSummary => eventSummary.ToResponse());
-        }, cancellationToken);
+        return PagedOk(
+            pagedCollection,
+            mapper: eventSummary => eventSummary.ToResponse());
     }
 
     /// <summary>
@@ -95,20 +92,17 @@ public sealed class EventController : BaseApiController
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
-    public Task<IActionResult> CreateAsync(
+    public async Task<IActionResult> CreateAsync(
         [FromBody] CreateEventRequest request,
         CancellationToken cancellationToken)
     {
-        return ValidateAndRunAsync(request, async () =>
-        {
-            var command = request.ToCommand();
-            var result = await _mediator.Send(command, cancellationToken);
+        var command = request.ToCommand();
+        var result = await _mediator.Send(command, cancellationToken);
 
-            return result.Union.Match<IActionResult>(
-                createdId => Created(createdId),
-                duplicateTitle => Conflict(duplicateTitle),
-                invalidDateRange => UnprocessableEntity(invalidDateRange));
-        }, cancellationToken);
+        return result.Union.Match<IActionResult>(
+            createdId => Created(createdId),
+            duplicateTitle => Conflict(duplicateTitle),
+            invalidDateRange => UnprocessableEntity(invalidDateRange));
     }
 
     /// <summary>
@@ -126,22 +120,19 @@ public sealed class EventController : BaseApiController
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
-    public Task<IActionResult> UpdateAsync(
+    public async Task<IActionResult> UpdateAsync(
         [FromRoute] Guid id,
         [FromBody] UpdateEventRequest request,
         CancellationToken cancellationToken)
     {
-        return ValidateAndRunAsync(request, async () =>
-        {
-            var command = request.ToCommand(id);
-            var result = await _mediator.Send(command, cancellationToken);
+        var command = request.ToCommand(id);
+        var result = await _mediator.Send(command, cancellationToken);
 
-            return result.Union.Match<IActionResult>(
-                updatedDetails => Ok(updatedDetails.ToResponse()),
-                notFound => NotFound(),
-                duplicateTitle => Conflict(duplicateTitle),
-                invalidDateRange => UnprocessableEntity(invalidDateRange));
-        }, cancellationToken);
+        return result.Union.Match<IActionResult>(
+            updatedDetails => Ok(updatedDetails.ToResponse()),
+            notFound => NotFound(),
+            duplicateTitle => Conflict(duplicateTitle),
+            invalidDateRange => UnprocessableEntity(invalidDateRange));
     }
 
     /// <summary>
@@ -174,7 +165,8 @@ public sealed class EventController : BaseApiController
 // try passing GPT's code review
 // create PR and pass your own review
 
-// [SEPARATE TASK] Add mocked logging - test, see where it stores, make global error logging
 // [SEPARATE TASK] #WHEN EVERYTHING IS DONE# Add tests (ask GPT should I and about the best practices)
 // [LATER] Ask more about internal, mb you should revert. The problem is testing...
 // [LATER] deal with appsettings.json versions, should I use explicit types like Dev or Testing; think of moving to a separate folder
+// [LATER] Add health checks
+// [LATER] Find examples of development ready appsettings.json (wit AllowedHosts, etc.)
