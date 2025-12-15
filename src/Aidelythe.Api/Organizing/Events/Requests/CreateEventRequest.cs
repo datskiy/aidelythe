@@ -28,7 +28,7 @@ public sealed class CreateEventRequest
     /// </summary>
     [JsonPropertyName("location")]
     [Required]
-    public AddressRequest? Location { get; init; }
+    public DefineAddressRequest? Location { get; init; }
 
     /// <summary>
     /// Gets the date when the event starts.

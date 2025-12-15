@@ -3,14 +3,14 @@ using Aidelythe.Domain._Common.Locality;
 namespace Aidelythe.Api._Common.Locality;
 
 /// <summary>
-/// Represents a validator for address requests.
+/// Represents a validator for address definition requests.
 /// </summary>
-public sealed class AddressRequestValidator : AbstractValidator<AddressRequest>
+public sealed class DefineAddressRequestValidator : AbstractValidator<DefineAddressRequest>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AddressRequestValidator"/> class.
+    /// Initializes a new instance of the <see cref="DefineAddressRequestValidator"/> class.
     /// </summary>
-    public AddressRequestValidator()
+    public DefineAddressRequestValidator()
     {
         RuleFor(request => request.Country)
             .NotEmpty()

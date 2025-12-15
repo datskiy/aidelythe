@@ -5,10 +5,11 @@ namespace Aidelythe.Api._System.Monitoring;
 /// <summary>
 /// Represents a ping controller to verify the application is responsive.
 /// </summary>
-[Route("[controller]")]
-public sealed class PingController : BaseApiController // TODO: add AllowAnonymous to the base controller and inherit it here
+[Route("ping")]
+public sealed class PingController : AnonymousApiController
 {
-    // TODO: learn to throttle
+    // TODO: add rate limiting and IP blocking
+
     /// <summary>
     /// Sends a simple ping request to verify the service is responsive.
     /// </summary>

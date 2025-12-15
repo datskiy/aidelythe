@@ -3,7 +3,7 @@ using Aidelythe.Shared.Collections;
 namespace Aidelythe.Application._Common.Sorting;
 
 /// <summary>
-/// Represents a sorting scheme that contains a collection of sorting rules.
+/// Represents a sorting scheme.
 /// </summary>
 public sealed class SortingScheme : IReadOnlyCollection<SortingRule>
 {
@@ -13,6 +13,8 @@ public sealed class SortingScheme : IReadOnlyCollection<SortingRule>
     /// Gets the number of sorting rules.
     /// </summary>
     public int Count => _sortingRules.Count;
+
+    // TODO: enforce rules
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SortingScheme"/> class.

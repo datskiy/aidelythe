@@ -26,7 +26,7 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
     /// <summary>
     /// Gets the location of the event.
     /// </summary>
-    public AddressInfo Location { get; }
+    public DefineAddressCommand Location { get; }
 
     /// <summary>
     /// Gets the date when the event starts.
@@ -54,7 +54,7 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
         Guid id,
         string title,
         string? description,
-        AddressInfo location,
+        DefineAddressCommand location,
         DateTime startsAt,
         DateTime? endsAt)
     {

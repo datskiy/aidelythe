@@ -1,26 +1,19 @@
 using Aidelythe.Api._Common.Http.Serialization;
-using Aidelythe.Api._Common.Sorting;
 using Aidelythe.Api.Organizing.Events.Responses;
 using Aidelythe.Application.Organizing.Events.Projections;
 
 namespace Aidelythe.Api.Organizing.Events;
 
 /// <summary>
-/// Represents a sorting provider for events.
+/// Provides a dictionary of sortable fields for events.
 /// </summary>
-public sealed class EventSortingProvider : SortingProvider
+public static class EventSortingProvider
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EventSortingProvider"/> class.
+    /// Gets a dictionary containing sortable field keys for events mapped to their corresponding property names.
     /// </summary>
-    public EventSortingProvider() : base(
-        BuildSortableFieldsDictionary())
-    {
-    }
-
-    private static Dictionary<string, string> BuildSortableFieldsDictionary()
-    {
-        return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    public static IReadOnlyDictionary<string, string> SortableFieldsDictionary =>
+        new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             {
                 JsonPropertyNameHelper.TryResolve<EventSummaryResponse>(response => response.Id),
@@ -45,5 +38,4 @@ public sealed class EventSortingProvider : SortingProvider
             // TODO: in the future add more useful fields
             // TODO: deal with nested fields (e.g. Location.City)
         };
-    }
 }

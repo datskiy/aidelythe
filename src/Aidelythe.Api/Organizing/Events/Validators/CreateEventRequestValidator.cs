@@ -27,6 +27,6 @@ public sealed class CreateEventRequestValidator : AbstractValidator<CreateEventR
 
         RuleFor(request => request.Location)
             .NotNull()
-            .SetValidator(new AddressRequestValidator()!);
+            .SetValidator(new DefineAddressRequestValidator()!);
     }
 }

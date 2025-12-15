@@ -1,4 +1,4 @@
-using Aidelythe.Api._Common.Paging;
+using Aidelythe.Api._Common.Querying;
 
 namespace Aidelythe.Api.Organizing.Events;
 

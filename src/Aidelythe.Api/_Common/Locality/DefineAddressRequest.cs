@@ -5,7 +5,7 @@ namespace Aidelythe.Api._Common.Locality;
 /// <summary>
 /// Represents a request to define an address.
 /// </summary>
-public sealed class AddressRequest
+public sealed class DefineAddressRequest
 {
     /// <summary>
     /// Gets the name of the country.

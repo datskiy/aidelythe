@@ -20,7 +20,7 @@ public sealed class EventSummary
     /// <summary>
     /// Gets the location of the event.
     /// </summary>
-    public AddressInfo Location { get; }
+    public AddressSummary Location { get; }
 
     /// <summary>
     /// Gets the date when the event starts.
@@ -58,7 +58,7 @@ public sealed class EventSummary
     public EventSummary(
         Guid id,
         string title,
-        AddressInfo location,
+        AddressSummary location,
         DateTime startsAt,
         DateTime? endsAt,
         DateTime createdAt,

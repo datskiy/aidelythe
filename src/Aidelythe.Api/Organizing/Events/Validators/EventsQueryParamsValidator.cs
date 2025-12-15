@@ -1,5 +1,4 @@
-using Aidelythe.Api._Common.Paging;
-using Aidelythe.Api._Common.Sorting;
+using Aidelythe.Api._Common.Querying;
 
 namespace Aidelythe.Api.Organizing.Events.Validators;
 
@@ -10,5 +9,5 @@ public sealed class EventsQueryParamsValidator : ListQueryParamsValidator<Events
 {
     /// <inheritdoc/>
     protected override IReadOnlyDictionary<string, string> SortableFieldsDictionary =>
-        SortingRegistry<EventSortingProvider>.SortableFieldsDictionary;
+        EventSortingProvider.SortableFieldsDictionary;
 }

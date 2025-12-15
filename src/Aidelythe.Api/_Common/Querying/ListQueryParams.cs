@@ -1,4 +1,8 @@
-namespace Aidelythe.Api._Common.Paging;
+using Aidelythe.Api._Common.Sorting;
+using Aidelythe.Application._Common.Filtering;
+using Aidelythe.Application._Common.Paging;
+
+namespace Aidelythe.Api._Common.Querying;
 
 /// <summary>
 /// Represents base parameters used for list queries.
@@ -16,7 +20,7 @@ public abstract class ListQueryParams
     /// Defaults to 0 if not explicitly set.
     /// </summary>
     [FromQuery(Name = "offset")]
-    [Range(ListQueryPolicies.Offset.MinimumValue, int.MaxValue)]
+    [Range(PagingScheme.MinimumOffsetValue, int.MaxValue)]
     public int Offset { get; init; } = DefaultOffset;
 
     /// <summary>
@@ -24,7 +28,7 @@ public abstract class ListQueryParams
     /// Defaults to 50 if not explicitly set.
     /// </summary>
     [FromQuery(Name = "limit")]
-    [Range(ListQueryPolicies.Limit.MinimumValue, ListQueryPolicies.Limit.MaximumValue)]
+    [Range(PagingScheme.MinimumLimitValue, PagingScheme.MaximumLimitValue)]
     public int Limit { get; init; } = DefaultLimit;
 
     /// <summary>
@@ -33,7 +37,7 @@ public abstract class ListQueryParams
     /// No filtering is applied if not specified.
     /// </summary>
     [FromQuery(Name = "search")]
-    [MaxLength(ListQueryPolicies.SearchText.MaximumLength)]
+    [MaxLength(FilteringScheme.MaximumSearchTextLength)]
     public string? SearchText
     {
         get => _searchText;
@@ -51,8 +55,8 @@ public abstract class ListQueryParams
     /// fieldName1:asc,fieldName2:desc
     /// </example>
     [FromQuery(Name = "sortBy")]
-    [MaxLength(ListQueryPolicies.SortBy.MaximumLength)]
-    [RegularExpression(ListQueryPolicies.SortBy.FormatPattern)]
+    [MaxLength(SortByPolicies.MaximumLength)]
+    [RegularExpression(SortByPolicies.FormatPattern)]
     public string? SortBy
     {
         get => _sortBy;

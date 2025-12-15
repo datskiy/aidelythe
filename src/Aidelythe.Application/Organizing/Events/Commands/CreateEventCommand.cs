@@ -21,7 +21,7 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     /// <summary>
     /// Gets the location of the event.
     /// </summary>
-    public AddressInfo Location { get; }
+    public DefineAddressCommand Location { get; }
 
     /// <summary>
     /// Gets the date when the event starts.
@@ -47,7 +47,7 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     public CreateEventCommand(
         string title,
         string? description,
-        AddressInfo location,
+        DefineAddressCommand location,
         DateTime startsAt,
         DateTime? endsAt)
     {

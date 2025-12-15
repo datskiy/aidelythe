@@ -32,7 +32,7 @@ public sealed class UpdateEventHandler : IRequestHandler<UpdateEventCommand, Upd
              Guid.CreateVersion7(),
              "Updated title",
              "Updated description",
-             new AddressInfo(
+             new AddressDetails(
                  "Updated country",
                  "Updated region",
                  "Updated city",

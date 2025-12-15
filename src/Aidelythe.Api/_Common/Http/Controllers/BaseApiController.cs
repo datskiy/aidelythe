@@ -10,14 +10,12 @@ namespace Aidelythe.Api._Common.Http.Controllers;
 /// </summary>
 [ApiController]
 [Produces(MediaTypeNames.Application.Json)]
-public abstract class BaseApiController : ControllerBase // TODO: split into 3 classes: base, public, authenticated
+public abstract class BaseApiController : ControllerBase
 {
     /// <summary>
     /// The name of the route for retrieving a resource by its unique identifier.
     /// </summary>
     protected const string ResourceLocator = nameof(ResourceLocator);
-
-    // TODO: move Conflict with UnprocessableEntity to a separate controller + refactor as part of authorization task
 
     /// <summary>
     /// Gets a function that maps an <see cref="IDiscriminant"/> instance to a string representation

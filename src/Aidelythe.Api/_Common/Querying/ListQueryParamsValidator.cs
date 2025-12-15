@@ -1,7 +1,10 @@
+using Aidelythe.Api._Common.Sorting;
 using Aidelythe.Api._Common.Validation.Resources;
+using Aidelythe.Application._Common.Filtering;
+using Aidelythe.Application._Common.Paging;
 using Aidelythe.Shared.Guards;
 
-namespace Aidelythe.Api._Common.Paging;
+namespace Aidelythe.Api._Common.Querying;
 
 /// <summary>
 /// Represents a base validator for list query parameters.
@@ -21,18 +24,18 @@ public abstract class ListQueryParamsValidator<TQueryParams> : AbstractValidator
     protected ListQueryParamsValidator()
     {
         RuleFor(queryParams => queryParams.Offset)
-            .GreaterThanOrEqualTo(ListQueryPolicies.Offset.MinimumValue);
+            .GreaterThanOrEqualTo(PagingScheme.MinimumOffsetValue);
 
         RuleFor(queryParams => queryParams.Limit)
-            .InclusiveBetween(ListQueryPolicies.Limit.MinimumValue, ListQueryPolicies.Limit.MaximumValue);
+            .InclusiveBetween(PagingScheme.MinimumLimitValue, PagingScheme.MaximumLimitValue);
 
         RuleFor(queryParams => queryParams.SearchText)
-            .MaximumLength(ListQueryPolicies.SearchText.MaximumLength)
+            .MaximumLength(FilteringScheme.MaximumSearchTextLength)
             .When(queryParams => queryParams.SearchText is not null);
 
         RuleFor(queryParams => queryParams.SortBy)
-            .MaximumLength(ListQueryPolicies.SortBy.MaximumLength)
-            .Matches(ListQueryPolicies.SortBy.FormatRegex)
+            .MaximumLength(SortByPolicies.MaximumLength)
+            .Matches(SortByPolicies.FormatRegex)
             .DependentRules(() => ValidateSortedFields())
             .When(queryParams => queryParams.SortBy is not null);
     }

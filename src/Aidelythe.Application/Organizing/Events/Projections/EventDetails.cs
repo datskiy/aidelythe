@@ -25,7 +25,7 @@ public sealed class EventDetails
     /// <summary>
     /// Gets the location of the event.
     /// </summary>
-    public AddressInfo Location { get; }
+    public AddressDetails Location { get; }
 
     /// <summary>
     /// Gets the date when the event starts.
@@ -65,7 +65,7 @@ public sealed class EventDetails
         Guid id,
         string title,
         string? description,
-        AddressInfo location,
+        AddressDetails location,
         DateTime startsAt,
         DateTime? endsAt,
         DateTime createdAt,

@@ -7,23 +7,25 @@ namespace Aidelythe.Api._Common.Sorting;
 /// </summary>
 public static class SortingHelper
 {
+    private const string AscToken = "asc";
     private const string DescToken = "desc";
 
     /// <summary>
-    /// Parses a formatted sorting string into a collection of <see cref="SortingRule"/>.
+    /// Parses a formatted sorting string into a collection of <see cref="SortFieldQuery"/>.
     /// </summary>
-    /// <param name="sortBy">A formatted sorting string representing sorting rules.</param>
+    /// <param name="sortBy">A formatted sorting string representing sorting fields.</param>
     /// <param name="sortableFieldDictionary">
     /// A dictionary containing sortable field keys mapped to their corresponding property names.
     /// </param>
     /// <returns>
-    /// A collection of <see cref="SortingRule"/>.
+    /// A collection of <see cref="SortFieldQuery"/>.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="sortBy"/> or <paramref name="sortableFieldDictionary"/> is null.
     /// </exception>
     /// <exception cref="ArgumentException">The <paramref name="sortableFieldDictionary"/> is empty.</exception>
-    public static IReadOnlyCollection<SortingRule> ParseRules(
+    /// <exception cref="ArgumentException">The sorting direction is invalid.</exception>
+    public static IReadOnlyCollection<SortFieldQuery> ParseSortingFields(
         string sortBy,
         IReadOnlyDictionary<string, string> sortableFieldDictionary)
     {
@@ -37,13 +39,23 @@ public static class SortingHelper
 
         return sortBy
             .Split(',')
-            .Select(sortingRule =>
+            .Select(sortingField =>
             {
-                var sortingRuleParts = sortingRule.Split(':');
-                return new SortingRule(
-                    PropertyName: sortableFieldDictionary[sortingRuleParts[0]],
-                    IsDescending: sortingRuleParts[1].Equals(DescToken, StringComparison.OrdinalIgnoreCase));
+                var sortingFieldParts = sortingField.Split(':');
+                return new SortFieldQuery(
+                    PropertyName: sortableFieldDictionary[sortingFieldParts[0]],
+                    IsDescending: ParseIsDescending(sortingFieldParts[1]));
             })
             .ToArray();
+    }
+
+    private static bool ParseIsDescending(string sortingDirection)
+    {
+        return sortingDirection.ToLowerInvariant() switch
+        {
+            AscToken => false,
+            DescToken => true,
+            _ => throw new ArgumentException($"The sorting direction '{sortingDirection}' is invalid.")
+        };
     }
 }

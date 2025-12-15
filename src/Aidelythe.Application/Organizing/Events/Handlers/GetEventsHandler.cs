@@ -32,7 +32,7 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
             new EventSummary(
                 Guid.CreateVersion7(),
                 "My title summary #1",
-                new AddressInfo("My country", "My region", "My city", "My postal code", "My street"),
+                new AddressSummary("My country", "My region", "My city"),
                 new DateTime(2026, 2, 1),
                 new DateTime(2026, 2, 7),
                 new DateTime(2026, 2, 1),
@@ -40,7 +40,7 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
             new EventSummary(
                 Guid.CreateVersion7(),
                 "My title summary #2",
-                new AddressInfo("Not my country", "Not my region", null, null, null),
+                new AddressSummary("Not my country", "Not my region", null),
                 new DateTime(2027, 07, 07),
                 null,
                 new DateTime(2026, 2, 1),
@@ -48,7 +48,7 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
             new EventSummary(
                 Guid.CreateVersion7(),
                 "My title summary #3",
-                new AddressInfo("Random ass country", "Random ass region", "Random ass city", "Random ass postal code", "Random ass street"),
+                new AddressSummary("Random ass country", "Random ass region", "Random ass city"),
                 new DateTime(2027, 06, 13),
                 null,
                 DateTime.Now,

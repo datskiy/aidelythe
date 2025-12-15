@@ -1,7 +1,6 @@
 using Aidelythe.Api._Common.Sorting;
 using Aidelythe.Api.Organizing.Events.Requests;
 using Aidelythe.Api.Organizing.Events.Responses;
-using Aidelythe.Application._Common.Sorting;
 using Aidelythe.Application.Organizing.Events.Commands;
 using Aidelythe.Application.Organizing.Events.Projections;
 using Aidelythe.Application.Organizing.Events.Queries;
@@ -30,11 +29,11 @@ public static partial class EventMapper
             queryParams.SearchText,
             queryParams.SortBy is null
                 ? null
-                : new SortingScheme(SortingHelper
-                    .ParseRules(
+                : SortingHelper
+                    .ParseSortingFields(
                         queryParams.SortBy,
-                        SortingRegistry<EventSortingProvider>.SortableFieldsDictionary)
-                    .AsNonEmpty()));
+                        EventSortingProvider.SortableFieldsDictionary)
+                    .AsNonEmpty());
     }
 
     /// <summary>

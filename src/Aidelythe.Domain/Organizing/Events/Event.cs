@@ -1,4 +1,4 @@
-namespace Aidelythe.Domain.Organizing.Events.Aggregates;
+namespace Aidelythe.Domain.Organizing.Events;
 
 /// <summary>
 /// Represents an event.

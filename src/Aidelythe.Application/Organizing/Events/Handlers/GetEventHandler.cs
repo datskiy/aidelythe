@@ -30,7 +30,7 @@ public sealed class GetEventHandler : IRequestHandler<GetEventQuery, EventDetail
             Guid.CreateVersion7(),
             "Test title",
             "Test description",
-            new AddressInfo(
+            new AddressDetails(
                 "Test country",
                 "Test region",
                 "Test city",

@@ -13,7 +13,7 @@ namespace Aidelythe.Api.Organizing.Events;
 /// Represents a controller for managing events.
 /// </summary>
 [Route("events")]
-public sealed class EventController : BaseApiController
+public sealed class EventController : AuthorizedApiController
 {
     private readonly IMediator _mediator;
 
@@ -41,7 +41,7 @@ public sealed class EventController : BaseApiController
     /// The details of the specified event.
     /// </returns>
     [HttpGet("{id:guid}", Name = nameof(ResourceLocator))]
-    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(
@@ -65,7 +65,7 @@ public sealed class EventController : BaseApiController
     /// A paginated list of events.
     /// </returns>
     [HttpGet]
-    [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetListAsync(
         [FromQuery] EventsQueryParams queryParams,
@@ -88,7 +88,7 @@ public sealed class EventController : BaseApiController
     /// A unique identifier of the created event.
     /// </returns>
     [HttpPost]
-    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
@@ -115,7 +115,7 @@ public sealed class EventController : BaseApiController
     /// A unique identifier of the created event.
     /// </returns>
     [HttpPut("{id:guid}")]
-    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
@@ -144,7 +144,7 @@ public sealed class EventController : BaseApiController
     /// A response indicating whether the event was successfully deleted.
     /// </returns>
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)] // TODO: add unauthorized
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(
         [FromRoute] Guid id,
@@ -158,15 +158,3 @@ public sealed class EventController : BaseApiController
             notFound => NotFound());
     }
 }
-
-// TODO: list
-// check all possible ThrowIfNegative and similar check cases
-// review all code
-// try passing GPT's code review
-// create PR and pass your own review
-
-// [SEPARATE TASK] #WHEN EVERYTHING IS DONE# Add tests (ask GPT should I and about the best practices)
-// [LATER] Ask more about internal, mb you should revert. The problem is testing...
-// [LATER] deal with appsettings.json versions, should I use explicit types like Dev or Testing; think of moving to a separate folder
-// [LATER] Add health checks
-// [LATER] Find examples of development ready appsettings.json (wit AllowedHosts, etc.)
