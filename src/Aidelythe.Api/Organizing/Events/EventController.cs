@@ -17,7 +17,7 @@ public sealed class EventController : AuthorizedApiController
 {
     private readonly IMediator _mediator;
 
-    protected override Func<IDiscriminant, string>? ProblemDetailsMapper =>
+    protected override Func<IDiscriminant, string> ProblemDetailsMapper =>
         discriminant => discriminant.ToProblemDetails();
 
     /// <summary>
@@ -38,9 +38,11 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="id">The unique identifier of the event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// The details of the specified event.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the details of the specified event.
+    /// May produce error responses.
     /// </returns>
-    [HttpGet("{id:guid}", Name = nameof(ResourceLocator))]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
@@ -49,10 +51,10 @@ public sealed class EventController : AuthorizedApiController
         CancellationToken cancellationToken)
     {
         var query = new GetEventQuery(id);
-        var instance = await _mediator.Send(query, cancellationToken);
+        var eventDetails = await _mediator.Send(query, cancellationToken);
 
-        return instance is not null
-            ? Ok(instance.ToResponse())
+        return eventDetails is not null
+            ? Ok(eventDetails.ToResponse())
             : NotFound();
     }
 
@@ -62,7 +64,8 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="queryParams">The query parameters for filtering, sorting, and pagination.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A paginated list of events.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a paginated list of events.
     /// </returns>
     [HttpGet]
     [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)] // TODO: add unauthorized
@@ -85,7 +88,9 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="request">The event creation request containing event attributes.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A unique identifier of the created event.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the unique identifier of the created event.
+    /// May produce error responses.
     /// </returns>
     [HttpPost]
     [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)] // TODO: add unauthorized
@@ -100,8 +105,8 @@ public sealed class EventController : AuthorizedApiController
         var result = await _mediator.Send(command, cancellationToken);
 
         return result.Union.Match<IActionResult>(
-            createdId => Created(createdId),
-            duplicateTitle => Conflict(duplicateTitle),
+            eventId => CreatedAt<EventController>(eventId),
+            alreadyExists => Conflict(alreadyExists),
             invalidDateRange => UnprocessableEntity(invalidDateRange));
     }
 
@@ -112,7 +117,9 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="request">The event update request containing event attributes.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A unique identifier of the created event.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the details of the updated event.
+    /// May produce error responses.
     /// </returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
@@ -129,9 +136,9 @@ public sealed class EventController : AuthorizedApiController
         var result = await _mediator.Send(command, cancellationToken);
 
         return result.Union.Match<IActionResult>(
-            updatedDetails => Ok(updatedDetails.ToResponse()),
+            eventDetails => Ok(eventDetails.ToResponse()),
             notFound => NotFound(),
-            duplicateTitle => Conflict(duplicateTitle),
+            alreadyExists => Conflict(alreadyExists),
             invalidDateRange => UnprocessableEntity(invalidDateRange));
     }
 
@@ -141,7 +148,9 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="id">The unique identifier of the event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A response indicating whether the event was successfully deleted.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the status of the event deletion.
+    /// May produce error responses.
     /// </returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)] // TODO: add unauthorized

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Using Include="Microsoft.AspNetCore.Identity"/>
+        <Using Include="Microsoft.IdentityModel.JsonWebTokens"/>
+        <Using Include="Microsoft.IdentityModel.Tokens"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.Security.Claims"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Aidelythe.Application\Aidelythe.Application.csproj" />
+      <ProjectReference Include="..\Aidelythe.Domain\Aidelythe.Domain.csproj" />
+      <ProjectReference Include="..\Aidelythe.Shared\Aidelythe.Shared.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Organizing\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.1" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.15.0" />
+    </ItemGroup>
+</Project>

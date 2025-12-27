@@ -1,7 +1,7 @@
 namespace Aidelythe.Api._Common.Http.Metadata;
 
 /// <summary>
-/// Provides predefined constants for common link relation types used in HTTP link headers.
+/// Contains HTTP link relation type names.
 /// </summary>
 public static class LinkRelations
 {

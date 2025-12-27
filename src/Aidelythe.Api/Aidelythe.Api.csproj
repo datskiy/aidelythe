@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="12.0.0" />
+        <PackageReference Include="FluentValidation" Version="12.1.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
         <PackageReference Include="MediatR" Version="12.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
@@ -19,10 +19,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Using Include="Aidelythe.Shared.Guards.GuardHelper" Static="True"/>
         <Using Include="FluentValidation"/>
         <Using Include="FluentValidation.Resources"/>
         <Using Include="FluentValidation.Results"/>
         <Using Include="MediatR"/>
+        <Using Include="Microsoft.AspNetCore.Authorization"/>
         <Using Include="Microsoft.AspNetCore.Mvc"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
@@ -43,12 +45,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="_System\Composition\" />
-      <Folder Include="_System\Hosting\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Aidelythe.Application\Aidelythe.Application.csproj" />
+      <ProjectReference Include="..\Aidelythe.Infrastructure\Aidelythe.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -64,6 +62,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="_System\Authentication\Resources\RegistrationProblemDetails.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>RegistrationProblemDetails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -76,6 +78,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ValidationErrorMessages.resx</DependentUpon>
+      </Compile>
+      <Compile Update="_System\Authentication\Resources\RegistrationProblemDetails.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RegistrationProblemDetails.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

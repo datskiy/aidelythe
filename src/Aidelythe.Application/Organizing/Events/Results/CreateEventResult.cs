@@ -1,5 +1,4 @@
 using Aidelythe.Application._Common.Discriminants;
-using Aidelythe.Domain.Organizing.Events.ValueObjects;
 
 namespace Aidelythe.Application.Organizing.Events.Results;
 
@@ -11,21 +10,21 @@ public sealed class CreateEventResult
     /// <summary>
     /// Gets the discriminated union containing all possible outcomes when creating an event.
     /// </summary>
-    public OneOf<EventId, DuplicateTitle, InvalidDateRange> Union { get; }
+    public OneOf<Guid, AlreadyExists, InvalidDateRange> Union { get; }
 
-    private CreateEventResult(OneOf<EventId, DuplicateTitle, InvalidDateRange> union)
+    private CreateEventResult(OneOf<Guid, AlreadyExists, InvalidDateRange> union)
     {
         Union = union;
     }
 
-    public static implicit operator CreateEventResult(EventId eventId)
+    public static implicit operator CreateEventResult(Guid eventId)
     {
         return new CreateEventResult(eventId);
     }
 
-    public static implicit operator CreateEventResult(DuplicateTitle duplicateTitle)
+    public static implicit operator CreateEventResult(AlreadyExists alreadyExists)
     {
-        return new CreateEventResult(duplicateTitle);
+        return new CreateEventResult(alreadyExists);
     }
 
     public static implicit operator CreateEventResult(InvalidDateRange invalidDateRange)

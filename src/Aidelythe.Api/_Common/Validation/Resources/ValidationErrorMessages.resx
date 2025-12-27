@@ -31,7 +31,7 @@
         <value>The value must be between {MinLength} and {MaxLength} characters. You entered {TotalLength} characters.</value>
     </data>
     <data name="MinimumLengthValidator" xml:space="preserve">
-        <value>The length of the value must be no less than {MaxLength} characters. You entered {TotalLength} characters.</value>
+        <value>The length of the value must be no less than {MinLength} characters. You entered {TotalLength} characters.</value>
     </data>
     <data name="MaximumLengthValidator" xml:space="preserve">
         <value>The length of the value must be no more than {MaxLength} characters. You entered {TotalLength} characters.</value>

@@ -1,4 +1,5 @@
 using Aidelythe.Api._Common.Locality;
+using Aidelythe.Api._Common.Validation;
 using Aidelythe.Api.Organizing.Events.Requests;
 using Aidelythe.Domain.Organizing.Events.ValueObjects;
 
@@ -20,7 +21,7 @@ public sealed class UpdateEventRequestValidator : AbstractValidator<UpdateEventR
 
         RuleFor(request => request.Description)
             .MaximumLength(EventDescription.MaximumLength)
-            .When(request => request.Description is not null);
+            .WhenNotNull();
 
         RuleFor(request => request.StartsAt)
             .NotNull();

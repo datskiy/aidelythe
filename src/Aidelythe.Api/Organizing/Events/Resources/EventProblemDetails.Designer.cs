@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace Aidelythe.Api.Organizing.Events.Resources {
+    using System;
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -17,7 +20,7 @@ namespace Aidelythe.Api.Organizing.Events.Resources {
         
         private static System.Globalization.CultureInfo resourceCulture;
         
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal EventProblemDetails() {
         }
         
@@ -42,9 +45,9 @@ namespace Aidelythe.Api.Organizing.Events.Resources {
             }
         }
         
-        internal static string DuplicateTitle {
+        internal static string AlreadyExists {
             get {
-                return ResourceManager.GetString("DuplicateTitle", resourceCulture);
+                return ResourceManager.GetString("AlreadyExists", resourceCulture);
             }
         }
         

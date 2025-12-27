@@ -30,7 +30,7 @@ public static class EventProblemDetailsMapper
 
         return discriminant switch
         {
-            DuplicateTitle => EventProblemDetails.DuplicateTitle,
+            AlreadyExists => EventProblemDetails.AlreadyExists,
             InvalidDateRange => EventProblemDetails.InvalidDateRange,
             _ => throw new ArgumentOutOfRangeException(nameof(discriminant), discriminant, message: null)
         };

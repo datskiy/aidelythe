@@ -3,7 +3,7 @@ using Aidelythe.Application._Common.Sorting;
 namespace Aidelythe.Api._Common.Sorting;
 
 /// <summary>
-/// Provides utility functions for sorting.
+/// Provides helper methods for sorting.
 /// </summary>
 public static class SortingHelper
 {

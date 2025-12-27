@@ -1,5 +1,6 @@
 using Aidelythe.Api._Common.Http.Metadata;
 using Aidelythe.Api._Common.Http.Responses;
+using Aidelythe.Api._Common.Http.Routing;
 using Aidelythe.Application._Common.Paging;
 using Aidelythe.Shared.DiscriminatedUnion;
 
@@ -12,10 +13,7 @@ namespace Aidelythe.Api._Common.Http.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public abstract class BaseApiController : ControllerBase
 {
-    /// <summary>
-    /// The name of the route for retrieving a resource by its unique identifier.
-    /// </summary>
-    protected const string ResourceLocator = nameof(ResourceLocator);
+    private const string ResourceLocator = "Get";
 
     /// <summary>
     /// Gets a function that maps an <see cref="IDiscriminant"/> instance to a string representation
@@ -55,7 +53,8 @@ public abstract class BaseApiController : ControllerBase
         Response.Headers.Append(HttpHeaders.Limit, $"{pagedCollection.Limit}");
         Response.Headers.Append(HttpHeaders.TotalCount, $"{pagedCollection.TotalCount}");
 
-        return Ok(pagedCollection
+        return base
+            .Ok(pagedCollection
             .Select(mapper)
             .ToArray());
     }
@@ -79,10 +78,12 @@ public abstract class BaseApiController : ControllerBase
     /// An <see cref="IActionResult"/> representing an <c>HTTP 201 Created</c> response
     /// with the resource location header and the identifier of the created resource.
     /// </returns>
-    protected IActionResult Created(Guid resourceId)
+    protected IActionResult CreatedAt<TController>(Guid resourceId)
+        where TController : BaseApiController
     {
-        return CreatedAtRoute(
-            nameof(ResourceLocator),
+        return base.CreatedAtAction(
+            actionName: ResourceLocator,
+            controllerName: typeof(TController).Name.RemoveControllerSuffix(),
             routeValues: new { id = resourceId },
             value: new CreatedResourceResponse { Id = resourceId });
     }
@@ -93,7 +94,7 @@ public abstract class BaseApiController : ControllerBase
     /// <typeparam name="TDiscriminant">
     /// The type of the discriminant implementing the <see cref="IDiscriminant"/> interface.
     /// </typeparam>
-    /// <param name="discriminant">The discriminant that represents operation result.</param>
+    /// <param name="discriminant">The discriminant that represents the result of an operation.</param>
     /// <returns>
     /// An <see cref="IActionResult"/> representing an <c>HTTP 409 Conflict</c> response.
     /// </returns>
@@ -118,7 +119,7 @@ public abstract class BaseApiController : ControllerBase
     /// <typeparam name="TDiscriminant">
     /// The type of the discriminant implementing the <see cref="IDiscriminant"/> interface.
     /// </typeparam>
-    /// <param name="discriminant">The discriminant that represents operation result.</param>
+    /// <param name="discriminant">The discriminant that represents the result of an operation.</param>
     /// <returns>
     /// An <see cref="IActionResult"/> representing an <c>HTTP 422 Unprocessable Entity</c> response.
     /// </returns>

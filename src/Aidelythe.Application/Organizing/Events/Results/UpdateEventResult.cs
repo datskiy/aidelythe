@@ -11,9 +11,9 @@ public sealed class UpdateEventResult
     /// <summary>
     /// Gets the discriminated union containing all possible outcomes when updating an event.
     /// </summary>
-    public OneOf<EventDetails, NotFound, DuplicateTitle, InvalidDateRange> Union { get; }
+    public OneOf<EventDetails, NotFound, AlreadyExists, InvalidDateRange> Union { get; }
 
-    private UpdateEventResult(OneOf<EventDetails, NotFound, DuplicateTitle, InvalidDateRange> union)
+    private UpdateEventResult(OneOf<EventDetails, NotFound, AlreadyExists, InvalidDateRange> union)
     {
         Union = union;
     }
@@ -28,9 +28,9 @@ public sealed class UpdateEventResult
         return new UpdateEventResult(notFound);
     }
 
-    public static implicit operator UpdateEventResult(DuplicateTitle duplicateTitle)
+    public static implicit operator UpdateEventResult(AlreadyExists alreadyExists)
     {
-        return new UpdateEventResult(duplicateTitle);
+        return new UpdateEventResult(alreadyExists);
     }
 
     public static implicit operator UpdateEventResult(InvalidDateRange invalidDateRange)

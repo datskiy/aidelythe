@@ -3,22 +3,22 @@ namespace Aidelythe.Domain._Common.Locality;
 /// <summary>
 /// Represents an address.
 /// </summary>
-public sealed record Address
+public abstract record Address
 {
     /// <summary>
     /// The maximum acceptable length of the administrative area name.
     /// </summary>
-    public const int MaximumAreaNameLength = 100; // TODO: enforce
+    public const int MaximumAreaNameLength = 100;
 
     /// <summary>
     /// The maximum acceptable length of the postal code.
     /// </summary>
-    public const int MaximumPostalCodeLength = 20; // TODO: enforce
+    public const int MaximumPostalCodeLength = 20;
 
     /// <summary>
     /// The maximum acceptable length of the street name.
     /// </summary>
-    public const int MaximumStreetNameLength = 200; // TODO: enforce
+    public const int MaximumStreetNameLength = 200;
 
     /// <summary>
     /// A regular expression pattern representing the postal code format.
@@ -27,7 +27,7 @@ public sealed record Address
     /// <example>
     /// 13-37
     /// </example>
-    public const string PostalCodeFormatPattern = @"^[A-Za-z0-9\-\s]+$"; // TODO: enforce
+    public const string PostalCodeFormatPattern = @"^[A-Za-z0-9\-\s]+$";
 
     /// <summary>
     /// A regular expression representing the postal code format.
@@ -36,10 +36,12 @@ public sealed record Address
     /// <example>
     /// 13-37
     /// </example>
-    public static readonly Regex PostalCodeFormatRegex = new( // TODO: enforce
+    public static readonly Regex PostalCodeFormatRegex = new(
         PostalCodeFormatPattern,
         options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
         matchTimeout: TimeSpan.FromMilliseconds(100));
+
+    // TODO: enforce rules
 
     /// <summary>
     /// Gets the country name of the address.
@@ -77,7 +79,7 @@ public sealed record Address
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="country"/> is null.
     /// </exception>
-    public Address(
+    protected Address(
         string country,
         string? region,
         string? city,

@@ -8,15 +8,19 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.5.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
       <PackageReference Include="OneOf" Version="3.0.271" />
     </ItemGroup>
 
     <ItemGroup>
+        <Using Include="Aidelythe.Shared.Guards.GuardHelper" Static="True"/>
         <Using Include="MediatR"/>
+        <Using Include="Microsoft.Extensions.Logging"/>
         <Using Include="OneOf"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
         <Using Include="System.Collections"/>
+        <Using Include="System.Text.RegularExpressions"/>
     </ItemGroup>
 
     <ItemGroup>

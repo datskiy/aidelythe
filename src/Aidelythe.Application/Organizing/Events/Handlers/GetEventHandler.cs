@@ -15,7 +15,8 @@ public sealed class GetEventHandler : IRequestHandler<GetEventQuery, EventDetail
     /// <param name="request">The query to retrieve details of a specific event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// The details of the specified event.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the details of the specified event.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="request"/> is null.</exception>
     public async Task<EventDetails?> Handle(

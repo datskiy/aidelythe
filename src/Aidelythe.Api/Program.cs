@@ -1,3 +1,4 @@
+using Aidelythe.Api._System.Composition;
 using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
 using Aidelythe.Api._System.Localization;
@@ -21,6 +22,7 @@ try
     services.AddMediator();
     services.AddOpenApi();
     services.AddSerilog();
+    services.AddComposition();
 
     var app = builder.Build();
     app.UseHttpsRedirection();

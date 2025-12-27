@@ -23,12 +23,11 @@ public readonly record struct SortingRule
     /// <param name="propertyName">The name of the property to sort by.</param>
     /// <param name="isDescending">A value indicating whether the sorting is descending.</param>
     /// <exception cref="ArgumentException">
-    /// The <paramref name="propertyName"/> is null, empty, or whitespace.
+    /// The <paramref name="propertyName"/> is null, empty, or consists only of white-space characters.
     /// </exception>
     public SortingRule(string propertyName, bool isDescending)
     {
-        if (string.IsNullOrWhiteSpace(propertyName))
-            throw new ArgumentException("Property name cannot be null, empty or whitespace.", nameof(propertyName));
+        ThrowIfNullOrWhiteSpace(propertyName);
 
         PropertyName = propertyName;
         IsDescending = isDescending;

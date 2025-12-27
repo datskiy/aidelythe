@@ -9,12 +9,12 @@ public static class GuardExtensions
     /// Throws an <see cref="ArgumentNullException"/> if the specified object is null.
     /// Otherwise, returns the current object as a non-nullable.
     /// </summary>
-    /// <param name="obj">The nullable reference type to validate as non-null.</param>
+    /// <param name="obj">The nullable reference type to validate.</param>
     /// <param name="paramName">
     /// The name of the parameter with which the object corresponds.
     /// If the parameter is omitted, the name of the caller argument is used instead.
     /// </param>
-    /// <typeparam name="T">The type of the object to validate as non-null.</typeparam>
+    /// <typeparam name="T">The type of the object to validate.</typeparam>
     /// <returns>
     /// The current object as non-nullable.
     /// </returns>
@@ -31,12 +31,12 @@ public static class GuardExtensions
     /// Throws an <see cref="ArgumentNullException"/> if the specified value is null.
     /// Otherwise, returns the current value as a non-nullable.
     /// </summary>
-    /// <param name="value">The nullable value type to validate as non-null.</param>
+    /// <param name="value">The nullable value type to validate.</param>
     /// <param name="paramName">
     /// The name of the parameter with which the value corresponds.
     /// If the parameter is omitted, the name of the caller argument is used instead.
     /// </param>
-    /// <typeparam name="T">The type of the value to validate as non-null.</typeparam>
+    /// <typeparam name="T">The type of the value to validate.</typeparam>
     /// <returns>
     /// The current value as non-nullable.
     /// </returns>

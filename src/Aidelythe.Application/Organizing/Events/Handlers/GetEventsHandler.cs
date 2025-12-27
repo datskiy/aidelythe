@@ -16,7 +16,8 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
     /// <param name="request">The query to retrieve a paginated list of events.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// A paginated list of events.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a paginated list of events.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="request"/> is null.</exception>
     public async Task<PagedCollection<EventSummary>> Handle(

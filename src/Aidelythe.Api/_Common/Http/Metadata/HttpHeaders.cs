@@ -1,7 +1,7 @@
 namespace Aidelythe.Api._Common.Http.Metadata;
 
 /// <summary>
-/// Provides predefined constants for common HTTP headers.
+/// Contains HTTP header names.
 /// </summary>
 public static class HttpHeaders
 {

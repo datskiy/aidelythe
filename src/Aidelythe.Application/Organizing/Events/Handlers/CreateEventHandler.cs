@@ -1,6 +1,5 @@
 using Aidelythe.Application.Organizing.Events.Commands;
 using Aidelythe.Application.Organizing.Events.Results;
-using Aidelythe.Domain.Organizing.Events.ValueObjects;
 
 namespace Aidelythe.Application.Organizing.Events.Handlers;
 
@@ -15,7 +14,8 @@ public sealed class CreateEventHandler : IRequestHandler<CreateEventCommand, Cre
     /// <param name="request">The command to create an event.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
-    /// The result of the event creation.
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the result of the event creation.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="request"/> is null.</exception>
     public async Task<CreateEventResult> Handle(
@@ -25,9 +25,9 @@ public sealed class CreateEventHandler : IRequestHandler<CreateEventCommand, Cre
         ThrowIfNull(request);
 
         // TODO: implement
+        // TODO: add event owner
         // TODO: ask and add distributed locking
 
-        var createdEventId = new EventId(Guid.CreateVersion7());
-        return await Task.FromResult(createdEventId);
+        return await Task.FromResult(Guid.CreateVersion7());
     }
 }

@@ -1,7 +1,7 @@
 namespace Aidelythe.Shared.DiscriminatedUnion;
 
 /// <summary>
-/// Defines a discriminant type representing an outcome of an operation.
+/// Represents a state in a discriminated union.
 /// </summary>
 public interface IDiscriminant
 {

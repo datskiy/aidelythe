@@ -9,7 +9,7 @@ namespace Aidelythe.Api.Organizing.Events.Requests;
 public sealed class CreateEventRequest
 {
     /// <summary>
-    /// Gets the title of an event.
+    /// Gets the title of the event.
     /// </summary>
     [JsonPropertyName("title")]
     [Required]
@@ -17,7 +17,7 @@ public sealed class CreateEventRequest
     public string? Title { get; init; }
 
     /// <summary>
-    /// Gets the description of an event.
+    /// Gets the description of the event.
     /// </summary>
     [JsonPropertyName("description")]
     [MaxLength(EventDescription.MaximumLength)]

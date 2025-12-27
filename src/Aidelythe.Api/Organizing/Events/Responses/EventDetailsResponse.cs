@@ -5,13 +5,13 @@ namespace Aidelythe.Api.Organizing.Events.Responses;
 /// <summary>
 /// Represents details of an event.
 /// </summary>
-public sealed class EventDetailsResponse // TODO: add event owner
+public sealed class EventDetailsResponse
 {
     /// <summary>
     /// Gets the unique identifier of the event.
     /// </summary>
     [JsonPropertyName("id")]
-    public required Guid Id { get; init; }
+    public Guid Id { get; init; }
 
     /// <summary>
     /// Gets the title of the event.

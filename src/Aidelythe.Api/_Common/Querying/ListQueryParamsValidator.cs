@@ -1,4 +1,5 @@
 using Aidelythe.Api._Common.Sorting;
+using Aidelythe.Api._Common.Validation;
 using Aidelythe.Api._Common.Validation.Resources;
 using Aidelythe.Application._Common.Filtering;
 using Aidelythe.Application._Common.Paging;
@@ -31,13 +32,13 @@ public abstract class ListQueryParamsValidator<TQueryParams> : AbstractValidator
 
         RuleFor(queryParams => queryParams.SearchText)
             .MaximumLength(FilteringScheme.MaximumSearchTextLength)
-            .When(queryParams => queryParams.SearchText is not null);
+            .WhenNotNull();
 
         RuleFor(queryParams => queryParams.SortBy)
             .MaximumLength(SortByPolicies.MaximumLength)
             .Matches(SortByPolicies.FormatRegex)
             .DependentRules(() => ValidateSortedFields())
-            .When(queryParams => queryParams.SortBy is not null);
+            .WhenNotNull();
     }
 
     private void ValidateSortedFields()

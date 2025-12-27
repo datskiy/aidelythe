@@ -1,7 +1,7 @@
 namespace Aidelythe.Api._System.Configuration;
 
 /// <summary>
-/// Provides methods for initializing configuration.
+/// Provides initializing methods for configuration.
 /// </summary>
 public static class ConfigurationInitializer
 {

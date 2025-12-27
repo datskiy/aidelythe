@@ -1,7 +1,7 @@
 namespace Aidelythe.Api._System.Monitoring;
 
 /// <summary>
-/// Provides methods for initializing logging.
+/// Provides initializing methods for logging.
 /// </summary>
 public static class LoggerInitializer
 {

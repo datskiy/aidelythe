@@ -60,7 +60,7 @@
         <value>Длина значения не должна превышать {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
     </data>
     <data name="MinimumLengthValidator" xml:space="preserve">
-        <value>Длина значения не должна быть меньше {MaxLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
+        <value>Длина значения не должна быть меньше {MinLength} символа(ов). Количество введенных символов: {TotalLength}.</value>
     </data>
     <data name="NotEmptyValidator" xml:space="preserve">
         <value>Значение не должно быть пустым.</value>

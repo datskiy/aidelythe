@@ -22,12 +22,11 @@ public sealed class FilteringScheme
     /// </summary>
     /// <param name="searchText">A search text used to filter items by matching relevant fields.</param>
     /// <exception cref="ArgumentException">
-    /// The <paramref name="searchText"/> is null, empty, or whitespace.
+    /// The <paramref name="searchText"/> is null, empty, or consists only of white-space characters.
     /// </exception>
     public FilteringScheme(string searchText)
     {
-        if(string.IsNullOrWhiteSpace(searchText))
-            throw new ArgumentException("The search text cannot be null, empty, or whitespace.", nameof(searchText));
+        ThrowIfNullOrWhiteSpace(searchText);
 
         SearchText = searchText;
     }

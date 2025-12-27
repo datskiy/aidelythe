@@ -3,7 +3,7 @@ using Aidelythe.Shared.Guards;
 namespace Aidelythe.Api._System.Localization;
 
 /// <summary>
-/// Provides predefined constants and properties for supported cultures.
+/// Contains supported culture names.
 /// </summary>
 public static class SupportedCultures
 {
