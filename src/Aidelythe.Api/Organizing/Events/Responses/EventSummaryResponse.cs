@@ -3,7 +3,7 @@ using Aidelythe.Api._Common.Locality.Responses;
 namespace Aidelythe.Api.Organizing.Events.Responses;
 
 /// <summary>
-/// Represents a summary of an event.
+/// Represents a response for the summary of an event.
 /// </summary>
 public sealed class EventSummaryResponse
 {

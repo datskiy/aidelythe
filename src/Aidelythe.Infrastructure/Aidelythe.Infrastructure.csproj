@@ -10,8 +10,10 @@
         <Using Include="Microsoft.AspNetCore.Identity"/>
         <Using Include="Microsoft.IdentityModel.JsonWebTokens"/>
         <Using Include="Microsoft.IdentityModel.Tokens"/>
+        <Using Include="OneOf"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Security.Claims"/>
+        <Using Include="System.Security.Cryptography"/>
     </ItemGroup>
     
     <ItemGroup>
@@ -27,5 +29,6 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.1" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.15.0" />
+      <PackageReference Include="OneOf" Version="3.0.271" />
     </ItemGroup>
 </Project>

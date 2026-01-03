@@ -8,7 +8,7 @@ namespace Aidelythe.Api._System.Authentication.Mappers;
 /// <summary>
 /// Provides mapping methods for authentication-related discriminants.
 /// </summary>
-public static class RegistrationProblemDetailsMapper
+public static class AuthenticationProblemDetailsMapper
 {
     /// <summary>
     /// Maps the <see cref="IDiscriminant"/> instance to its corresponding problem details string representation.
@@ -31,8 +31,8 @@ public static class RegistrationProblemDetailsMapper
 
         return discriminant switch
         {
-            AlreadyExists => RegistrationProblemDetails.AlreadyExists,
-            MissingContactMethod => RegistrationProblemDetails.MissingContactMethod,
+            AlreadyExists => AuthenticationProblemDetails.AlreadyExists,
+            MissingContactMethod => AuthenticationProblemDetails.MissingContactMethod,
             _ => throw new ArgumentOutOfRangeException(nameof(discriminant), discriminant, message: null)
         };
     }

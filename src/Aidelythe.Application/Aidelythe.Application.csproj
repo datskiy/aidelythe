@@ -13,7 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Aidelythe.Shared.Guards.GuardHelper" Static="True"/>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
+        <Using Include="Aidelythe.Shared.Time.DateTimeGuardHelper" Static="True"/>
         <Using Include="MediatR"/>
         <Using Include="Microsoft.Extensions.Logging"/>
         <Using Include="OneOf"/>

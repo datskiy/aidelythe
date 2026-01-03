@@ -1,8 +1,8 @@
-using Aidelythe.Application._System.Authentication.Data;
+using Aidelythe.Application._Common.Discriminants;
+using Aidelythe.Application._System.Authentication.Discriminants;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users;
-using VerificationResult = Aidelythe.Application._System.Authentication.Core.PasswordVerificationResult;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -31,7 +31,7 @@ public sealed class PasswordService : IPasswordService
     }
 
     /// <inheritdoc/>
-    public VerificationResult Verify(
+    public OneOf<Success, SuccessRehashNeeded, Failure> Verify(
         Password password,
         PasswordHash hash)
     {
@@ -46,13 +46,13 @@ public sealed class PasswordService : IPasswordService
         return Map(verificationResult);
     }
 
-    private static VerificationResult Map(PasswordVerificationResult verificationResult)
+    private static OneOf<Success, SuccessRehashNeeded, Failure> Map(PasswordVerificationResult verificationResult)
     {
         return verificationResult switch
         {
-            PasswordVerificationResult.Failed => VerificationResult.Failure,
-            PasswordVerificationResult.Success => VerificationResult.Success,
-            PasswordVerificationResult.SuccessRehashNeeded => VerificationResult.SuccessRehashNeeded,
+            PasswordVerificationResult.Success => new Success(),
+            PasswordVerificationResult.SuccessRehashNeeded => new SuccessRehashNeeded(),
+            PasswordVerificationResult.Failed => new Failure(),
             _ => throw new ArgumentOutOfRangeException(nameof(verificationResult), verificationResult, message: null)
         };
     }

@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Aidelythe.Shared.Guards.GuardHelper" Static="True"/>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
         <Using Include="FluentValidation"/>
         <Using Include="FluentValidation.Resources"/>
         <Using Include="FluentValidation.Results"/>
@@ -62,7 +62,7 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="_System\Authentication\Resources\RegistrationProblemDetails.resx">
+      <EmbeddedResource Update="_System\Authentication\Resources\AuthenticationProblemDetails.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RegistrationProblemDetails.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -79,10 +79,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>ValidationErrorMessages.resx</DependentUpon>
       </Compile>
-      <Compile Update="_System\Authentication\Resources\RegistrationProblemDetails.Designer.cs">
+      <Compile Update="_System\Authentication\Resources\AuthenticationProblemDetails.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>RegistrationProblemDetails.resx</DependentUpon>
+        <DependentUpon>AuthenticationProblemDetails.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

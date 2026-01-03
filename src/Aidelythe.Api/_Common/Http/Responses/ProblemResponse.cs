@@ -63,6 +63,7 @@ public abstract class ProblemResponse
         return status switch
         {
             400 => "Bad Request",
+            401 => "Unauthorized",
             404 => "Not Found",
             409 => "Conflict",
             422 => "Unprocessable Entity",

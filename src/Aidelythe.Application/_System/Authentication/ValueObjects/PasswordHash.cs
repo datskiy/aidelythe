@@ -1,4 +1,4 @@
-namespace Aidelythe.Application._System.Authentication.Data;
+namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
 /// Represents a hashed password.

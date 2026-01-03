@@ -1,7 +1,7 @@
 using Aidelythe.Application._System.Authentication.Core;
 using Aidelythe.Application._System.Authentication.Projections;
 using Aidelythe.Application._System.Authentication.Services;
-using Aidelythe.Domain.Identity.Users;
+using Aidelythe.Domain.Identity.Users.ValueObjects;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -11,10 +11,8 @@ namespace Aidelythe.Infrastructure._System.Authentication.Services;
 public sealed class AccessTokenService : IAccessTokenService
 {
     /// <inheritdoc/>
-    public AccessTokenInfo Issue(User user)
+    public TokenInfo Issue(UserId userId)
     {
-        ThrowIfNull(user);
-
         // TODO: get from config as options
         var issuer = "Aidelythe";
         var audience = "Aidelythe";
@@ -27,7 +25,7 @@ public sealed class AccessTokenService : IAccessTokenService
 
         var subject = new ClaimsIdentity(
         [
-            new Claim(ClaimTypes.NameIdentifier, $"{user.Id}"),
+            new Claim(ClaimTypes.NameIdentifier, $"{userId}"),
             new Claim(ClaimTypes.Role, AppRoles.Member),
         ]);
 
@@ -46,6 +44,6 @@ public sealed class AccessTokenService : IAccessTokenService
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return new AccessTokenInfo(token, expiresIn);
+        return new TokenInfo(token, expiresIn);
     }
 }

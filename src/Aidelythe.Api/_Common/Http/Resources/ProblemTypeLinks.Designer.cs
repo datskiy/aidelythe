@@ -68,5 +68,11 @@ namespace Aidelythe.Api._Common.Http.Resources {
                 return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
+        
+        internal static string Unauthorized {
+            get {
+                return ResourceManager.GetString("Unauthorized", resourceCulture);
+            }
+        }
     }
 }

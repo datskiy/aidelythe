@@ -43,4 +43,21 @@ public sealed record Email
 
         Value = value;
     }
+
+    /// <summary>
+    /// Attempts to parse the given string into an <see cref="Email"/> object.
+    /// </summary>
+    /// <param name="email">The string representing the email address to parse.</param>
+    /// <returns>
+    /// An <see cref="Email"/> object if the parsing is successful; otherwise, <c>null</c>.
+    /// </returns>
+    public static Email? TryParse(string email)
+    {
+        return
+            string.IsNullOrWhiteSpace(email) ||
+            email.Length > MaximumLength ||
+            !FormatRegex.IsMatch(email)
+                ? null
+                : new Email(email);
+    }
 }

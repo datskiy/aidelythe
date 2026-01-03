@@ -60,7 +60,18 @@ public abstract class BaseApiController : ControllerBase
     }
 
     /// <summary>
-    /// Returns an <c>HTTP 404 Not Found</c>.
+    /// Returns an <c>HTTP 401 Unauthorized</c> response.
+    /// </summary>
+    /// <returns>
+    /// An <see cref="IActionResult"/> representing an <c>HTTP 404 Not Found</c> response.
+    /// </returns>
+    protected new IActionResult Unauthorized()
+    {
+        return base.Unauthorized(new UnauthorizedResponse(HttpContext.TraceIdentifier));
+    }
+
+    /// <summary>
+    /// Returns an <c>HTTP 404 Not Found</c> response.
     /// </summary>
     /// <returns>
     /// An <see cref="IActionResult"/> representing an <c>HTTP 404 Not Found</c> response.
@@ -89,7 +100,7 @@ public abstract class BaseApiController : ControllerBase
     }
 
     /// <summary>
-    /// Returns an <c>HTTP 409 Conflict</c> based on the provided discriminant.
+    /// Returns an <c>HTTP 409 Conflict</c> response based on the provided discriminant.
     /// </summary>
     /// <typeparam name="TDiscriminant">
     /// The type of the discriminant implementing the <see cref="IDiscriminant"/> interface.
@@ -114,7 +125,7 @@ public abstract class BaseApiController : ControllerBase
     }
 
     /// <summary>
-    /// Returns an <c>HTTP 422 Unprocessable Entity</c> based on the provided discriminant.
+    /// Returns an <c>HTTP 422 Unprocessable Entity</c> response based on the provided discriminant.
     /// </summary>
     /// <typeparam name="TDiscriminant">
     /// The type of the discriminant implementing the <see cref="IDiscriminant"/> interface.

@@ -26,7 +26,7 @@ public sealed class UserCredentials
     /// <summary>
     /// Gets the hashed password of the user.
     /// </summary>
-    public PasswordHash PasswordHash { get; }
+    public PasswordHash PasswordHash { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserCredentials"/> class.
@@ -55,6 +55,18 @@ public sealed class UserCredentials
         UserId = userId;
         Email = email;
         PhoneNumber = phoneNumber;
+        PasswordHash = passwordHash;
+    }
+
+    /// <summary>
+    /// Updates the hashed password of the user.
+    /// </summary>
+    /// <param name="passwordHash">The new hashed password of the user.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="passwordHash"/> is null.</exception>
+    public void UpdatePasswordHash(PasswordHash passwordHash)
+    {
+        ThrowIfNull(passwordHash);
+
         PasswordHash = passwordHash;
     }
 }

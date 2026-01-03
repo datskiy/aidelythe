@@ -1,5 +1,5 @@
-using Aidelythe.Application._System.Authentication.Core;
-using Aidelythe.Application._System.Authentication.Data;
+using Aidelythe.Application._Common.Discriminants;
+using Aidelythe.Application._System.Authentication.Discriminants;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 
 namespace Aidelythe.Application._System.Authentication.Services;
@@ -30,7 +30,7 @@ public interface IPasswordService
     /// <exception cref="ArgumentNullException">
     /// Thrown when either <paramref name="password"/> or <paramref name="hash"/> is null.
     /// </exception>
-    PasswordVerificationResult Verify(
+    OneOf<Success, SuccessRehashNeeded, Failure> Verify(
         Password password,
         PasswordHash hash);
 }

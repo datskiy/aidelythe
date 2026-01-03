@@ -1,7 +1,7 @@
 namespace Aidelythe.Api._Common.Locality.Responses;
 
 /// <summary>
-/// Represents a summary of an address.
+/// Represents response for the summary of an address.
 /// </summary>
 public sealed class AddressSummaryResponse
 {

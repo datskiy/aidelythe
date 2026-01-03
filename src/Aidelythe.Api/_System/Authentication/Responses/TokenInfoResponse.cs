@@ -1,0 +1,19 @@
+namespace Aidelythe.Api._System.Authentication.Responses;
+
+/// <summary>
+/// Represents a response for information about an issued token.
+/// </summary>
+public sealed class TokenInfoResponse
+{
+    /// <summary>
+    /// Gets the token.
+    /// </summary>
+    [JsonPropertyName("token")]
+    public required string Token { get; init; }
+
+    /// <summary>
+    /// Gets the token expiration time in seconds.
+    /// </summary>
+    [JsonPropertyName("expiresIn")]
+    public int ExpiresIn { get; init; }
+}

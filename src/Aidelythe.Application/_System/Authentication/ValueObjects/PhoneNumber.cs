@@ -38,4 +38,20 @@ public sealed record PhoneNumber
 
         Value = value;
     }
+
+    /// <summary>
+    /// Attempts to parse the given string into an <see cref="PhoneNumber"/> object.
+    /// </summary>
+    /// <param name="phoneNumber">The string representing the phone number to parse.</param>
+    /// <returns>
+    /// An <see cref="PhoneNumber"/> object if the parsing is successful; otherwise, <c>null</c>.
+    /// </returns>
+    public static PhoneNumber? TryParse(string phoneNumber)
+    {
+        return
+            string.IsNullOrWhiteSpace(phoneNumber) ||
+            !FormatRegex.IsMatch(phoneNumber)
+                ? null
+                : new PhoneNumber(phoneNumber);
+    }
 }

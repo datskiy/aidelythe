@@ -1,9 +1,9 @@
-namespace Aidelythe.Shared.Guards;
+namespace Aidelythe.Shared.Strings;
 
 /// <summary>
-/// Provides helper methods for enforcing guard clauses.
+/// Provides helper methods for enforcing guard clauses on strings.
 /// </summary>
-public static class GuardHelper
+public static class StringGuardHelper
 {
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the specified string is null, empty,

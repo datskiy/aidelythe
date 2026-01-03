@@ -57,4 +57,30 @@ public sealed class AuthenticationController : AnonymousApiController
             alreadyExists => Conflict(alreadyExists),
             missingContactMethod => UnprocessableEntity(missingContactMethod));
     }
+
+    /// <summary>
+    /// Logs in a user.
+    /// </summary>
+    /// <param name="request">The logging in request containing user credentials.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the authentication token pair.
+    /// May produce error responses.
+    /// </returns>
+    [HttpPost("login")]
+    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Login(
+        [FromBody] LoginRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = request.ToCommand();
+        var result = await _mediator.Send(command, cancellationToken);
+
+        return result.Union.Match<IActionResult>(
+            tokenPair => Ok(tokenPair.ToResponse()),
+            invalidCredentials => Unauthorized());
+    }
 }
