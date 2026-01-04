@@ -23,8 +23,8 @@ public sealed class LoginResult
         return new LoginResult(tokenPair);
     }
 
-    public static implicit operator LoginResult(InvalidCredentials missingContactMethod)
+    public static implicit operator LoginResult(InvalidCredentials invalidCredentials)
     {
-        return new LoginResult(missingContactMethod);
+        return new LoginResult(invalidCredentials);
     }
 }

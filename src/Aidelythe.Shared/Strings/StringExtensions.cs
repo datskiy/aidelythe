@@ -3,38 +3,70 @@ namespace Aidelythe.Shared.Strings;
 /// <summary>
 /// Provides extension methods for strings.
 /// </summary>
-public static class StringExtensions
+public static class StringExtensions // TODO: cover with unit tests and test edge cases
 {
     /// <summary>
-    /// Masks a string, revealing a specified number of characters at the beginning
-    /// and replacing the remaining characters with a specified mask character.
+    /// Masks the middle part of the string with a fixed number of mask characters,
+    /// revealing only the beginning and (optionally) the ending.
     /// </summary>
     /// <param name="value">The string to be masked.</param>
-    /// <param name="visiblePrefixLength">
-    /// The number of characters to leave unmasked at the beginning of the string.
-    /// </param>
+    /// <param name="visiblePrefixLength">The number of characters to keep at the beginning.</param>
+    /// <param name="visibleSuffixLength">The number of characters to keep at the ending when length allows.</param>
     /// <param name="maskChar">The character to use as the mask.</param>
+    /// <param name="maskCount">The number of mask characters to insert.</param>
     /// <returns>
-    /// A masked string if the specified string is not null and does not consist only of white-space characters;
+    /// A masked string, if the specified string is not null and does not consist only of white-space characters;
     /// otherwise, an empty string.
     /// </returns>
-    public static string Mask(
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="visiblePrefixLength"/> or <paramref name="visibleSuffixLength"/> is negative.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
+    public static string MaskMiddle(
         this string? value,
         int visiblePrefixLength = 3,
-        char maskChar = '*')
+        int visibleSuffixLength = 3,
+        char maskChar = '*',
+        int maskCount = 5)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        ThrowIfNegative(visiblePrefixLength);
+        ThrowIfNegative(visibleSuffixLength);
+        ThrowIfNegativeOrZero(maskCount);
+
+        if (string.IsNullOrEmpty(value))
             return string.Empty;
 
-        if (visiblePrefixLength <= 0)
-            return new string(maskChar, value.Length);
+        var mask = new string(maskChar, maskCount);
 
-        if (value.Length <= visiblePrefixLength)
-            return value;
+        if (value.Length >= visiblePrefixLength + visibleSuffixLength)
+            return $"{value[..visiblePrefixLength]}{mask}{value[^visibleSuffixLength..]}";
 
-        var prefix = value[..visiblePrefixLength];
-        var maskedPart = new string(maskChar, value.Length - visiblePrefixLength);
+        var visible = value[..Math.Min(visiblePrefixLength, value.Length)];
+        return visible + mask;
+    }
 
-        return $"{prefix}{maskedPart}";
+    /// <summary>
+    /// Masks the ending of a string with a fixed number of mask characters,
+    /// revealing only the beginning.
+    /// </summary>
+    /// <param name="value">The string to be masked.</param>
+    /// <param name="visiblePrefixLength">The number of characters to keep at the beginning.</param>
+    /// <param name="maskChar">The character to use as the mask.</param>
+    /// <param name="maskCount">The number of mask characters to insert.</param>
+    /// <returns>
+    /// A masked string, if the specified string is not null and does not consist only of white-space characters;
+    /// otherwise, an empty string.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="visiblePrefixLength"/> is negative.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
+    public static string MaskEnding(
+        this string? value,
+        int visiblePrefixLength = 3,
+        char maskChar = '*',
+        int maskCount = 5)
+    {
+        return value.MaskMiddle(visiblePrefixLength, visibleSuffixLength: 0, maskChar, maskCount);
     }
 }
+

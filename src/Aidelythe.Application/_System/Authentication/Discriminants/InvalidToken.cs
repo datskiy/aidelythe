@@ -3,6 +3,6 @@ using Aidelythe.Shared.Unions;
 namespace Aidelythe.Application._System.Authentication.Discriminants;
 
 /// <summary>
-/// Represents a missing contact method for registration.
+/// Represents invalid token when refreshing a token pair.
 /// </summary>
-public readonly record struct MissingContactMethod : IDiscriminant;
+public readonly record struct InvalidToken : IDiscriminant;

@@ -30,6 +30,15 @@ public static partial class AuthenticationMapper
     public static partial LoginCommand ToCommand(this LoginRequest request);
 
     /// <summary>
+    /// Maps the <see cref="RefreshRequest"/> instance to a <see cref="RefreshCommand"/> object.
+    /// </summary>
+    /// <param name="request">The <see cref="RefreshRequest"/> to map.</param>
+    /// <returns>
+    /// The mapped <see cref="RefreshCommand"/>.
+    /// </returns>
+    public static partial RefreshCommand ToCommand(this RefreshRequest request);
+
+    /// <summary>
     /// Maps the <see cref="TokenPair"/> instance to a <see cref="TokenPairResponse"/> object.
     /// </summary>
     /// <param name="tokenPair">The <see cref="TokenPair"/> to map.</param>

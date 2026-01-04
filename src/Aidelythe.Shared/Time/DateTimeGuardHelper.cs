@@ -12,9 +12,7 @@ public static class DateTimeGuardHelper
     /// <param name="paramName">The name of the parameter being validated.
     /// This will be automatically populated with the calling argument's name.
     /// </param>
-    /// <exception cref="ArgumentException">
-    /// Thrown when the specified date and time is not in UTC.
-    /// </exception>
+    /// <exception cref="ArgumentException">Thrown when the specified date and time is not in UTC.</exception>
     public static void ThrowIfNotUtc(
         DateTime value,
         [CallerArgumentExpression("value")] string? paramName = null)

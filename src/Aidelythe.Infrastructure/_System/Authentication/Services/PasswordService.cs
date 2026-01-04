@@ -33,14 +33,14 @@ public sealed class PasswordService : IPasswordService
     /// <inheritdoc/>
     public OneOf<Success, SuccessRehashNeeded, Failure> Verify(
         Password password,
-        PasswordHash hash)
+        PasswordHash passwordHash)
     {
         ThrowIfNull(password);
-        ThrowIfNull(hash);
+        ThrowIfNull(passwordHash);
 
         var verificationResult = _passwordHasher.VerifyHashedPassword(
             user: null!,
-            hash.Value,
+            passwordHash.Value,
             password.Value);
 
         return Map(verificationResult);

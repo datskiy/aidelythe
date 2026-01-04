@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Using Include="Aidelythe.Shared.Time.DateTimeGuardHelper" Static="True"/>
+        <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Collections"/>
         <Using Include="System.Runtime.CompilerServices"/>

@@ -22,8 +22,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
     private readonly IUnitOfWork _unitOfWork;
 
     private readonly IPasswordService _passwordService;
-    private readonly IAccessTokenService _accessTokenService;
-    private readonly IRefreshTokenService _refreshTokenService;
+    private readonly ITokenPairService _tokenPairService;
 
     private readonly IUserCredentialsRepository _userCredentialsRepository;
 
@@ -33,34 +32,29 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
     /// <param name="logger">The instance of <see cref="ILogger"/>.</param>
     /// <param name="unitOfWork">The instance of <see cref="IUnitOfWork"/>.</param>
     /// <param name="passwordService">The instance of <see cref="IPasswordService"/>.</param>
-    /// <param name="accessTokenService">The instance of <see cref="IAccessTokenService"/>.</param>
-    /// <param name="refreshTokenService">The instance of <see cref="IRefreshTokenService"/>.</param>
+    /// <param name="tokenPairService">The instance of <see cref="ITokenPairService"/>.</param>
     /// <param name="userCredentialsRepository">The instance of <see cref="IUserCredentialsRepository"/>.</param>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="logger"/>, <paramref name="unitOfWork"/>, <paramref name="passwordService"/>,
-    /// <paramref name="accessTokenService"/>, <paramref name="refreshTokenService"/> or
-    /// <paramref name="userCredentialsRepository"/> is null.
+    /// <paramref name="tokenPairService"/> or <paramref name="userCredentialsRepository"/> is null.
     /// </exception>
     public LoginHandler(
         ILogger<LoginHandler> logger,
         IUnitOfWork unitOfWork,
         IPasswordService passwordService,
-        IAccessTokenService accessTokenService,
-        IRefreshTokenService refreshTokenService,
+        ITokenPairService tokenPairService,
         IUserCredentialsRepository userCredentialsRepository)
     {
         ThrowIfNull(logger);
         ThrowIfNull(unitOfWork);
         ThrowIfNull(passwordService);
-        ThrowIfNull(accessTokenService);
-        ThrowIfNull(refreshTokenService);
+        ThrowIfNull(tokenPairService);
         ThrowIfNull(userCredentialsRepository);
 
         _logger = logger;
         _unitOfWork = unitOfWork;
         _passwordService = passwordService;
-        _accessTokenService = accessTokenService;
-        _refreshTokenService = refreshTokenService;
+        _tokenPairService = tokenPairService;
         _userCredentialsRepository = userCredentialsRepository;
     }
 
@@ -83,8 +77,14 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
         // TODO: ask and add distributed locking
 
         var userCredentials = await GetUserCredentialsAsync(request.Login, cancellationToken);
-        if(userCredentials is null)
+        if (userCredentials is null)
+        {
+            _logger.LogInformation(
+                "Login attempt failed due to an invalid login: {LoginMask}",
+                request.Login.MaskEnding());
+
             return new InvalidCredentials();
+        }
 
         var password = new Password(request.Password);
         var passwordVerificationResult = _passwordService.Verify(
@@ -92,7 +92,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
             userCredentials.PasswordHash);
 
         return await passwordVerificationResult.Match<Task<LoginResult>>(
-            async success => await GenerateTokensAsync(userCredentials.UserId, cancellationToken),
+            async success => await GenerateTokenPairAsync(userCredentials.UserId, cancellationToken),
             async successRehashNeeded =>
             {
                 var newPasswordHash = _passwordService.Hash(password);
@@ -100,11 +100,14 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
                 await _userCredentialsRepository.UpdateAsync(userCredentials, cancellationToken);
 
                 _logger.LogInformation("Password hash rehashed: {UserId}", userCredentials.UserId);
-                return await GenerateTokensAsync(userCredentials.UserId, cancellationToken);
+                return await GenerateTokenPairAsync(userCredentials.UserId, cancellationToken);
             },
             async failure =>
             {
-                _logger.LogInformation("Login attempt failed: {Login}", request.Login.Mask());
+                _logger.LogInformation(
+                    "Login attempt failed due to an invalid password: {LoginMask}",
+                    request.Login.MaskEnding());
+
                 return await new InvalidCredentials().ToTask();
             });
     }
@@ -124,16 +127,14 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
         return null;
     }
 
-    private async Task<TokenPair> GenerateTokensAsync(
+    private async Task<TokenPair> GenerateTokenPairAsync(
         UserId userId,
         CancellationToken cancellationToken)
     {
-        var accessTokenInfo = _accessTokenService.Issue(userId);
-        var refreshTokenInfo = await _refreshTokenService.IssueAsync(userId, cancellationToken);
-
+        var tokenPair = await _tokenPairService.GenerateAsync(userId, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("User successfully logged in: {UserId}", userId);
-        return new TokenPair(accessTokenInfo, refreshTokenInfo);
+        return tokenPair;
     }
 }

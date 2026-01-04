@@ -1,9 +1,11 @@
+using Aidelythe.Application._Common.Discriminants;
 using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Projections;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users.ValueObjects;
+using Aidelythe.Shared.Time;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -12,17 +14,17 @@ namespace Aidelythe.Infrastructure._System.Authentication.Services;
 /// </summary>
 public sealed class RefreshTokenService : IRefreshTokenService
 {
-    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IRefreshTokenGrantRepository _refreshTokenGrantRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshTokenService"/> class.
     /// </summary>
-    /// <param name="refreshTokenRepository">The instance of <see cref="IRefreshTokenRepository"/>.</param>
-    public RefreshTokenService(IRefreshTokenRepository refreshTokenRepository)
+    /// <param name="refreshTokenGrantRepository">The instance of <see cref="IRefreshTokenGrantRepository"/>.</param>
+    public RefreshTokenService(IRefreshTokenGrantRepository refreshTokenGrantRepository)
     {
-        ThrowIfNull(refreshTokenRepository);
+        ThrowIfNull(refreshTokenGrantRepository);
 
-        _refreshTokenRepository = refreshTokenRepository;
+        _refreshTokenGrantRepository = refreshTokenGrantRepository;
     }
 
     /// <inheritdoc/>
@@ -37,23 +39,62 @@ public sealed class RefreshTokenService : IRefreshTokenService
         var tokenBytes = RandomNumberGenerator.GetBytes(byteCount);
         var token = Convert.ToBase64String(tokenBytes);
 
-        var hashBytes = SHA256.HashData(tokenBytes);
-        var hash = new RefreshTokenHash(Convert.ToBase64String(hashBytes));
-
+        var refreshTokenHash = HashToken(tokenBytes);
         var expiresAt = DateTime.UtcNow.AddSeconds(expiresIn);
 
-        var refreshToken = await _refreshTokenRepository.GetAsync(userId, cancellationToken);
-        if (refreshToken is null)
+        var refreshTokenGrant = await _refreshTokenGrantRepository.GetAsync(userId, cancellationToken);
+        if (refreshTokenGrant is null)
         {
-            var newRefreshToken = new RefreshToken(userId, hash, expiresAt);
+            var newRefreshTokenGrant = new RefreshTokenGrant(userId, refreshTokenHash, expiresAt);
 
-            await _refreshTokenRepository.AddAsync(newRefreshToken, cancellationToken);
+            await _refreshTokenGrantRepository.AddAsync(newRefreshTokenGrant, cancellationToken);
             return new TokenInfo(token, expiresIn);
         }
 
-        refreshToken.UpdateTokenHash(hash, expiresAt);
+        refreshTokenGrant.UpdateTokenHash(refreshTokenHash, expiresAt);
 
-        await _refreshTokenRepository.UpdateAsync(refreshToken, cancellationToken);
+        await _refreshTokenGrantRepository.UpdateAsync(refreshTokenGrant, cancellationToken);
         return new TokenInfo(token, expiresIn);
+    }
+
+    /// <inheritdoc/>
+    public async Task<OneOf<UserId, Expired, NotFound>> ValidateAsync(
+        RefreshToken refreshToken,
+        CancellationToken cancellationToken)
+    {
+        var tokenBytes = TryGetBytesFromBase64(refreshToken.Value);
+        if (tokenBytes is null)
+            return new NotFound();
+
+        var refreshTokenHash = HashToken(tokenBytes);
+
+        var refreshTokenGrant = await _refreshTokenGrantRepository.GetAsync(refreshTokenHash, cancellationToken);
+        if(refreshTokenGrant is null)
+            return new NotFound();
+
+        if(refreshTokenGrant.ExpiresAt.IsInPastUtc())
+            return new Expired();
+
+        return refreshTokenGrant.UserId;
+    }
+
+    private static RefreshTokenHash HashToken(byte[] tokenBytes)
+    {
+        var hashBytes = SHA256.HashData(tokenBytes);
+        var hash = Convert.ToBase64String(hashBytes);
+
+        return new RefreshTokenHash(hash);
+    }
+
+    private static byte[]? TryGetBytesFromBase64(string base64)
+    {
+        try
+        {
+            return Convert.FromBase64String(base64);
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
     }
 }

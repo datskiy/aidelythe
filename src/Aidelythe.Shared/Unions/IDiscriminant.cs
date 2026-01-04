@@ -1,4 +1,4 @@
-namespace Aidelythe.Shared.DiscriminatedUnion;
+namespace Aidelythe.Shared.Unions;
 
 /// <summary>
 /// Represents a state in a discriminated union.

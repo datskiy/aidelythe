@@ -3,6 +3,6 @@ using Aidelythe.Shared.Unions;
 namespace Aidelythe.Application._Common.Discriminants;
 
 /// <summary>
-/// Represents a failed operation outcome.
+/// Represents an entity or resource that has expired.
 /// </summary>
-public readonly record struct Failure : IDiscriminant;
+public readonly record struct Expired : IDiscriminant;

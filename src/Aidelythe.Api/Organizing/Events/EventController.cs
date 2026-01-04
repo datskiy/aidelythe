@@ -5,7 +5,7 @@ using Aidelythe.Api.Organizing.Events.Requests;
 using Aidelythe.Api.Organizing.Events.Responses;
 using Aidelythe.Application.Organizing.Events.Commands;
 using Aidelythe.Application.Organizing.Events.Queries;
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api.Organizing.Events;
 

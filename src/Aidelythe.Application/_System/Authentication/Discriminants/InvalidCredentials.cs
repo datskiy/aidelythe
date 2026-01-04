@@ -1,4 +1,4 @@
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Application._System.Authentication.Discriminants;
 

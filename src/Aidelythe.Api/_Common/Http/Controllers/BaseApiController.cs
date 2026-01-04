@@ -2,7 +2,7 @@ using Aidelythe.Api._Common.Http.Metadata;
 using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Api._Common.Http.Routing;
 using Aidelythe.Application._Common.Paging;
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api._Common.Http.Controllers;
 

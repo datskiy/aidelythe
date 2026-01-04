@@ -2,8 +2,9 @@ using Aidelythe.Api._Common.Http.Controllers;
 using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Api._System.Authentication.Mappers;
 using Aidelythe.Api._System.Authentication.Requests;
+using Aidelythe.Api._System.Authentication.Responses;
 using Aidelythe.Api.Identity;
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api._System.Authentication;
 
@@ -65,11 +66,11 @@ public sealed class AuthenticationController : AnonymousApiController
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the authentication token pair.
+    /// The task result contains the generated token pair.
     /// May produce error responses.
     /// </returns>
     [HttpPost("login")]
-    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(TokenPairResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(
@@ -82,5 +83,31 @@ public sealed class AuthenticationController : AnonymousApiController
         return result.Union.Match<IActionResult>(
             tokenPair => Ok(tokenPair.ToResponse()),
             invalidCredentials => Unauthorized());
+    }
+
+    /// <summary>
+    /// Refreshes the token pair of a user.
+    /// </summary>
+    /// <param name="request">The refresh request containing the refresh token of a user.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the refreshed token pair.
+    /// May produce error responses.
+    /// </returns>
+    [HttpPost("refresh")]
+    [ProducesResponseType(typeof(TokenPairResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Refresh(
+        [FromBody] RefreshRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = request.ToCommand();
+        var result = await _mediator.Send(command, cancellationToken);
+
+        return result.Union.Match<IActionResult>(
+            tokenPair => Ok(tokenPair.ToResponse()),
+            invalidToken => Unauthorized());
     }
 }

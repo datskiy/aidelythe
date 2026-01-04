@@ -1,6 +1,6 @@
 using Aidelythe.Api.Organizing.Events.Resources;
 using Aidelythe.Application._Common.Discriminants;
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api.Organizing.Events.Mappers;
 

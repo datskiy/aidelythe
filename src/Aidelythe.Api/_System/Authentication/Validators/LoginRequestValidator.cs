@@ -4,7 +4,7 @@ using Aidelythe.Application._System.Authentication.ValueObjects;
 namespace Aidelythe.Api._System.Authentication.Validators;
 
 /// <summary>
-/// Represents a validator for registration requests.
+/// Represents a validator for logging in requests.
 /// </summary>
 public sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
 {

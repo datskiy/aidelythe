@@ -1,7 +1,7 @@
 using Aidelythe.Api._System.Authentication.Resources;
 using Aidelythe.Application._Common.Discriminants;
 using Aidelythe.Application._System.Authentication.Discriminants;
-using Aidelythe.Shared.DiscriminatedUnion;
+using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api._System.Authentication.Mappers;
 

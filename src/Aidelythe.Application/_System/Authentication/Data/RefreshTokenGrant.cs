@@ -4,9 +4,9 @@ using Aidelythe.Domain.Identity.Users.ValueObjects;
 namespace Aidelythe.Application._System.Authentication.Data;
 
 /// <summary>
-/// Represents a refresh token.
+/// Represents a refresh token grant.
 /// </summary>
-public sealed class RefreshToken
+public sealed class RefreshTokenGrant
 {
     /// <summary>
     /// Gets the unique identifier of the user.
@@ -24,14 +24,14 @@ public sealed class RefreshToken
     public DateTime ExpiresAt { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RefreshToken"/> class.
+    /// Initializes a new instance of the <see cref="RefreshTokenGrant"/> class.
     /// </summary>
     /// <param name="userId">The unique identifier of the user.</param>
     /// <param name="tokenHash">The hashed refresh token.</param>
     /// <param name="expiresAt">The date when the refresh token expires.</param>
     /// <exception cref="ArgumentNullException">The <paramref name="tokenHash"/> is null.</exception>
     /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
-    public RefreshToken(
+    public RefreshTokenGrant(
         UserId userId,
         RefreshTokenHash tokenHash,
         DateTime expiresAt)
@@ -47,18 +47,18 @@ public sealed class RefreshToken
     /// <summary>
     /// Updates the hashed refresh token and the expiration date.
     /// </summary>
-    /// <param name="refreshTokenHash">The new hashed refresh token.</param>
+    /// <param name="tokenHash">The new hashed refresh token.</param>
     /// <param name="expiresAt">The date when the refresh token expires.</param>
-    /// <exception cref="ArgumentNullException">The <paramref name="refreshTokenHash"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="tokenHash"/> is null.</exception>
     /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
     public void UpdateTokenHash(
-        RefreshTokenHash refreshTokenHash,
+        RefreshTokenHash tokenHash,
         DateTime expiresAt)
     {
-        ThrowIfNull(refreshTokenHash);
+        ThrowIfNull(tokenHash);
         ThrowIfNotUtc(expiresAt);
 
-        TokenHash = refreshTokenHash;
+        TokenHash = tokenHash;
         ExpiresAt = expiresAt;
     }
 }
