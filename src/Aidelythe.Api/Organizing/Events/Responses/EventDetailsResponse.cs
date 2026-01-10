@@ -32,25 +32,25 @@ public sealed class EventDetailsResponse
     public required AddressDetailsResponse Location { get; init; }
 
     /// <summary>
-    /// Gets the date when the event starts.
+    /// Gets the date and time when the event starts.
     /// </summary>
     [JsonPropertyName("startsAt")]
     public DateTime StartsAt { get; init; }
 
     /// <summary>
-    /// Gets the date when the event ends.
+    /// Gets the date and time when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
     public DateTime? EndsAt { get; init; }
 
     /// <summary>
-    /// Gets the date when the event was created.
+    /// Gets the date and time when the event was created.
     /// </summary>
     [JsonPropertyName("createdAt")]
     public DateTime CreatedAt { get; init; }
 
     /// <summary>
-    /// Gets the date when the event was last updated.
+    /// Gets the date and time when the event was last updated.
     /// </summary>
     [JsonPropertyName("lastUpdatedAt")]
     public DateTime? LastUpdatedAt { get; init; }

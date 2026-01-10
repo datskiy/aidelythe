@@ -28,22 +28,22 @@ public sealed class EventDetails
     public AddressDetails Location { get; }
 
     /// <summary>
-    /// Gets the date when the event starts.
+    /// Gets the date and time when the event starts.
     /// </summary>
     public DateTime StartsAt { get; }
 
     /// <summary>
-    /// Gets the date when the event ends.
+    /// Gets the date and time when the event ends.
     /// </summary>
     public DateTime? EndsAt { get; }
 
     /// <summary>
-    /// Gets the date when the event was created.
+    /// Gets the date and time when the event was created.
     /// </summary>
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the date when the event was last updated.
+    /// Gets the date and time when the event was last updated.
     /// </summary>
     public DateTime? LastUpdatedAt { get; }
 
@@ -54,10 +54,10 @@ public sealed class EventDetails
     /// <param name="title">The title of the event.</param>
     /// <param name="description">The description of the event.</param>
     /// <param name="location">The location of the event.</param>
-    /// <param name="startsAt">The date when the event starts.</param>
-    /// <param name="endsAt">The date when the event ends.</param>
-    /// <param name="createdAt">The date when the event was created.</param>
-    /// <param name="lastUpdatedAt">The date when the event was last updated.</param>
+    /// <param name="startsAt">The date and time when the event starts.</param>
+    /// <param name="endsAt">The date and time when the event ends.</param>
+    /// <param name="createdAt">The date and time when the event was created.</param>
+    /// <param name="lastUpdatedAt">The date and time when the event was last updated.</param>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="title"/> or <paramref name="location"/> is null.
     /// </exception>

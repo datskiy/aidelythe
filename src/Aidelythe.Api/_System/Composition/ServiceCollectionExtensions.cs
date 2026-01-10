@@ -27,13 +27,12 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IPasswordService, PasswordService>();
         services.AddTransient<IAccessTokenService, AccessTokenService>();
         services.AddTransient<IRefreshTokenService, RefreshTokenService>();
-        services.AddTransient<ITokenPairService, TokenPairService>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();
-        services.AddScoped<IRefreshTokenGrantRepository, RefreshTokenGrantRepository>();
+        services.AddScoped<IUserSessionRepository, UserSessionRepository>();
 
         return services;
     }

@@ -24,12 +24,12 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     public DefineAddressCommand Location { get; }
 
     /// <summary>
-    /// Gets the date when the event starts.
+    /// Gets the date and time when the event starts.
     /// </summary>
     public DateTime StartsAt { get; }
 
     /// <summary>
-    /// Gets the date when the event ends.
+    /// Gets the date and time when the event ends.
     /// </summary>
     public DateTime? EndsAt { get; }
 
@@ -39,8 +39,8 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     /// <param name="title">The title of the event.</param>
     /// <param name="description">The description of the event.</param>
     /// <param name="location">The location of the event.</param>
-    /// <param name="startsAt">The date when the event starts.</param>
-    /// <param name="endsAt">The date when the event ends.</param>
+    /// <param name="startsAt">The date and time when the event starts.</param>
+    /// <param name="endsAt">The date and time when the event ends.</param>
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="title"/> or <paramref name="location"/> is null.
     /// </exception>

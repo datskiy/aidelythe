@@ -1,23 +1,23 @@
 namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
-/// Represents a hashed password.
+/// Represents an access token.
 /// </summary>
-public sealed record PasswordHash
+public sealed record AccessToken
 {
     /// <summary>
-    /// Gets the hashed password value.
+    /// Gets the access token value.
     /// </summary>
     public string Value { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PasswordHash"/> class.
+    /// Initializes a new instance of the <see cref="AccessToken"/> class.
     /// </summary>
-    /// <param name="value">The hashed password value.</param>
+    /// <param name="value">The access token value.</param>
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    public PasswordHash(string value)
+    public AccessToken(string value)
     {
         ThrowIfNullOrWhiteSpace(value);
 
@@ -27,6 +27,6 @@ public sealed record PasswordHash
     /// <inheritdoc/>
     public override string ToString() // TODO: mb make a base class for such types?
     {
-        return $"[{nameof(PasswordHash)}_REDACTED]";
+        return $"[{nameof(AccessToken)}_REDACTED]";
     }
 }

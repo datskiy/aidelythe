@@ -27,6 +27,6 @@ public sealed record RefreshTokenHash
     /// <inheritdoc/>
     public override string ToString() // TODO: mb make a base class for such types?
     {
-        return "[REDACTED]";
+        return $"[{nameof(RefreshTokenHash)}_REDACTED]";
     }
 }

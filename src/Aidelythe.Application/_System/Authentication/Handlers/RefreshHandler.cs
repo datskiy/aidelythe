@@ -1,6 +1,9 @@
 using Aidelythe.Application._Common.Persistence;
 using Aidelythe.Application._System.Authentication.Commands;
+using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Discriminants;
+using Aidelythe.Application._System.Authentication.Projections;
+using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Results;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
@@ -18,7 +21,9 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
     private readonly IUnitOfWork _unitOfWork;
 
     private readonly IRefreshTokenService _refreshTokenService;
-    private readonly ITokenPairService _tokenPairService;
+    private readonly IAccessTokenService _accessTokenService;
+
+    private readonly IUserSessionRepository _userSessionRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshHandler"/> class.
@@ -26,26 +31,30 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
     /// <param name="logger">The instance of <see cref="ILogger"/>.</param>
     /// <param name="unitOfWork">The instance of <see cref="IUnitOfWork"/>.</param>
     /// <param name="refreshTokenService">The instance of <see cref="IRefreshTokenService"/>.</param>
-    /// <param name="tokenPairService">The instance of <see cref="ITokenPairService"/>.</param>
+    /// <param name="accessTokenService">The instance of <see cref="IAccessTokenService"/>.</param>
+    /// <param name="userSessionRepository">The instance of <see cref="IUserSessionRepository"/>.</param>
     /// <exception cref="ArgumentNullException">
-    /// The <paramref name="logger"/>, <paramref name="unitOfWork"/>, <paramref name="refreshTokenService"/>
-    /// or <paramref name="tokenPairService"/> is null.
+    /// The <paramref name="logger"/>, <paramref name="unitOfWork"/>, <paramref name="refreshTokenService"/>,
+    /// <paramref name="accessTokenService"/> or <paramref name="userSessionRepository"/> is null.
     /// </exception>
     public RefreshHandler(
         ILogger<RefreshHandler> logger,
         IUnitOfWork unitOfWork,
         IRefreshTokenService refreshTokenService,
-        ITokenPairService tokenPairService)
+        IAccessTokenService accessTokenService,
+        IUserSessionRepository userSessionRepository)
     {
         ThrowIfNull(logger);
         ThrowIfNull(unitOfWork);
         ThrowIfNull(refreshTokenService);
-        ThrowIfNull(tokenPairService);
+        ThrowIfNull(accessTokenService);
+        ThrowIfNull(userSessionRepository);
 
         _logger = logger;
         _unitOfWork = unitOfWork;
         _refreshTokenService = refreshTokenService;
-        _tokenPairService = tokenPairService;
+        _accessTokenService = accessTokenService;
+        _userSessionRepository = userSessionRepository;
     }
 
     /// <summary>
@@ -70,14 +79,7 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
             cancellationToken);
 
         return await refreshTokenValidationResult.Match<Task<RefreshResult>>(
-            async userId =>
-            {
-                var tokenPair = await _tokenPairService.GenerateAsync(userId, cancellationToken);
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-                _logger.LogInformation("User successfully refreshed the token pair: {UserId}", userId);
-                return tokenPair;
-            },
+            async userSession => await RefreshTokensAndSaveChangesAsync(userSession, cancellationToken),
             async expired =>
             {
                 _logger.LogInformation(
@@ -94,5 +96,21 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
 
                 return await new InvalidToken().ToTask();
             });
+    }
+
+    private async Task<TokenPairDetails> RefreshTokensAndSaveChangesAsync(
+        UserSession userSession,
+        CancellationToken cancellationToken)
+    {
+        var newRefreshTokenDescriptor = _refreshTokenService.Generate();
+        userSession.RotateToken(newRefreshTokenDescriptor.Hash, newRefreshTokenDescriptor.ExpiresAt);
+
+        await _userSessionRepository.UpdateAsync(userSession, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        var accessTokenDescriptor = _accessTokenService.Issue(userSession.UserId, userSession.Id);
+
+        _logger.LogInformation("User successfully refreshed the token pair: {UserId}", userSession.UserId);
+        return TokenPairDetails.Create(newRefreshTokenDescriptor, accessTokenDescriptor);
     }
 }

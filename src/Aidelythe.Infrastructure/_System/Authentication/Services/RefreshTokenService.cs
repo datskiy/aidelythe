@@ -1,11 +1,8 @@
 using Aidelythe.Application._Common.Discriminants;
 using Aidelythe.Application._System.Authentication.Data;
-using Aidelythe.Application._System.Authentication.Projections;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
-using Aidelythe.Domain.Identity.Users.ValueObjects;
-using Aidelythe.Shared.Time;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -14,23 +11,21 @@ namespace Aidelythe.Infrastructure._System.Authentication.Services;
 /// </summary>
 public sealed class RefreshTokenService : IRefreshTokenService
 {
-    private readonly IRefreshTokenGrantRepository _refreshTokenGrantRepository;
+    private readonly IUserSessionRepository _userSessionRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshTokenService"/> class.
     /// </summary>
-    /// <param name="refreshTokenGrantRepository">The instance of <see cref="IRefreshTokenGrantRepository"/>.</param>
-    public RefreshTokenService(IRefreshTokenGrantRepository refreshTokenGrantRepository)
+    /// <param name="userSessionRepository">The instance of <see cref="IUserSessionRepository"/>.</param>
+    public RefreshTokenService(IUserSessionRepository userSessionRepository)
     {
-        ThrowIfNull(refreshTokenGrantRepository);
+        ThrowIfNull(userSessionRepository);
 
-        _refreshTokenGrantRepository = refreshTokenGrantRepository;
+        _userSessionRepository = userSessionRepository;
     }
 
     /// <inheritdoc/>
-    public async Task<TokenInfo> IssueAsync(
-        UserId userId,
-        CancellationToken cancellationToken)
+    public RefreshTokenDescriptor Generate()
     {
         // TODO: get from config as options
         var byteCount = 64;
@@ -38,27 +33,19 @@ public sealed class RefreshTokenService : IRefreshTokenService
 
         var tokenBytes = RandomNumberGenerator.GetBytes(byteCount);
         var token = Convert.ToBase64String(tokenBytes);
+        var refreshToken = new RefreshToken(token);
 
         var refreshTokenHash = HashToken(tokenBytes);
         var expiresAt = DateTime.UtcNow.AddSeconds(expiresIn);
 
-        var refreshTokenGrant = await _refreshTokenGrantRepository.GetAsync(userId, cancellationToken);
-        if (refreshTokenGrant is null)
-        {
-            var newRefreshTokenGrant = new RefreshTokenGrant(userId, refreshTokenHash, expiresAt);
-
-            await _refreshTokenGrantRepository.AddAsync(newRefreshTokenGrant, cancellationToken);
-            return new TokenInfo(token, expiresIn);
-        }
-
-        refreshTokenGrant.UpdateTokenHash(refreshTokenHash, expiresAt);
-
-        await _refreshTokenGrantRepository.UpdateAsync(refreshTokenGrant, cancellationToken);
-        return new TokenInfo(token, expiresIn);
+        return new RefreshTokenDescriptor(
+            refreshToken,
+            refreshTokenHash,
+            expiresAt);
     }
 
     /// <inheritdoc/>
-    public async Task<OneOf<UserId, Expired, NotFound>> ValidateAsync(
+    public async Task<OneOf<UserSession, Expired, NotFound>> ValidateAsync(
         RefreshToken refreshToken,
         CancellationToken cancellationToken)
     {
@@ -68,14 +55,14 @@ public sealed class RefreshTokenService : IRefreshTokenService
 
         var refreshTokenHash = HashToken(tokenBytes);
 
-        var refreshTokenGrant = await _refreshTokenGrantRepository.GetAsync(refreshTokenHash, cancellationToken);
-        if(refreshTokenGrant is null)
+        var userSession = await _userSessionRepository.GetAsync(refreshTokenHash, cancellationToken);
+        if(userSession is null)
             return new NotFound();
 
-        if(refreshTokenGrant.ExpiresAt.IsInPastUtc())
+        if(userSession.IsTokenExpired())
             return new Expired();
 
-        return refreshTokenGrant.UserId;
+        return userSession;
     }
 
     private static RefreshTokenHash HashToken(byte[] tokenBytes)

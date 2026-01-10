@@ -8,7 +8,7 @@ namespace Aidelythe.Application.Organizing.Events.Results;
 public sealed class DeleteEventResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when deleting an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
     public OneOf<Success, NotFound> Union { get; }
 

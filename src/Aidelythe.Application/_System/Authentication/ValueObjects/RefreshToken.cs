@@ -30,4 +30,10 @@ public sealed record RefreshToken
 
         Value = value;
     }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"[{nameof(RefreshToken)}_REDACTED]";
+    }
 }

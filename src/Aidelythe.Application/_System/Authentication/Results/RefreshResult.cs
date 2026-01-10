@@ -9,18 +9,18 @@ namespace Aidelythe.Application._System.Authentication.Results;
 public sealed class RefreshResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when creating an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
-    public OneOf<TokenPair, InvalidToken> Union { get; }
+    public OneOf<TokenPairDetails, InvalidToken> Union { get; }
 
-    private RefreshResult(OneOf<TokenPair, InvalidToken> union)
+    private RefreshResult(OneOf<TokenPairDetails, InvalidToken> union)
     {
         Union = union;
     }
 
-    public static implicit operator RefreshResult(TokenPair tokenPair)
+    public static implicit operator RefreshResult(TokenPairDetails tokenPairDetails)
     {
-        return new RefreshResult(tokenPair);
+        return new RefreshResult(tokenPairDetails);
     }
 
     public static implicit operator RefreshResult(InvalidToken invalidToken)

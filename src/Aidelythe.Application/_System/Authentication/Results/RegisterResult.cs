@@ -9,7 +9,7 @@ namespace Aidelythe.Application._System.Authentication.Results;
 public sealed class RegisterResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when creating an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
     public OneOf<Guid, AlreadyExists, MissingContactMethod> Union { get; }
 

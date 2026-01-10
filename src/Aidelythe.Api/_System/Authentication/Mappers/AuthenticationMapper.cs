@@ -39,11 +39,11 @@ public static partial class AuthenticationMapper
     public static partial RefreshCommand ToCommand(this RefreshRequest request);
 
     /// <summary>
-    /// Maps the <see cref="TokenPair"/> instance to a <see cref="TokenPairResponse"/> object.
+    /// Maps the <see cref="TokenPairDetails"/> instance to a <see cref="TokenPairDetailsResponse"/> object.
     /// </summary>
-    /// <param name="tokenPair">The <see cref="TokenPair"/> to map.</param>
+    /// <param name="tokenPairDetails">The <see cref="TokenPairDetails"/> to map.</param>
     /// <returns>
-    /// The mapped <see cref="TokenPairResponse"/>.
+    /// The mapped <see cref="TokenPairDetailsResponse"/>.
     /// </returns>
-    public static partial TokenPairResponse ToResponse(this TokenPair tokenPair);
+    public static partial TokenPairDetailsResponse ToResponse(this TokenPairDetails tokenPairDetails);
 }

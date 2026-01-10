@@ -9,7 +9,7 @@ namespace Aidelythe.Application.Organizing.Events.Results;
 public sealed class UpdateEventResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when updating an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
     public OneOf<EventDetails, NotFound, AlreadyExists, InvalidDateRange> Union { get; }
 

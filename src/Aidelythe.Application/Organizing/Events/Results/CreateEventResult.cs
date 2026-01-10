@@ -8,7 +8,7 @@ namespace Aidelythe.Application.Organizing.Events.Results;
 public sealed class CreateEventResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when creating an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
     public OneOf<Guid, AlreadyExists, InvalidDateRange> Union { get; }
 

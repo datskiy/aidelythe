@@ -9,18 +9,18 @@ namespace Aidelythe.Application._System.Authentication.Results;
 public sealed class LoginResult
 {
     /// <summary>
-    /// Gets the discriminated union containing all possible outcomes when creating an event.
+    /// Gets the discriminated union containing all possible outcomes.
     /// </summary>
-    public OneOf<TokenPair, InvalidCredentials> Union { get; }
+    public OneOf<TokenPairDetails, InvalidCredentials> Union { get; }
 
-    private LoginResult(OneOf<TokenPair, InvalidCredentials> union)
+    private LoginResult(OneOf<TokenPairDetails, InvalidCredentials> union)
     {
         Union = union;
     }
 
-    public static implicit operator LoginResult(TokenPair tokenPair)
+    public static implicit operator LoginResult(TokenPairDetails tokenPairDetails)
     {
-        return new LoginResult(tokenPair);
+        return new LoginResult(tokenPairDetails);
     }
 
     public static implicit operator LoginResult(InvalidCredentials invalidCredentials)

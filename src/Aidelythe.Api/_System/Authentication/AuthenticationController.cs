@@ -66,11 +66,11 @@ public sealed class AuthenticationController : AnonymousApiController
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the generated token pair.
+    /// The task result contains the details of the issued token pair.
     /// May produce error responses.
     /// </returns>
     [HttpPost("login")]
-    [ProducesResponseType(typeof(TokenPairResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TokenPairDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(
@@ -92,11 +92,11 @@ public sealed class AuthenticationController : AnonymousApiController
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the refreshed token pair.
+    /// The task result contains the details of the refreshed token pair.
     /// May produce error responses.
     /// </returns>
     [HttpPost("refresh")]
-    [ProducesResponseType(typeof(TokenPairResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TokenPairDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Refresh(

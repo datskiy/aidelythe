@@ -1,6 +1,7 @@
 using Aidelythe.Application._System.Authentication.Core;
-using Aidelythe.Application._System.Authentication.Projections;
+using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Services;
+using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users.ValueObjects;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
@@ -11,7 +12,9 @@ namespace Aidelythe.Infrastructure._System.Authentication.Services;
 public sealed class AccessTokenService : IAccessTokenService
 {
     /// <inheritdoc/>
-    public TokenInfo Issue(UserId userId)
+    public AccessTokenDescriptor Issue(
+        UserId userId,
+        UserSessionId userSessionId)
     {
         // TODO: get from config as options
         var issuer = "Aidelythe";
@@ -27,14 +30,16 @@ public sealed class AccessTokenService : IAccessTokenService
         [
             new Claim(ClaimTypes.NameIdentifier, $"{userId}"),
             new Claim(ClaimTypes.Role, AppRoles.Member),
+            new Claim(ClaimTypes.Sid, $"{userSessionId}")
         ]);
 
+        var expiresAt = DateTime.UtcNow.AddMinutes(expiresIn);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Issuer = issuer,
             Audience = audience,
             Subject = subject,
-            Expires = DateTime.UtcNow.AddMinutes(expiresIn),
+            Expires = expiresAt,
             SigningCredentials = signingCredentials
         };
 
@@ -44,6 +49,8 @@ public sealed class AccessTokenService : IAccessTokenService
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return new TokenInfo(token, expiresIn);
+        var accessToken = new AccessToken(token);
+
+        return new AccessTokenDescriptor(accessToken, expiresAt);
     }
 }

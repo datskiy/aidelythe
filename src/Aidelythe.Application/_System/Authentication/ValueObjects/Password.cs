@@ -39,6 +39,6 @@ public sealed record Password
     /// <inheritdoc/>
     public override string ToString() // TODO: mb make a base class for such types?
     {
-        return "[REDACTED]";
+        return $"[{nameof(Password)}_REDACTED]";
     }
 }

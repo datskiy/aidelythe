@@ -31,14 +31,14 @@ public sealed class UpdateEventRequest
     public DefineAddressRequest? Location { get; init; }
 
     /// <summary>
-    /// Gets the date when the event starts.
+    /// Gets the date and time when the event starts.
     /// </summary>
     [JsonPropertyName("startsAt")]
     [Required]
     public DateTime? StartsAt { get; init; }
 
     /// <summary>
-    /// Gets the date when the event ends.
+    /// Gets the date and time when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
     public DateTime? EndsAt { get; init; }

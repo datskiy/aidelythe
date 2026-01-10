@@ -1,4 +1,5 @@
-using Aidelythe.Application._System.Authentication.Projections;
+using Aidelythe.Application._System.Authentication.Data;
+using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users.ValueObjects;
 
 namespace Aidelythe.Application._System.Authentication.Services;
@@ -9,11 +10,16 @@ namespace Aidelythe.Application._System.Authentication.Services;
 public interface IAccessTokenService
 {
     /// <summary>
-    /// Issues an access token for the specified user.
+    /// Issues an access token for the specified user and session.
     /// </summary>
     /// <param name="userId">The unique identifier of the user for whom the access token is being issued.</param>
+    /// <param name="userSessionId">
+    /// The unique identifier of the user session for which the access token is being issued.
+    /// </param>
     /// <returns>
-    /// Information about the issued access token.
+    /// The access token descriptor.
     /// </returns>
-    TokenInfo Issue(UserId userId);
+    AccessTokenDescriptor Issue(
+        UserId userId,
+        UserSessionId userSessionId);
 }
