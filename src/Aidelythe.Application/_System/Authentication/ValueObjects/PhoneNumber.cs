@@ -44,7 +44,7 @@ public sealed record PhoneNumber
     /// </summary>
     /// <param name="phoneNumber">The string representing the phone number to parse.</param>
     /// <returns>
-    /// An <see cref="PhoneNumber"/> object if the parsing is successful; otherwise, <c>null</c>.
+    /// An <see cref="PhoneNumber"/> object if the parsing is successful; otherwise, null.
     /// </returns>
     public static PhoneNumber? TryParse(string phoneNumber)
     {

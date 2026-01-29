@@ -91,7 +91,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
         if (userCredentials is null)
         {
             _logger.LogInformation(
-                "Login attempt failed due to an invalid login: {LoginMask}",
+                "Login attempt for {LoginMask} failed due to an invalid login",
                 request.Login.MaskEnding());
 
             return new InvalidCredentials();
@@ -110,13 +110,13 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
                 userCredentials.UpdatePasswordHash(newPasswordHash);
                 await _userCredentialsRepository.UpdateAsync(userCredentials, cancellationToken);
 
-                _logger.LogInformation("Password hash rehashed: {UserId}", userCredentials.UserId);
+                _logger.LogInformation("Password hash rehashed for {UserId}", userCredentials.UserId);
                 return await GenerateTokensAndSaveChangesAsync(userCredentials.UserId, cancellationToken);
             },
             async failure =>
             {
                 _logger.LogInformation(
-                    "Login attempt failed due to an invalid password: {LoginMask}",
+                    "Login attempt for {LoginMask} failed due to an invalid password",
                     request.Login.MaskEnding());
 
                 return await new InvalidCredentials().ToTask();
@@ -154,7 +154,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
 
         var accessTokenDescriptor = _accessTokenService.Issue(userId, userSession.Id);
 
-        _logger.LogInformation("User successfully logged in: {UserId}", userId);
+        _logger.LogInformation("User {UserId} successfully logged in", userId);
         return TokenPairDetails.Create(refreshTokenDescriptor, accessTokenDescriptor);
     }
 }

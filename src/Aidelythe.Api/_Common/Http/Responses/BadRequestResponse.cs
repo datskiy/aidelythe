@@ -1,5 +1,6 @@
 using Aidelythe.Api._Common.Http.Resources;
 using Aidelythe.Shared.Collections;
+using ValidationFailure = FluentValidation.Results.ValidationFailure;
 
 namespace Aidelythe.Api._Common.Http.Responses;
 

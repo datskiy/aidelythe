@@ -20,7 +20,7 @@ public abstract class BaseApiController : ControllerBase
     /// detailing the problem.
     /// </summary>
     /// <remarks>
-    /// If not overridden, the property value is <c>null</c>, and attempting to use it in conjunction with
+    /// May be null if not overridden, and attempting to use it in conjunction with
     /// methods that rely on this mapping (e.g., the <c>Conflict</c> method) will throw an
     /// <see cref="InvalidOperationException"/>.
     /// </remarks>
@@ -151,8 +151,8 @@ public abstract class BaseApiController : ControllerBase
 
     private void ThrowIfProblemDetailsMapperNull()
     {
-        if(ProblemDetailsMapper is null)
-            throw new InvalidOperationException($"The {nameof(ProblemDetailsMapper)} is not implemented.");
+        if (ProblemDetailsMapper is null)
+            throw new InvalidOperationException($"The {nameof(ProblemDetailsMapper)} is not overriden.");
     }
 
     private string BuildLinkHeaderValue<T>(PagedCollection<T> pagedCollection)

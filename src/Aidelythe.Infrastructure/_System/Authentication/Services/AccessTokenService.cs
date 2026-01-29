@@ -19,7 +19,7 @@ public sealed class AccessTokenService : IAccessTokenService
         // TODO: get from config as options
         var issuer = "Aidelythe";
         var audience = "Aidelythe";
-        var expiresIn = 30;
+        var expiresIn = 20;
         var signingKey = new byte[32];
 
         var signingCredentials = new SigningCredentials(

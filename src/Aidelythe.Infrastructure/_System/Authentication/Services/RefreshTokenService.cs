@@ -17,6 +17,7 @@ public sealed class RefreshTokenService : IRefreshTokenService
     /// Initializes a new instance of the <see cref="RefreshTokenService"/> class.
     /// </summary>
     /// <param name="userSessionRepository">The instance of <see cref="IUserSessionRepository"/>.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="userSessionRepository"/> is null.</exception>
     public RefreshTokenService(IUserSessionRepository userSessionRepository)
     {
         ThrowIfNull(userSessionRepository);
@@ -56,10 +57,10 @@ public sealed class RefreshTokenService : IRefreshTokenService
         var refreshTokenHash = HashToken(tokenBytes);
 
         var userSession = await _userSessionRepository.GetAsync(refreshTokenHash, cancellationToken);
-        if(userSession is null)
+        if (userSession is null)
             return new NotFound();
 
-        if(userSession.IsTokenExpired())
+        if (userSession.IsTokenExpired())
             return new Expired();
 
         return userSession;

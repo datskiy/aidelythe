@@ -24,4 +24,9 @@ public static class HttpHeaders
     /// The HTTP <c>TotalCount</c> header.
     /// </summary>
     public const string TotalCount = "Total-Count";
+
+    /// <summary>
+    /// The HTTP <c>WWW-Authenticate</c> header.
+    /// </summary>
+    public const string WwwAuthenticate = "WWW-Authenticate";
 }

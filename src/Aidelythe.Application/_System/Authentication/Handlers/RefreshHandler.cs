@@ -110,7 +110,7 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
 
         var accessTokenDescriptor = _accessTokenService.Issue(userSession.UserId, userSession.Id);
 
-        _logger.LogInformation("User successfully refreshed the token pair: {UserId}", userSession.UserId);
+        _logger.LogInformation("User {UserId} successfully refreshed the token pair", userSession.UserId);
         return TokenPairDetails.Create(newRefreshTokenDescriptor, accessTokenDescriptor);
     }
 }

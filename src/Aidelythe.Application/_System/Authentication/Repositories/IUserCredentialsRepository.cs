@@ -33,7 +33,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the user credentials token associated with the email address,
+    /// The task result contains the user credentials token associated with the specified email address,
     /// or null if no such user credentials exist.
     /// </returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="email"/> is null.</exception>
@@ -48,7 +48,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the user credentials token associated with the phone number,
+    /// The task result contains the user credentials token associated with the specified phone number,
     /// or null if no such user credentials exist.
     /// </returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="phoneNumber"/> is null.</exception>

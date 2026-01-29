@@ -74,5 +74,11 @@ namespace Aidelythe.Api._Common.Http.Resources {
                 return ResourceManager.GetString("Unauthorized", resourceCulture);
             }
         }
+        
+        internal static string Forbidden {
+            get {
+                return ResourceManager.GetString("Forbidden", resourceCulture);
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ public sealed class NonEmptyCollection<T> : INonEmptyCollection<T>
     {
         ThrowIfNull(collection);
 
-        if(collection.Count < 1)
+        if (collection.Count < 1)
             throw new ArgumentException(
                 "The collection must contain at least one element.",
                 nameof(collection));

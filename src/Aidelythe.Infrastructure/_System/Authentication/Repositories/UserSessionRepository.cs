@@ -39,6 +39,15 @@ public sealed class UserSessionRepository : IUserSessionRepository
             DateTime.UtcNow.AddDays(14)))!;
     }
 
+    public Task<int> CountAsync(
+        UserId userId,
+        CancellationToken cancellationToken)
+    {
+        // TODO: implement
+
+        return Task.FromResult(7);
+    }
+
     /// <inheritdoc/>
     public Task AddAsync(
         UserSession userSession,
@@ -57,6 +66,22 @@ public sealed class UserSessionRepository : IUserSessionRepository
     {
         ThrowIfNull(userSession);
 
+        // TODO: implement
+
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(
+        UserSessionId id,
+        CancellationToken cancellationToken)
+    {
+        // TODO: implement
+
+        return Task.CompletedTask;
+    }
+
+    public Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
+    {
         // TODO: implement
 
         return Task.CompletedTask;

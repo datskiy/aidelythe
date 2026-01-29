@@ -32,7 +32,7 @@ public static class SortingHelper
         ThrowIfNull(sortBy);
         ThrowIfNull(sortableFieldDictionary);
 
-        if(sortableFieldDictionary.Count < 1)
+        if (sortableFieldDictionary.Count < 1)
             throw new ArgumentException(
                 "The dictionary must contain at least one element.",
                 nameof(sortableFieldDictionary));

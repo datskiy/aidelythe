@@ -104,7 +104,7 @@ public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterR
         await _userCredentialsRepository.AddAsync(userCredentials, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation("User successfully registered: {UserId}", user.Id);
+        _logger.LogInformation("User {UserId} successfully registered", user.Id);
         return user.Id.Value;
     }
 }

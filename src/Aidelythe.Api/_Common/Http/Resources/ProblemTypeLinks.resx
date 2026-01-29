@@ -33,4 +33,7 @@
     <data name="Unauthorized" xml:space="preserve">
         <value>https://tools.ietf.org/html/rfc9110#section-15.5.2</value>
     </data>
+    <data name="Forbidden" xml:space="preserve">
+        <value>https://tools.ietf.org/html/rfc9110#section-15.5.4</value>
+    </data>
 </root>

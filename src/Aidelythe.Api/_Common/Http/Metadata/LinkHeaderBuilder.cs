@@ -35,7 +35,7 @@ public sealed class LinkHeaderBuilder
         _linkGenerator = linkGenerator;
 
         var endpoint = httpContext.GetEndpoint();
-        if(endpoint is null)
+        if (endpoint is null)
             throw new InvalidOperationException("The endpoint cannot be retrieved from the HTTP context.");
 
         var actionDescriptor = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();

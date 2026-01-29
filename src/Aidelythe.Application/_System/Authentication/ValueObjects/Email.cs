@@ -49,7 +49,7 @@ public sealed record Email
     /// </summary>
     /// <param name="email">The string representing the email address to parse.</param>
     /// <returns>
-    /// An <see cref="Email"/> object if the parsing is successful; otherwise, <c>null</c>.
+    /// An <see cref="Email"/> object if the parsing is successful; otherwise, null.
     /// </returns>
     public static Email? TryParse(string email)
     {

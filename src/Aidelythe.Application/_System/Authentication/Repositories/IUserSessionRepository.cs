@@ -1,5 +1,6 @@
 using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.ValueObjects;
+using Aidelythe.Domain.Identity.Users.ValueObjects;
 
 namespace Aidelythe.Application._System.Authentication.Repositories;
 
@@ -15,7 +16,8 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the user session for the specified user, or null if no such token exists.
+    /// The task result contains the user session associated with the specified user session identifier,
+    /// or null if no such user session exists.
     /// </returns>
     Task<UserSession?> GetAsync(
         UserSessionId id,
@@ -29,11 +31,24 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the user session associated with the specified refresh token hash,
-    /// or null if no such token exists.
+    /// or null if no such user session exists.
     /// </returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="refreshTokenHash"/> is null.</exception>
     Task<UserSession?> GetAsync(
         RefreshTokenHash refreshTokenHash,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Counts the total number of user sessions associated with the specified user identifier.
+    /// </summary>
+    /// <param name="userId">The unique identifier of the user whose sessions to count.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the total number of user sessions associated with the specified user identifier.
+    /// </returns>
+    Task<int> CountAsync(
+        UserId userId,
         CancellationToken cancellationToken);
 
     /// <summary>
@@ -60,5 +75,29 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="userSession"/> is null.</exception>
     Task UpdateAsync(
         UserSession userSession,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Deletes the user session associated with the specified user session identifier.
+    /// </summary>
+    /// <param name="id">The unique identifier of the user session to delete.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// </returns>
+    Task DeleteAsync(
+        UserSessionId id,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Deletes all user sessions associated with the specified user identifier.
+    /// </summary>
+    /// <param name="userId">The unique identifier of the user whose sessions to delete.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// </returns>
+    Task DeleteAsync(
+        UserId userId,
         CancellationToken cancellationToken);
 }

@@ -1,3 +1,4 @@
+using Aidelythe.Api._System.Authentication;
 using Aidelythe.Api._System.Composition;
 using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
@@ -18,6 +19,8 @@ try
 
     var services = builder.Services;
     services.AddHttpPipeline();
+    services.AddJwtAuthentication();
+    services.AddAuthorization();
     services.AddValidation();
     services.AddMediator();
     services.AddOpenApi();
@@ -26,6 +29,8 @@ try
 
     var app = builder.Build();
     app.UseHttpsRedirection();
+    app.UseAuthentication();
+    app.UseAuthorization();
     app.UseLocalization();
     app.MapControllers();
     app.MapOpenApi();

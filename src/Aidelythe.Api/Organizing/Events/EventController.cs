@@ -95,7 +95,7 @@ public sealed class EventController : AuthorizedApiController
     [HttpPost]
     [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status409Conflict)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> CreateAsync(
         [FromBody] CreateEventRequest request,
@@ -125,7 +125,7 @@ public sealed class EventController : AuthorizedApiController
     [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status409Conflict)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> UpdateAsync(
         [FromRoute] Guid id,
@@ -149,7 +149,7 @@ public sealed class EventController : AuthorizedApiController
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the status of the event deletion.
+    /// The task result contains nothing.
     /// May produce error responses.
     /// </returns>
     [HttpDelete("{id:guid}")]

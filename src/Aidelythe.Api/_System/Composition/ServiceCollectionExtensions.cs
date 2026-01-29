@@ -1,3 +1,4 @@
+using Aidelythe.Api._System.Authentication.Services;
 using Aidelythe.Application._Common.Persistence;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Services;
@@ -24,11 +25,14 @@ public static class ServiceCollectionExtensions
     {
         ThrowIfNull(services);
 
+        services.AddHttpContextAccessor();
+
         services.AddTransient<IPasswordService, PasswordService>();
         services.AddTransient<IAccessTokenService, AccessTokenService>();
         services.AddTransient<IRefreshTokenService, RefreshTokenService>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserSessionContextAccessor, UserSessionContextAccessor>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();

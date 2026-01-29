@@ -10,6 +10,7 @@
         <PackageReference Include="FluentValidation" Version="12.1.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
         <PackageReference Include="MediatR" Version="12.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
         <PackageReference Include="OneOf" Version="3.0.271" />
         <PackageReference Include="Riok.Mapperly" Version="4.3.0-next.3" />
@@ -24,10 +25,12 @@
         <Using Include="FluentValidation.Resources"/>
         <Using Include="FluentValidation.Results"/>
         <Using Include="MediatR"/>
+        <Using Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <Using Include="Microsoft.AspNetCore.Authorization"/>
         <Using Include="Microsoft.AspNetCore.Mvc"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
+        <Using Include="Microsoft.IdentityModel.Tokens"/>
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
         <Using Include="Serilog"/>
@@ -40,6 +43,7 @@
         <Using Include="System.Linq.Expressions"/>
         <Using Include="System.Net.Mime"/>
         <Using Include="System.Reflection"/>
+        <Using Include="System.Security.Claims"/>
         <Using Include="System.Text.Json.Serialization"/>
         <Using Include="System.Text.RegularExpressions"/>
     </ItemGroup>
