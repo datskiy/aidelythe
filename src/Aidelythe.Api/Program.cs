@@ -3,8 +3,8 @@ using Aidelythe.Api._System.Composition;
 using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
 using Aidelythe.Api._System.Localization;
-using Aidelythe.Api._System.Monitoring;
 using Aidelythe.Api._System.Orchestration;
+using Aidelythe.Api._System.Telemetry.Logging;
 using Aidelythe.Api._System.Validation;
 
 var configuration = ConfigurationInitializer.InitializeForCurrentEnvironment();
@@ -18,6 +18,7 @@ try
     builder.Configuration.AddConfiguration(configuration);
 
     var services = builder.Services;
+    services.AddComposition();
     services.AddHttpPipeline();
     services.AddJwtAuthentication();
     services.AddAuthorization();
@@ -25,13 +26,13 @@ try
     services.AddMediator();
     services.AddOpenApi();
     services.AddSerilog();
-    services.AddComposition();
 
     var app = builder.Build();
     app.UseHttpsRedirection();
+    app.UseLocalization();
     app.UseAuthentication();
     app.UseAuthorization();
-    app.UseLocalization();
+    app.UseRequestLogging();
     app.MapControllers();
     app.MapOpenApi();
     app.MapScalarApiReference();

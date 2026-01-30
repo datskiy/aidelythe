@@ -1,4 +1,4 @@
-namespace Aidelythe.Api._System.Monitoring;
+namespace Aidelythe.Api._System.Telemetry.Logging;
 
 /// <summary>
 /// Provides initializing methods for logging.

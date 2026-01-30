@@ -34,6 +34,7 @@
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
         <Using Include="Serilog"/>
+        <Using Include="Serilog.Context"/>
         <Using Include="Scalar.AspNetCore"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Collections.ObjectModel"/>
