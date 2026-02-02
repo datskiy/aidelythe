@@ -6,18 +6,18 @@ using Aidelythe.Application.Organizing.Events.Queries;
 namespace Aidelythe.Application.Organizing.Events.Handlers;
 
 /// <summary>
-/// Represents a query handler for retrieving a paginated list of events.
+/// Represents a query handler for retrieving a paginated list of event summaries.
 /// </summary>
 public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedCollection<EventSummary>>
 {
     /// <summary>
     /// Handles the given <see cref="GetEventsQuery"/>.
     /// </summary>
-    /// <param name="request">The query to retrieve a paginated list of events.</param>
+    /// <param name="request">The query to retrieve a paginated list of event summaries.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a paginated list of events.
+    /// The task result contains a paginated list of event summaries.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="request"/> is null.</exception>
     public async Task<PagedCollection<EventSummary>> Handle(

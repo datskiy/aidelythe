@@ -31,6 +31,7 @@
         <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
         <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
         <Using Include="Microsoft.IdentityModel.Tokens"/>
+        <Using Include="Microsoft.OpenApi.Models"/>
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
         <Using Include="Serilog"/>

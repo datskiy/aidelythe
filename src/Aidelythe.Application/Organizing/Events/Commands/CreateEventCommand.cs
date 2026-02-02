@@ -9,6 +9,11 @@ namespace Aidelythe.Application.Organizing.Events.Commands;
 public sealed class CreateEventCommand : IRequest<CreateEventResult>
 {
     /// <summary>
+    /// Gets the unique identifier of the user creating the event.
+    /// </summary>
+    public Guid UserId { get; }
+
+    /// <summary>
     /// Gets the title of the event.
     /// </summary>
     public string Title { get; }
@@ -36,6 +41,7 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateEventCommand"/> class.
     /// </summary>
+    /// <param name="userId">The unique identifier of the user creating the event.</param>
     /// <param name="title">The title of the event.</param>
     /// <param name="description">The description of the event.</param>
     /// <param name="location">The location of the event.</param>
@@ -45,6 +51,7 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
     /// The <paramref name="title"/> or <paramref name="location"/> is null.
     /// </exception>
     public CreateEventCommand(
+        Guid userId,
         string title,
         string? description,
         DefineAddressCommand location,
@@ -54,6 +61,7 @@ public sealed class CreateEventCommand : IRequest<CreateEventResult>
         ThrowIfNull(title);
         ThrowIfNull(location);
 
+        UserId = userId;
         Title = title;
         Description = description;
         Location = location;

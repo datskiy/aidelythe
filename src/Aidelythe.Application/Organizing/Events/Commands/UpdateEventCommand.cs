@@ -14,6 +14,11 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
     public Guid Id { get; }
 
     /// <summary>
+    /// Gets the unique identifier of the user updating the event.
+    /// </summary>
+    public Guid UserId { get; }
+
+    /// <summary>
     /// Gets the title of the event.
     /// </summary>
     public string Title { get; }
@@ -42,6 +47,7 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
     /// Initializes a new instance of the <see cref="UpdateEventCommand"/> class.
     /// </summary>
     /// <param name="id">The unique identifier of the event.</param>
+    /// <param name="userId">The unique identifier of the user updating the event.</param>
     /// <param name="title">The title of the event.</param>
     /// <param name="description">The description of the event.</param>
     /// <param name="location">The location of the event.</param>
@@ -52,6 +58,7 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
     /// </exception>
     public UpdateEventCommand(
         Guid id,
+        Guid userId,
         string title,
         string? description,
         DefineAddressCommand location,
@@ -62,6 +69,7 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
         ThrowIfNull(location);
 
         Id = id;
+        UserId = userId;
         Title = title;
         Description = description;
         Location = location;

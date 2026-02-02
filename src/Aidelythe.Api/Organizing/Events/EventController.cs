@@ -43,14 +43,15 @@ public sealed class EventController : AuthorizedApiController
     /// May produce error responses.
     /// </returns>
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)
     {
-        var query = new GetEventQuery(id);
+        var query = new GetEventQuery(id, CurrentUserId);
         var eventDetails = await _mediator.Send(query, cancellationToken);
 
         return eventDetails is not null
@@ -68,13 +69,14 @@ public sealed class EventController : AuthorizedApiController
     /// The task result contains a paginated list of events.
     /// </returns>
     [HttpGet]
-    [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)] // TODO: add unauthorized
+    [ProducesResponseType(typeof(EventSummaryResponse[]), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetListAsync(
         [FromQuery] EventsQueryParams queryParams,
         CancellationToken cancellationToken)
     {
-        var query = queryParams.ToQuery();
+        var query = queryParams.ToQuery(CurrentUserId);
         var pagedCollection = await _mediator.Send(query, cancellationToken);
 
         return PagedOk(
@@ -93,15 +95,16 @@ public sealed class EventController : AuthorizedApiController
     /// May produce error responses.
     /// </returns>
     [HttpPost]
-    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)] // TODO: add unauthorized
+    [ProducesResponseType(typeof(CreatedResourceResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status409Conflict)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> CreateAsync(
         [FromBody] CreateEventRequest request,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = request.ToCommand(CurrentUserId);
         var result = await _mediator.Send(command, cancellationToken);
 
         return result.Union.Match<IActionResult>(
@@ -122,8 +125,9 @@ public sealed class EventController : AuthorizedApiController
     /// May produce error responses.
     /// </returns>
     [HttpPut("{id:guid}")]
-    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)] // TODO: add unauthorized
+    [ProducesResponseType(typeof(EventDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse),StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ConflictResponse), StatusCodes.Status409Conflict)]
     [ProducesResponseType(typeof(UnprocessableEntityResponse), StatusCodes.Status422UnprocessableEntity)]
@@ -132,7 +136,7 @@ public sealed class EventController : AuthorizedApiController
         [FromBody] UpdateEventRequest request,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand(id);
+        var command = request.ToCommand(id, CurrentUserId);
         var result = await _mediator.Send(command, cancellationToken);
 
         return result.Union.Match<IActionResult>(
@@ -153,13 +157,14 @@ public sealed class EventController : AuthorizedApiController
     /// May produce error responses.
     /// </returns>
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)] // TODO: add unauthorized
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(NotFoundResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteEventCommand(id);
+        var command = new DeleteEventCommand(id, CurrentUserId);
         var result = await _mediator.Send(command, cancellationToken);
 
         return result.Union.Match<IActionResult>(

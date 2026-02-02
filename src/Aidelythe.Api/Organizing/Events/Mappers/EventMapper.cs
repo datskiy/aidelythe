@@ -18,12 +18,16 @@ public static partial class EventMapper
     /// Maps the <see cref="EventsQueryParams"/> instance to a <see cref="GetEventsQuery"/> object.
     /// </summary>
     /// <param name="queryParams">The <see cref="EventsQueryParams"/> to map.</param>
+    /// <param name="userId">The unique identifier of the user requesting the list of items.</param>
     /// <returns>
     /// The mapped <see cref="GetEventsQuery"/>.
     /// </returns>
-    public static GetEventsQuery ToQuery(this EventsQueryParams queryParams)
+    public static GetEventsQuery ToQuery(
+        this EventsQueryParams queryParams,
+        Guid userId)
     {
         return new GetEventsQuery(
+            userId,
             queryParams.Offset,
             queryParams.Limit,
             queryParams.SearchText,
@@ -40,20 +44,27 @@ public static partial class EventMapper
     /// Maps the <see cref="CreateEventRequest"/> instance to a <see cref="CreateEventCommand"/> object.
     /// </summary>
     /// <param name="request">The <see cref="CreateEventRequest"/> to map.</param>
+    /// <param name="userId">The unique identifier of the user creating the event.</param>
     /// <returns>
     /// The mapped <see cref="CreateEventCommand"/>.
     /// </returns>
-    public static partial CreateEventCommand ToCommand(this CreateEventRequest request);
+    public static partial CreateEventCommand ToCommand(
+        this CreateEventRequest request,
+        Guid userId);
 
     /// <summary>
     /// Maps the <see cref="UpdateEventRequest"/> instance to a <see cref="UpdateEventCommand"/> object.
     /// </summary>
     /// <param name="request">The <see cref="UpdateEventCommand"/> to map.</param>
     /// <param name="id">The unique identifier of the event.</param>
+    /// <param name="userId">The unique identifier of the user updating the event.</param>
     /// <returns>
     /// The mapped <see cref="UpdateEventCommand"/>.
     /// </returns>
-    public static partial UpdateEventCommand ToCommand(this UpdateEventRequest request, Guid id);
+    public static partial UpdateEventCommand ToCommand(
+        this UpdateEventRequest request,
+        Guid id,
+        Guid userId);
 
     /// <summary>
     /// Maps the <see cref="EventDetails"/> instance to a <see cref="EventDetailsResponse"/> object.

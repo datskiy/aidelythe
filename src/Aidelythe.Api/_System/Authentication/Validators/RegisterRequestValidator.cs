@@ -26,6 +26,7 @@ public sealed class RegisterRequestValidator : AbstractValidator<RegisterRequest
             .WhenNotNull();
 
         RuleFor(request => request.Password)
+            .NotEmpty()
             .Length(Password.MinimumLength, Password.MaximumLength)
 ;
     }

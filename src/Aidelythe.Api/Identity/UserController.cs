@@ -1,4 +1,5 @@
 using Aidelythe.Api._Common.Http.Controllers;
+using Aidelythe.Api._Common.Http.Responses;
 
 namespace Aidelythe.Api.Identity;
 
@@ -19,6 +20,7 @@ public sealed class UserController : AuthorizedApiController
     /// May produce error responses.
     /// </returns>
     [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public Task<IActionResult> GetAsync(
         [FromRoute] Guid id,
         CancellationToken cancellationToken)

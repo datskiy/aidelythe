@@ -27,7 +27,6 @@ public sealed class UpdateEventHandler : IRequestHandler<UpdateEventCommand, Upd
         ThrowIfNull(request);
 
         // TODO: implement
-        // TODO: add event owner
         // TODO: ask and add distributed locking
 
          var updatedEvent = new EventDetails(

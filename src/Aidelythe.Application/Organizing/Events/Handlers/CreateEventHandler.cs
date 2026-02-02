@@ -25,7 +25,6 @@ public sealed class CreateEventHandler : IRequestHandler<CreateEventCommand, Cre
         ThrowIfNull(request);
 
         // TODO: implement
-        // TODO: add event owner
         // TODO: ask and add distributed locking
 
         return await Task.FromResult(Guid.CreateVersion7());

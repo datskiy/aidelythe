@@ -4,6 +4,7 @@ using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
 using Aidelythe.Api._System.Localization;
 using Aidelythe.Api._System.Orchestration;
+using Aidelythe.Api._System.Specification;
 using Aidelythe.Api._System.Telemetry.Logging;
 using Aidelythe.Api._System.Validation;
 
@@ -26,6 +27,7 @@ try
     services.AddMediator();
     services.AddOpenApi();
     services.AddSerilog();
+    services.AddApiSpecification();
 
     var app = builder.Build();
     app.UseHttpsRedirection();

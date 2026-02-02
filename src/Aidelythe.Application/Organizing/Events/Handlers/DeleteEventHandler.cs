@@ -26,7 +26,6 @@ public sealed class DeleteEventHandler : IRequestHandler<DeleteEventCommand, Del
         ThrowIfNull(request);
 
         // TODO: implement
-        // TODO: add event owner
         // TODO: ask and add distributed locking
 
         return await Task.FromResult(new Success());

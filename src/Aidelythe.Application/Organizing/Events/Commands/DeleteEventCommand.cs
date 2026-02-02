@@ -13,11 +13,18 @@ public sealed class DeleteEventCommand : IRequest<DeleteEventResult>
     public Guid Id { get; }
 
     /// <summary>
+    /// Gets the unique identifier of the user deleting the event.
+    /// </summary>
+    public Guid UserId { get; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DeleteEventCommand"/> class.
     /// </summary>
     /// <param name="id">The unique identifier of the event.</param>
-    public DeleteEventCommand(Guid id)
+    /// <param name="userId">The unique identifier of the user deleting the event.</param>
+    public DeleteEventCommand(Guid id, Guid userId)
     {
         Id = id;
+        UserId = userId;
     }
 }

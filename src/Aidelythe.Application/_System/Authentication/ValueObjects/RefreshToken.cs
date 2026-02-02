@@ -10,7 +10,7 @@ public sealed record RefreshToken
     /// </summary>
     public const int MaximumLength = 128;
 
-    // TODO: enforce
+    // TODO: enforce rules
 
     /// <summary>
     /// Gets the refresh token value.
