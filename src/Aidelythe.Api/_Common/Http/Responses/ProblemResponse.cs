@@ -68,6 +68,7 @@ public abstract class ProblemResponse
             404 => "Not Found",
             409 => "Conflict",
             422 => "Unprocessable Entity",
+            429 => "Too Many Requests",
             _ => throw new ArgumentOutOfRangeException(nameof(status), status, message: null)
         };
     }

@@ -36,4 +36,7 @@
     <data name="Forbidden" xml:space="preserve">
         <value>https://tools.ietf.org/html/rfc9110#section-15.5.4</value>
     </data>
+    <data name="TooManyRequests" xml:space="preserve">
+        <value>https://www.rfc-editor.org/rfc/rfc6585#section-4</value>
+    </data>
 </root>

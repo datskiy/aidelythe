@@ -64,8 +64,9 @@ public static class ServiceCollectionExtensions
             HttpHeaders.WwwAuthenticate,
             BuildAuthenticationHeaderValue(challengeContext));
 
-        return response.WriteAsJsonAsync(new UnauthorizedResponse(
-            challengeContext.HttpContext.TraceIdentifier));
+        return response.WriteAsJsonAsync(
+            new UnauthorizedResponse(challengeContext.HttpContext.TraceIdentifier),
+            challengeContext.HttpContext.RequestAborted);
     }
 
     private static Task OverrideForbiddenResponseAsync(ForbiddenContext forbiddenContext)
@@ -73,8 +74,9 @@ public static class ServiceCollectionExtensions
         var response = forbiddenContext.Response;
         response.StatusCode = StatusCodes.Status403Forbidden;
 
-        return response.WriteAsJsonAsync(new ForbiddenResponse(
-            forbiddenContext.HttpContext.TraceIdentifier));
+        return response.WriteAsJsonAsync(
+            new ForbiddenResponse(forbiddenContext.HttpContext.TraceIdentifier),
+            forbiddenContext.HttpContext.RequestAborted);
     }
 
     private static string BuildAuthenticationHeaderValue(JwtBearerChallengeContext challengeContext)

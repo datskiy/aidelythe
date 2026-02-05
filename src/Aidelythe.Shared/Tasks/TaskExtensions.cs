@@ -15,4 +15,19 @@ public static class TaskExtensions
     {
         return Task.FromResult(value);
     }
+
+    /// <summary>
+    /// Converts the specified task into a value task.
+    /// </summary>
+    /// <param name="task">The task to be converted to a value task.</param>
+    /// <returns>
+    /// A value task representing the same asynchronous operation as the original task.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">The <paramref name="task"/> is null.</exception>
+    public static ValueTask ToValueTask(this Task task)
+    {
+        ThrowIfNull(task);
+
+        return new ValueTask(task);
+    }
 }

@@ -76,9 +76,7 @@ public abstract record Address
     /// <param name="city">The city name of the address.</param>
     /// <param name="postalCode">The postal or ZIP code of the address.</param>
     /// <param name="street">The street name of the address.</param>
-    /// <exception cref="ArgumentNullException">
-    /// The <paramref name="country"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="country"/> is null.</exception>
     protected Address(
         string country,
         string? region,

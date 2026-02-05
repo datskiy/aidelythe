@@ -1,4 +1,6 @@
+using Aidelythe.Api._Common.Hosting;
 using Aidelythe.Api._System.Authentication;
+using Aidelythe.Api._System.Bandwidth;
 using Aidelythe.Api._System.Composition;
 using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
@@ -23,9 +25,9 @@ try
     services.AddHttpPipeline();
     services.AddJwtAuthentication();
     services.AddAuthorization();
+    services.AddRateLimiting();
     services.AddValidation();
     services.AddMediator();
-    services.AddOpenApi();
     services.AddSerilog();
     services.AddApiSpecification();
 
@@ -34,6 +36,7 @@ try
     app.UseLocalization();
     app.UseAuthentication();
     app.UseAuthorization();
+    app.WhenNotDevelopment(a => a.UseRateLimiter());
     app.UseRequestLogging();
     app.MapControllers();
     app.MapOpenApi();

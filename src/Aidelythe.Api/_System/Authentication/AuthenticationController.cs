@@ -88,6 +88,7 @@ public sealed class AuthenticationController : AnonymousApiController
         [FromBody] LoginRequest request,
         CancellationToken cancellationToken)
     {
+        // TODO: add failed login attempts limit
         var command = request.ToCommand();
         var result = await _mediator.Send(command, cancellationToken);
 

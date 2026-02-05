@@ -4,5 +4,5 @@ namespace Aidelythe.Application._Common.Sorting;
 /// Represents a query to sort a field.
 /// </summary>
 /// <param name="PropertyName">The name of the property to be used for sorting.</param>
-/// <param name="IsDescending">A boolean indicating if the sorting is descending.</param>
+/// <param name="IsDescending">A boolean indicating whether the sorting is descending.</param>
 public readonly record struct SortFieldQuery(string PropertyName, bool IsDescending);

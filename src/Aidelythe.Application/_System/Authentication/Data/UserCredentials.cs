@@ -35,9 +35,7 @@ public sealed class UserCredentials
     /// <param name="email">The email address of the user.</param>
     /// <param name="phoneNumber">The phone number of the user.</param>
     /// <param name="passwordHash">The hashed password of the user.</param>
-    /// <exception cref="ArgumentNullException">
-    /// The <paramref name="passwordHash"/> is null.
-    /// </exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="passwordHash"/> is null.</exception>
     /// <exception cref="ArgumentException">
     /// Both <paramref name="email"/> and <paramref name="phoneNumber"/> are null.
     /// </exception>

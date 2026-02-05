@@ -80,5 +80,11 @@ namespace Aidelythe.Api._Common.Http.Resources {
                 return ResourceManager.GetString("Forbidden", resourceCulture);
             }
         }
+        
+        internal static string TooManyRequests {
+            get {
+                return ResourceManager.GetString("TooManyRequests", resourceCulture);
+            }
+        }
     }
 }

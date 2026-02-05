@@ -8,8 +8,6 @@ namespace Aidelythe.Api._System.Monitoring;
 [Route("ping")]
 public sealed class PingController : AnonymousApiController
 {
-    // TODO: add rate limiting and IP blocking
-
     /// <summary>
     /// Sends a simple ping request to verify the service is responsive.
     /// </summary>

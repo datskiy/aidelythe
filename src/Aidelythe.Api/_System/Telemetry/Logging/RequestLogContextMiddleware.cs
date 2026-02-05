@@ -1,4 +1,5 @@
 using Aidelythe.Api._System.Authentication.Services;
+using Aidelythe.Shared.Guards;
 
 namespace Aidelythe.Api._System.Telemetry.Logging;
 
@@ -38,13 +39,13 @@ public sealed class RequestLogContextMiddleware
         ThrowIfNull(httpContext);
         ThrowIfNull(userSessionContextAccessor);
 
-        var clientIp = httpContext.Connection.RemoteIpAddress?.ToString();
-        var userId = userSessionContextAccessor.UserSessionContext?.UserId.ToString();
-        var userSessionId = userSessionContextAccessor.UserSessionContext?.UserSessionId.ToString();
+        var clientIp = httpContext.Connection.RemoteIpAddress.ThrowIfNull();
+        var userId = userSessionContextAccessor.UserSessionContext?.UserId;
+        var userSessionId = userSessionContextAccessor.UserSessionContext?.UserSessionId;
 
-        using (LogContext.PushProperty("ClientIp", clientIp, destructureObjects: false))
-        using (LogContext.PushProperty("UserId", userId, destructureObjects: false))
-        using (LogContext.PushProperty("UserSessionId", userSessionId, destructureObjects: false))
+        using (LogContext.PushProperty("ClientIp", $"{clientIp}", destructureObjects: false))
+        using (LogContext.PushProperty("UserId", $"{userId}", destructureObjects: false))
+        using (LogContext.PushProperty("UserSessionId", $"{userSessionId}", destructureObjects: false))
         {
             await _next(httpContext);
         }
