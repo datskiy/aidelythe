@@ -14,8 +14,6 @@ public sealed class SortingScheme : IReadOnlyCollection<SortingRule>
     /// </summary>
     public int Count => _sortingRules.Count;
 
-    // TODO: enforce rules
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SortingScheme"/> class.
     /// </summary>

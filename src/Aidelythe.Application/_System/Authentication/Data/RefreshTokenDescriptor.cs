@@ -5,7 +5,7 @@ namespace Aidelythe.Application._System.Authentication.Data;
 /// <summary>
 /// Represents a refresh token descriptor.
 /// </summary>
-public readonly record struct RefreshTokenDescriptor
+public sealed record RefreshTokenDescriptor
 {
     /// <summary>
     /// Gets the refresh token.
@@ -23,12 +23,14 @@ public readonly record struct RefreshTokenDescriptor
     public DateTime ExpiresAt { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RefreshTokenDescriptor"/> struct.
+    /// Initializes a new instance of the <see cref="RefreshTokenDescriptor"/> class.
     /// </summary>
     /// <param name="token">The refresh token.</param>
     /// <param name="hash">The hashed refresh token.</param>
     /// <param name="expiresAt">The date and time when the refresh token expires.</param>
-    /// <exception cref="ArgumentNullException">The <paramref name="token"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="token"/> or <paramref name="hash"/> is null.
+    /// </exception>
     /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
     public RefreshTokenDescriptor(
         RefreshToken token,

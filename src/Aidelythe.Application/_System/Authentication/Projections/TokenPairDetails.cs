@@ -31,11 +31,19 @@ public sealed class TokenPairDetails
     /// </summary>
     /// <param name="refreshTokenDescriptor">The refresh token descriptor.</param>
     /// <param name="accessTokenDescriptor">The access token descriptor.</param>
-    /// <returns></returns>
+    /// <returns>
+    /// The details of a token pair.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="refreshTokenDescriptor"/> or <paramref name="accessTokenDescriptor"/> is null.
+    /// </exception>
     public static TokenPairDetails Create(
         RefreshTokenDescriptor refreshTokenDescriptor,
         AccessTokenDescriptor accessTokenDescriptor)
     {
+        ThrowIfNull(refreshTokenDescriptor);
+        ThrowIfNull(accessTokenDescriptor);
+
         var refreshTokenDetails = new TokenDetails(
             refreshTokenDescriptor.Token.Value,
             refreshTokenDescriptor.ExpiresAt.GetSecondsUntilNowUtc());

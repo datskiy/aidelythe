@@ -1,15 +1,12 @@
+using Aidelythe.Shared.ValueObjects;
+
 namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
 /// Represents a hashed refresh token.
 /// </summary>
-public sealed record RefreshTokenHash
+public sealed record RefreshTokenHash : SecureValueString
 {
-    /// <summary>
-    /// Gets the hashed refresh token value.
-    /// </summary>
-    public string Value { get; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshTokenHash"/> class.
     /// </summary>
@@ -17,16 +14,7 @@ public sealed record RefreshTokenHash
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    public RefreshTokenHash(string value)
+    public RefreshTokenHash(string value) : base(value)
     {
-        ThrowIfNullOrWhiteSpace(value);
-
-        Value = value;
-    }
-
-    /// <inheritdoc/>
-    public override string ToString() // TODO: mb make a base class for such types?
-    {
-        return $"[{nameof(RefreshTokenHash)}_REDACTED]";
     }
 }

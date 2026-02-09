@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.Text.RegularExpressions"/>
     </ItemGroup>

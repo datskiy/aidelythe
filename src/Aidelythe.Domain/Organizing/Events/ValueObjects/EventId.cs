@@ -4,10 +4,22 @@ namespace Aidelythe.Domain.Organizing.Events.ValueObjects;
 /// Represents the unique identifier of an event.
 /// </summary>
 /// <param name="Value">The unique identifier of the event.</param>
-public readonly record struct EventId(Guid Value)
+public readonly record struct EventId(Guid Value) // TODO: switch to source generator
 {
-    public static implicit operator Guid(EventId id)
+    /// <summary>
+    /// Generates a new unique identifier of an event.
+    /// </summary>
+    /// <returns>
+    /// A unique identifier of an event.
+    /// </returns>
+    public static EventId New()
     {
-        return id.Value;
+        return new EventId(Guid.CreateVersion7());
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"{Value}";
     }
 }

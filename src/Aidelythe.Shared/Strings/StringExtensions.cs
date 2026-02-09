@@ -9,7 +9,7 @@ public static class StringExtensions // TODO: cover with unit tests and test edg
     /// Masks the middle part of the string with a fixed number of mask characters,
     /// revealing only the beginning and (optionally) the ending.
     /// </summary>
-    /// <param name="value">The string to be masked.</param>
+    /// <param name="str">The string to be masked.</param>
     /// <param name="visiblePrefixLength">The number of characters to keep at the beginning.</param>
     /// <param name="visibleSuffixLength">The number of characters to keep at the ending when length allows.</param>
     /// <param name="maskChar">The character to use as the mask.</param>
@@ -23,7 +23,7 @@ public static class StringExtensions // TODO: cover with unit tests and test edg
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
     public static string MaskMiddle(
-        this string? value,
+        this string? str,
         int visiblePrefixLength = 3,
         int visibleSuffixLength = 3,
         char maskChar = '*',
@@ -33,15 +33,15 @@ public static class StringExtensions // TODO: cover with unit tests and test edg
         ThrowIfNegative(visibleSuffixLength);
         ThrowIfNegativeOrZero(maskCount);
 
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(str))
             return string.Empty;
 
         var mask = new string(maskChar, maskCount);
 
-        if (value.Length >= visiblePrefixLength + visibleSuffixLength)
-            return $"{value[..visiblePrefixLength]}{mask}{value[^visibleSuffixLength..]}";
+        if (str.Length >= visiblePrefixLength + visibleSuffixLength)
+            return $"{str[..visiblePrefixLength]}{mask}{str[^visibleSuffixLength..]}";
 
-        var visible = value[..Math.Min(visiblePrefixLength, value.Length)];
+        var visible = str[..Math.Min(visiblePrefixLength, str.Length)];
         return visible + mask;
     }
 
@@ -49,7 +49,7 @@ public static class StringExtensions // TODO: cover with unit tests and test edg
     /// Masks the ending of a string with a fixed number of mask characters,
     /// revealing only the beginning.
     /// </summary>
-    /// <param name="value">The string to be masked.</param>
+    /// <param name="str">The string to be masked.</param>
     /// <param name="visiblePrefixLength">The number of characters to keep at the beginning.</param>
     /// <param name="maskChar">The character to use as the mask.</param>
     /// <param name="maskCount">The number of mask characters to insert.</param>
@@ -61,12 +61,12 @@ public static class StringExtensions // TODO: cover with unit tests and test edg
     /// The <paramref name="visiblePrefixLength"/> is negative.</exception>
     /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
     public static string MaskEnding(
-        this string? value,
+        this string? str,
         int visiblePrefixLength = 3,
         char maskChar = '*',
         int maskCount = 5)
     {
-        return value.MaskMiddle(visiblePrefixLength, visibleSuffixLength: 0, maskChar, maskCount);
+        return str.MaskMiddle(visiblePrefixLength, visibleSuffixLength: 0, maskChar, maskCount);
     }
 }
 

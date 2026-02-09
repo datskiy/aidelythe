@@ -20,8 +20,6 @@ public sealed class PagingScheme
     /// </summary>
     public const int MaximumLimitValue = 50;
 
-    // TODO: enforce rules
-
     /// <summary>
     /// Gets the offset of the page.
     /// </summary>
@@ -37,8 +35,19 @@ public sealed class PagingScheme
     /// </summary>
     /// <param name="offset">The offset of the page.</param>
     /// <param name="limit">The limit of the page.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="offset"/> is less than <see cref="MinimumOffsetValue"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="limit"/> is less than <see cref="MinimumLimitValue"/> or
+    /// greater than <see cref="MaximumLimitValue"/>.
+    /// </exception>
     public PagingScheme(int offset, int limit)
     {
+        ThrowIfLessThan(offset, MinimumOffsetValue);
+        ThrowIfLessThan(limit, MinimumLimitValue);
+        ThrowIfGreaterThan(limit, MaximumLimitValue);
+
         Offset = offset;
         Limit = limit;
     }

@@ -1,7 +1,7 @@
 using Aidelythe.Api._System.Authentication.Resources;
 using Aidelythe.Application._Common.Discriminants;
 using Aidelythe.Application._System.Authentication.Discriminants;
-using Aidelythe.Shared.Unions;
+using Aidelythe.Shared.DiscriminatedUnion;
 
 namespace Aidelythe.Api._System.Authentication.Mappers;
 
@@ -22,7 +22,7 @@ public static class AuthenticationProblemDetailsMapper
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="discriminant"/> is null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// The provided discriminant does not match a recognized type.
+    /// The <paramref name="discriminant"/> does not match a recognized type.
     /// </exception>
     public static string ToProblemDetails<TDiscriminant>(this TDiscriminant discriminant)
         where TDiscriminant : IDiscriminant

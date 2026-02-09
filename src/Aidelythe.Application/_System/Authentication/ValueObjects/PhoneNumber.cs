@@ -1,9 +1,12 @@
+using Aidelythe.Shared.RegularExpressions;
+using Aidelythe.Shared.ValueObjects;
+
 namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
 /// Represents a phone number.
 /// </summary>
-public sealed record PhoneNumber
+public sealed record PhoneNumber : FormattedValueString
 {
     /// <summary>
     /// A regular expression pattern representing the phone number format.
@@ -13,17 +16,7 @@ public sealed record PhoneNumber
     /// <summary>
     /// A regular expression representing the phone number format.
     /// </summary>
-    public static readonly Regex FormatRegex = new(
-        FormatPattern,
-        options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
-        matchTimeout: TimeSpan.FromMilliseconds(100));
-
-    // TODO: enforce rules
-
-    /// <summary>
-    /// Gets the phone number value.
-    /// </summary>
-    public string Value { get; }
+    public static readonly Regex FormatRegex = RegexHelper.CreateConfigured(FormatPattern);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PhoneNumber"/> class.
@@ -32,11 +25,13 @@ public sealed record PhoneNumber
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    public PhoneNumber(string value)
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="value"/> does not match the expected format.
+    /// </exception>
+    public PhoneNumber(string value) : base(
+        value,
+        FormatRegex)
     {
-        ThrowIfNullOrWhiteSpace(value);
-
-        Value = value;
     }
 
     /// <summary>

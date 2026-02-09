@@ -1,4 +1,4 @@
-using Aidelythe.Shared.Unions;
+using Aidelythe.Shared.DiscriminatedUnion;
 
 namespace Aidelythe.Application._Common.Discriminants;
 

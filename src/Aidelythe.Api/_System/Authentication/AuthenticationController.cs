@@ -6,8 +6,8 @@ using Aidelythe.Api._System.Authentication.Responses;
 using Aidelythe.Api._System.Authentication.Services;
 using Aidelythe.Api.Identity;
 using Aidelythe.Application._System.Authentication.Commands;
+using Aidelythe.Shared.DiscriminatedUnion;
 using Aidelythe.Shared.Guards;
-using Aidelythe.Shared.Unions;
 
 namespace Aidelythe.Api._System.Authentication;
 

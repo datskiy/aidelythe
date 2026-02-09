@@ -1,21 +1,16 @@
+using Aidelythe.Shared.ValueObjects;
+
 namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
 /// Represents a refresh token.
 /// </summary>
-public sealed record RefreshToken
+public sealed record RefreshToken : SecureValueString
 {
     /// <summary>
     /// The maximum acceptable length of the refresh token.
     /// </summary>
     public const int MaximumLength = 128;
-
-    // TODO: enforce rules
-
-    /// <summary>
-    /// Gets the refresh token value.
-    /// </summary>
-    public string Value { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshToken"/> class.
@@ -24,16 +19,13 @@ public sealed record RefreshToken
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    public RefreshToken(string value)
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="value"/> is longer than <see cref="MaximumLength"/>.
+    /// </exception>
+    public RefreshToken(string value) : base(
+        value,
+        minimumLength: null,
+        MaximumLength)
     {
-        ThrowIfNullOrWhiteSpace(value);
-
-        Value = value;
-    }
-
-    /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"[{nameof(RefreshToken)}_REDACTED]";
     }
 }

@@ -28,7 +28,7 @@ public interface IPasswordService
     /// The result of the password verification.
     /// </returns>
     /// <exception cref="ArgumentNullException">
-    /// Thrown when either <paramref name="password"/> or <paramref name="passwordHash"/> is null.
+    /// The <paramref name="password"/> or <paramref name="passwordHash"/> is null.
     /// </exception>
     OneOf<Success, SuccessRehashNeeded, Failure> Verify(
         Password password,

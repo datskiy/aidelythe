@@ -1,3 +1,5 @@
+using Aidelythe.Shared.RegularExpressions;
+
 namespace Aidelythe.Api._Common.Sorting;
 
 /// <summary>
@@ -30,8 +32,5 @@ public static class SortByPolicies
     /// <example>
     /// fieldName1:asc,fieldName2:desc
     /// </example>
-    public static readonly Regex FormatRegex = new(
-        FormatPattern,
-        options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
-        matchTimeout: TimeSpan.FromMilliseconds(100));
+    public static readonly Regex FormatRegex = RegexHelper.CreateConfigured(FormatPattern);
 }

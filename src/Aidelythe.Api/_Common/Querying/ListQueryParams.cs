@@ -63,18 +63,18 @@ public abstract class ListQueryParams
         init => _sortBy = NormalizeSortBy(value);
     }
 
-    private static string? NormalizeSearchText(string? value)
+    private static string? NormalizeSearchText(string? searchText)
     {
-        return string.IsNullOrWhiteSpace(value)
+        return string.IsNullOrWhiteSpace(searchText)
             ? null
-            : value.Trim();
+            : searchText.Trim();
     }
     
-    private static string? NormalizeSortBy(string? value)
+    private static string? NormalizeSortBy(string? sortBy)
     {
-        return string.IsNullOrWhiteSpace(value)
+        return string.IsNullOrWhiteSpace(sortBy)
             ? null
-            : value
+            : sortBy
                 .Trim()
                 .Replace(" ", "");
     }

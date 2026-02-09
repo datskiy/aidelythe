@@ -15,7 +15,7 @@ public interface IUserRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="user"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="user"/> is null.</exception>
     Task AddAsync(
         User user,
         CancellationToken cancellationToken);

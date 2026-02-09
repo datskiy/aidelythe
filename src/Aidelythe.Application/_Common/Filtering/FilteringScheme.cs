@@ -10,8 +10,6 @@ public sealed class FilteringScheme
     /// </summary>
     public const int MaximumSearchTextLength = 100;
 
-    // TODO: enforce rules
-
     /// <summary>
     /// Gets the search text used to filter items by matching relevant fields.
     /// </summary>
@@ -24,9 +22,13 @@ public sealed class FilteringScheme
     /// <exception cref="ArgumentException">
     /// The <paramref name="searchText"/> is null, empty, or consists only of white-space characters.
     /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="searchText"/> is longer than <see cref="MaximumSearchTextLength"/>.
+    /// </exception>
     public FilteringScheme(string searchText)
     {
         ThrowIfNullOrWhiteSpace(searchText);
+        ThrowIfLongerThan(searchText, MaximumSearchTextLength);
 
         SearchText = searchText;
     }

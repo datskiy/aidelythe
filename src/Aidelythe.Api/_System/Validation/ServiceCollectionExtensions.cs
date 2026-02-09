@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
 
         services
             .Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true)
-            .AddValidatorsFromAssemblyContaining<Api.AssemblyMarker>();
+            .AddValidatorsFromAssemblyContaining<AssemblyMarker>();
 
         ValidatorOptions.Global.LanguageManager = new ErrorMessageLanguageManager();
 

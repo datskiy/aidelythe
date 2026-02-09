@@ -33,7 +33,7 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// The task result contains the user session associated with the specified refresh token hash,
     /// or null if no such user session exists.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="refreshTokenHash"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="refreshTokenHash"/> is null.</exception>
     Task<UserSession?> GetAsync(
         RefreshTokenHash refreshTokenHash,
         CancellationToken cancellationToken);
@@ -59,7 +59,7 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="userSession"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="userSession"/> is null.</exception>
     Task AddAsync(
         UserSession userSession,
         CancellationToken cancellationToken);
@@ -72,7 +72,7 @@ public interface IUserSessionRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="userSession"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="userSession"/> is null.</exception>
     Task UpdateAsync(
         UserSession userSession,
         CancellationToken cancellationToken);

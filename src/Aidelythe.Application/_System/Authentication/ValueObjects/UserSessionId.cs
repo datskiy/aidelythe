@@ -4,15 +4,15 @@ namespace Aidelythe.Application._System.Authentication.ValueObjects;
 /// Represents the unique identifier of a user session.
 /// </summary>
 /// <param name="Value">The unique identifier of the user session.</param>
-public readonly record struct UserSessionId(Guid Value)
+public readonly record struct UserSessionId(Guid Value) // TODO: switch to source generator
 {
     /// <summary>
-    /// Generates a new unique identifier for a user session.
+    /// Generates a new unique identifier of a user session.
     /// </summary>
     /// <returns>
     /// A unique identifier of a user session.
     /// </returns>
-    public static UserSessionId New() // TODO: unify all value objects, mb they need some base class, mb not..?
+    public static UserSessionId New()
     {
         return new UserSessionId(Guid.CreateVersion7());
     }
@@ -20,11 +20,6 @@ public readonly record struct UserSessionId(Guid Value)
     /// <inheritdoc/>
     public override string ToString()
     {
-        return Value.ToString();
-    }
-
-    public static implicit operator Guid(UserSessionId id)
-    {
-        return id.Value;
+        return $"{Value}";
     }
 }

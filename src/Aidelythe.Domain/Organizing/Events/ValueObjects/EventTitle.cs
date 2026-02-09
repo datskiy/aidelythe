@@ -1,20 +1,31 @@
+using Aidelythe.Shared.ValueObjects;
+
 namespace Aidelythe.Domain.Organizing.Events.ValueObjects;
 
 /// <summary>
 /// Represents the title of an event.
 /// </summary>
-/// <param name="Value">The title of the event.</param>
-public readonly record struct EventTitle(string Value)
+public sealed record EventTitle : ValueString
 {
     /// <summary>
     /// The maximum acceptable length of the title.
     /// </summary>
     public const int MaximumLength = 100;
 
-    // TODO: enforce rules
-
-    public static implicit operator string(EventTitle title) // TODO: make in base class?
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventTitle"/> class.
+    /// </summary>
+    /// <param name="value">The title of the event.</param>
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="value"/> is longer than <see cref="MaximumLength"/>.
+    /// </exception>
+    public EventTitle(string value) : base(
+        value,
+        minimumLength: null,
+        MaximumLength)
     {
-        return title.Value;
     }
 }

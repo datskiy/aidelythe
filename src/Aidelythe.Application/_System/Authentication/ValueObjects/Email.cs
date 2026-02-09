@@ -1,9 +1,12 @@
+using Aidelythe.Shared.RegularExpressions;
+using Aidelythe.Shared.ValueObjects;
+
 namespace Aidelythe.Application._System.Authentication.ValueObjects;
 
 /// <summary>
 /// Represents an email address.
 /// </summary>
-public sealed record Email
+public sealed record Email : FormattedValueString
 {
     /// <summary>
     /// The maximum acceptable length of the email address.
@@ -18,17 +21,7 @@ public sealed record Email
     /// <summary>
     /// A regular expression representing the email address format.
     /// </summary>
-    public static readonly Regex FormatRegex = new(
-        FormatPattern,
-        options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
-        matchTimeout: TimeSpan.FromMilliseconds(100));
-
-    // TODO: enforce rules
-
-    /// <summary>
-    /// Gets the email address value.
-    /// </summary>
-    public string Value { get; }
+    public static readonly Regex FormatRegex = RegexHelper.CreateConfigured(FormatPattern);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Email"/> class.
@@ -37,11 +30,15 @@ public sealed record Email
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    public Email(string value)
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="value"/> does not match the expected format.
+    /// </exception>
+    public Email(string value) : base(
+        value,
+        FormatRegex,
+        minimumLength: null,
+        MaximumLength)
     {
-        ThrowIfNullOrWhiteSpace(value);
-
-        Value = value;
     }
 
     /// <summary>

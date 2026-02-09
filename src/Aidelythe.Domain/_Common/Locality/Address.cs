@@ -1,3 +1,5 @@
+using Aidelythe.Shared.RegularExpressions;
+
 namespace Aidelythe.Domain._Common.Locality;
 
 /// <summary>
@@ -36,12 +38,7 @@ public abstract record Address
     /// <example>
     /// 13-37
     /// </example>
-    public static readonly Regex PostalCodeFormatRegex = new(
-        PostalCodeFormatPattern,
-        options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.NonBacktracking,
-        matchTimeout: TimeSpan.FromMilliseconds(100));
-
-    // TODO: enforce rules
+    public static readonly Regex PostalCodeFormatRegex = RegexHelper.CreateConfigured(PostalCodeFormatPattern);
 
     /// <summary>
     /// Gets the country name of the address.
@@ -76,7 +73,26 @@ public abstract record Address
     /// <param name="city">The city name of the address.</param>
     /// <param name="postalCode">The postal or ZIP code of the address.</param>
     /// <param name="street">The street name of the address.</param>
-    /// <exception cref="ArgumentNullException">The <paramref name="country"/> is null.</exception>
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="country"/> is null, empty, or consists only of white-space characters.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="region"/>, <paramref name="city"/>, <paramref name="postalCode"/>
+    /// or <paramref name="street"/> is empty, or consists only of white-space characters.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// The <paramref name="postalCode"/> does not match the expected format.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="country"/>, <paramref name="region"/> or <paramref name="city"/>
+    /// is longer than <see cref="MaximumAreaNameLength"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="postalCode"/> is longer than <see cref="MaximumPostalCodeLength"/>
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="street"/> is longer than <see cref="MaximumStreetNameLength"/>.
+    /// </exception>
     protected Address(
         string country,
         string? region,
@@ -84,7 +100,33 @@ public abstract record Address
         string? postalCode,
         string? street)
     {
-        ThrowIfNull(country);
+        ThrowIfNullOrWhiteSpace(country);
+        ThrowIfLongerThan(country, MaximumAreaNameLength);
+
+        if (region is not null)
+        {
+            ThrowIfNullOrWhiteSpace(region);
+            ThrowIfLongerThan(region, MaximumAreaNameLength);
+        }
+
+        if (city is not null)
+        {
+            ThrowIfNullOrWhiteSpace(city);
+            ThrowIfLongerThan(city, MaximumAreaNameLength);
+        }
+
+        if (postalCode is not null)
+        {
+            ThrowIfNullOrWhiteSpace(postalCode);
+            ThrowIfLongerThan(postalCode, MaximumPostalCodeLength);
+            ThrowIfInvalidFormat(postalCode, PostalCodeFormatRegex);
+        }
+
+        if (street is not null)
+        {
+            ThrowIfNullOrWhiteSpace(street);
+            ThrowIfLongerThan(street, MaximumStreetNameLength);
+        }
 
         Country = country;
         Region = region;

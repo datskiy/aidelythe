@@ -4,15 +4,15 @@ namespace Aidelythe.Domain.Identity.Users.ValueObjects;
 /// Represents the unique identifier of a user.
 /// </summary>
 /// <param name="Value">The unique identifier of the user.</param>
-public readonly record struct UserId(Guid Value)
+public readonly record struct UserId(Guid Value) // TODO: switch to source generator
 {
     /// <summary>
-    /// Generates a new unique identifier for a user.
+    /// Generates a new unique identifier of a user.
     /// </summary>
     /// <returns>
     /// A unique identifier of a user.
     /// </returns>
-    public static UserId New() // TODO: unify all value objects, mb they need some base class, mb not..?
+    public static UserId New()
     {
         return new UserId(Guid.CreateVersion7());
     }
@@ -20,11 +20,6 @@ public readonly record struct UserId(Guid Value)
     /// <inheritdoc/>
     public override string ToString()
     {
-        return Value.ToString();
-    }
-
-    public static implicit operator Guid(UserId id)
-    {
-        return id.Value;
+        return $"{Value}";
     }
 }

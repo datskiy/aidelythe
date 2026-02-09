@@ -68,7 +68,7 @@ public sealed class LogoutAllHandler : IRequestHandler<LogoutAllCommand>
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation(
-            "User {UserId} successfully logged out of all {SessionCount} sessions",
+            "User {UserId} successfully logged out of {SessionCount} sessions",
             userId,
             userSessionCount);
     }

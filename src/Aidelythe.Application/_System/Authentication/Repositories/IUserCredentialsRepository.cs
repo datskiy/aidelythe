@@ -16,7 +16,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a value indicating whether a user exists with the specified email or phone number.
+    /// The task result contains a boolean indicating whether a user exists with the specified email or phone number.
     /// </returns>
     /// <exception cref="ArgumentException">
     /// Both <paramref name="email"/> and <paramref name="phoneNumber"/> are null.
@@ -36,7 +36,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// The task result contains the user credentials token associated with the specified email address,
     /// or null if no such user credentials exist.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="email"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="email"/> is null.</exception>
     Task<UserCredentials?> GetAsync(
         Email email,
         CancellationToken cancellationToken);
@@ -51,7 +51,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// The task result contains the user credentials token associated with the specified phone number,
     /// or null if no such user credentials exist.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="phoneNumber"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="phoneNumber"/> is null.</exception>
     Task<UserCredentials?> GetAsync(
         PhoneNumber phoneNumber,
         CancellationToken cancellationToken);
@@ -64,7 +64,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="userCredentials"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="userCredentials"/> is null.</exception>
     Task AddAsync(
         UserCredentials userCredentials,
         CancellationToken cancellationToken);
@@ -77,7 +77,7 @@ public interface IUserCredentialsRepository // TODO: use GenericRepository
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="userCredentials"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">The <paramref name="userCredentials"/> is null.</exception>
     Task UpdateAsync(
         UserCredentials userCredentials,
         CancellationToken cancellationToken);
