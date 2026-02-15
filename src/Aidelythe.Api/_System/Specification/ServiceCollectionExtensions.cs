@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
                 const string jwtBearerScheme = JwtBearerDefaults.AuthenticationScheme;
 
                 document.Components ??= new OpenApiComponents();
+                document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
                 document.Components.SecuritySchemes[jwtBearerScheme] =
                     new OpenApiSecurityScheme
                     {
@@ -33,19 +34,10 @@ public static class ServiceCollectionExtensions
                         Description = "JWT Bearer authentication"
                     };
 
-                document.SecurityRequirements.Add(new OpenApiSecurityRequirement
+                document.Security ??= new List<OpenApiSecurityRequirement>();
+                document.Security.Add(new OpenApiSecurityRequirement
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Id = jwtBearerScheme,
-                                Type = ReferenceType.SecurityScheme
-                            }
-                        },
-                        []
-                    }
+                    [new OpenApiSecuritySchemeReference(jwtBearerScheme, document)] = []
                 });
 
                 return Task.CompletedTask;

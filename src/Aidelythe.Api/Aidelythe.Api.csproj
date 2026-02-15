@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>5ca1c6c2-9f73-4a16-9650-91b83b9172e0</UserSecretsId>
@@ -9,14 +9,14 @@
 
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="12.1.1" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
         <PackageReference Include="MediatR" Version="12.5.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.3" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
         <PackageReference Include="OneOf" Version="3.0.271" />
-        <PackageReference Include="Riok.Mapperly" Version="4.3.0-next.3" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.11.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+        <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.12.40" />
+        <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
     </ItemGroup>
 
@@ -33,7 +33,7 @@
         <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
         <Using Include="Microsoft.AspNetCore.RateLimiting"/>
         <Using Include="Microsoft.IdentityModel.Tokens"/>
-        <Using Include="Microsoft.OpenApi.Models"/>
+        <Using Include="Microsoft.OpenApi"/>
         <Using Include="OneOf"/>
         <Using Include="Riok.Mapperly.Abstractions"/>
         <Using Include="Serilog"/>
