@@ -8,12 +8,12 @@ namespace Aidelythe.Api._System.Validation;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds validation services to the specified <see cref="IServiceCollection"/>,
+    /// Adds validation services to the specified service collection
     /// and configures global validation options.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
     /// <returns>
-    /// The <see cref="IServiceCollection"/> with validation services added and configured.
+    /// The service collection with validation services added and configured.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
     public static IServiceCollection AddValidation(this IServiceCollection services)
@@ -25,7 +25,6 @@ public static class ServiceCollectionExtensions
             .AddValidatorsFromAssemblyContaining<AssemblyMarker>();
 
         ValidatorOptions.Global.LanguageManager = new ErrorMessageLanguageManager();
-
         ValidatorOptions.Global.PropertyNameResolver = (_, memberInfo, _) =>
             JsonPropertyNameHelper.TryResolve(memberInfo);
 

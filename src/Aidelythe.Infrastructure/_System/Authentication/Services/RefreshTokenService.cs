@@ -3,6 +3,7 @@ using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
+using Aidelythe.Infrastructure._Common.Settings;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -13,31 +14,36 @@ public sealed class RefreshTokenService : IRefreshTokenService
 {
     private readonly IUserSessionRepository _userSessionRepository;
 
+    private readonly RefreshTokenSettings _refreshTokenSettings;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshTokenService"/> class.
     /// </summary>
     /// <param name="userSessionRepository">The instance of <see cref="IUserSessionRepository"/>.</param>
-    /// <exception cref="ArgumentNullException">The <paramref name="userSessionRepository"/> is null.</exception>
-    public RefreshTokenService(IUserSessionRepository userSessionRepository)
+    /// <param name="refreshTokenOptions">The instance of <see cref="IOptions{RefreshTokenSettings}"/>.</param>
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="userSessionRepository"/> or <paramref name="refreshTokenOptions"/> is null.
+    /// </exception>
+    public RefreshTokenService(
+        IUserSessionRepository userSessionRepository,
+        IOptions<RefreshTokenSettings> refreshTokenOptions)
     {
         ThrowIfNull(userSessionRepository);
+        ThrowIfNull(refreshTokenOptions);
 
         _userSessionRepository = userSessionRepository;
+        _refreshTokenSettings = refreshTokenOptions.Value;
     }
 
     /// <inheritdoc/>
     public RefreshTokenDescriptor Generate()
     {
-        // TODO: get from config as options
-        var byteCount = 64;
-        var expiresIn = 1209600;
-
-        var tokenBytes = RandomNumberGenerator.GetBytes(byteCount);
+        var tokenBytes = RandomNumberGenerator.GetBytes(_refreshTokenSettings.ByteCount);
         var token = Convert.ToBase64String(tokenBytes);
         var refreshToken = new RefreshToken(token);
 
         var refreshTokenHash = HashToken(tokenBytes);
-        var expiresAt = DateTime.UtcNow.AddSeconds(expiresIn);
+        var expiresAt = DateTime.UtcNow.AddSeconds(_refreshTokenSettings.ExpiresInSeconds);
 
         return new RefreshTokenDescriptor(
             refreshToken,

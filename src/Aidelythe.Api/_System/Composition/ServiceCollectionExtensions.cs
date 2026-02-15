@@ -14,11 +14,11 @@ namespace Aidelythe.Api._System.Composition;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds composition services to the specified <see cref="IServiceCollection"/>.
+    /// Adds composition services to the specified service collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
     /// <returns>
-    /// The <see cref="IServiceCollection"/> with composition services added.
+    /// The service collection with composition services added.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
     public static IServiceCollection AddComposition(this IServiceCollection services)

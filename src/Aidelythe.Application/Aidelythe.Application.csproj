@@ -18,6 +18,7 @@
         <Using Include="MediatR"/>
         <Using Include="Microsoft.Extensions.Logging"/>
         <Using Include="OneOf"/>
+        <Using Include="System.ArgumentException" Static="True"/>
         <Using Include="System.ArgumentNullException" Static="True"/>
         <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
         <Using Include="System.Collections"/>

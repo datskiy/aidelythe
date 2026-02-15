@@ -1,5 +1,8 @@
+using Aidelythe.Api._Common.Configuration;
 using Aidelythe.Api._Common.Http.Metadata;
 using Aidelythe.Api._Common.Http.Responses;
+using Aidelythe.Infrastructure._Common.Settings;
+using Aidelythe.Shared.Guards;
 
 namespace Aidelythe.Api._System.Authentication;
 
@@ -9,34 +12,41 @@ namespace Aidelythe.Api._System.Authentication;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds JWT authentication services to the specified <see cref="IServiceCollection"/>.
+    /// Adds JWT authentication services to the specified service collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
+    /// <param name="configuration">The application configuration.</param>
     /// <returns>
-    /// The <see cref="IServiceCollection"/> with JWT authentication services added.
+    /// The service collection with JWT authentication services added.
     /// </returns>
-    /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
-    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="services"/> or <paramref name="configuration"/> is null.
+    /// </exception>
+    public static IServiceCollection AddJwtAuthentication(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         ThrowIfNull(services);
+        ThrowIfNull(configuration);
 
-        // TODO: get from config as options
-        var issuer = "Aidelythe";
-        var audience = "Aidelythe";
-        var signingKey = new byte[32];
-        var clockSkew = TimeSpan.FromSeconds(30);
+        var accessTokenSettings = configuration
+            .GetRequiredSection(ConfigurationSections.AccessToken)
+            .Get<AccessTokenSettings>()
+            .ThrowIfNull();
 
         services
             .AddAuthentication(options => options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
+                var signingKey = Convert.FromBase64String(accessTokenSettings.SigningKey);
+
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = issuer,
-                    ValidAudience = audience,
+                    ValidIssuer = accessTokenSettings.Issuer,
+                    ValidAudience = accessTokenSettings.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(signingKey),
-                    ClockSkew = clockSkew,
+                    ClockSkew = TimeSpan.FromSeconds(accessTokenSettings.ClockSkewInSeconds),
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,

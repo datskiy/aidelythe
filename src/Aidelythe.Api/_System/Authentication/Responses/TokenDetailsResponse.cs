@@ -12,7 +12,7 @@ public sealed class TokenDetailsResponse
     public required string Token { get; init; }
 
     /// <summary>
-    /// Gets the token expiration time in seconds.
+    /// Gets the expiration time of the token in seconds.
     /// </summary>
     [JsonPropertyName("expiresIn")]
     public int ExpiresIn { get; init; }

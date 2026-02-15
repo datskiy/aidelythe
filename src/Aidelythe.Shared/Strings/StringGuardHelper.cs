@@ -6,25 +6,6 @@ namespace Aidelythe.Shared.Strings;
 public static class StringGuardHelper
 {
     /// <summary>
-    /// Throws an <see cref="ArgumentException"/> if the specified string is null, empty,
-    /// or consists only of white-space characters.
-    /// </summary>
-    /// <param name="str">The string to validate.</param>
-    /// <param name="paramName">The name of the parameter being validated.
-    /// This will be automatically populated with the calling argument's name.
-    /// </param>
-    /// <exception cref="ArgumentException">
-    /// The <param name="str"/> is null, empty, or consists only of white-space characters.
-    /// </exception>
-    public static void ThrowIfNullOrWhiteSpace(
-        string? str,
-        [CallerArgumentExpression(nameof(str))] string? paramName = null)
-    {
-        if (string.IsNullOrWhiteSpace(str))
-            throw new ArgumentException("The value cannot be null, empty or whitespace.", paramName);
-    }
-
-    /// <summary>
     /// Throws an <see cref="ArgumentOutOfRangeException"/> if the specified string
     /// is shorter than the specified minimum length.
     /// </summary>

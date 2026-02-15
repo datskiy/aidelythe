@@ -8,20 +8,22 @@ namespace Aidelythe.Api._System.Http;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds HTTP pipeline services to the specified <see cref="IServiceCollection"/>.
+    /// Adds HTTP pipeline services to the specified service collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
     /// <returns>
-    /// The <see cref="IMvcBuilder"/> with HTTP pipeline services added.
+    /// The service collection with HTTP pipeline services added.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
-    public static IMvcBuilder AddHttpPipeline(this IServiceCollection services)
+    public static IServiceCollection AddHttpPipeline(this IServiceCollection services)
     {
         ThrowIfNull(services);
 
-        return services.AddControllers(options =>
+        services.AddControllers(options =>
         {
             options.Filters.Add<ValidationFilter>();
         });
+
+        return services;
     }
 }

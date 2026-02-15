@@ -1,3 +1,5 @@
+using Aidelythe.Api._Common.Configuration;
+
 namespace Aidelythe.Api._System.Configuration;
 
 /// <summary>
@@ -18,10 +20,10 @@ public static class ConfigurationInitializer
     /// </exception>
     public static IConfiguration InitializeForCurrentEnvironment()
     {
-        var currentEnvironment = Environment.GetEnvironmentVariable(EnvironmentNames.AspNetCoreEnvironment);
+        var currentEnvironment = Environment.GetEnvironmentVariable(EnvironmentVariables.AspNetCoreEnvironment);
         if (currentEnvironment is null)
             throw new InvalidOperationException(
-                $"{EnvironmentNames.AspNetCoreEnvironment} environment variable is not set.");
+                $"{EnvironmentVariables.AspNetCoreEnvironment} environment variable is not set.");
 
         return new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

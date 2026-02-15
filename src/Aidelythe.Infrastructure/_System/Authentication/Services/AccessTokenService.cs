@@ -3,6 +3,7 @@ using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users.ValueObjects;
+using Aidelythe.Infrastructure._Common.Settings;
 
 namespace Aidelythe.Infrastructure._System.Authentication.Services;
 
@@ -11,16 +12,26 @@ namespace Aidelythe.Infrastructure._System.Authentication.Services;
 /// </summary>
 public sealed class AccessTokenService : IAccessTokenService
 {
+    private readonly AccessTokenSettings _accessTokenSettings;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AccessTokenService"/> class.
+    /// </summary>
+    /// <param name="accessTokenOptions">The instance of <see cref="IOptions{AccessTokenSettings}"/>.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="accessTokenOptions"/> is null.</exception>
+    public AccessTokenService(IOptions<AccessTokenSettings> accessTokenOptions)
+    {
+        ThrowIfNull(accessTokenOptions);
+
+        _accessTokenSettings = accessTokenOptions.Value;
+    }
+
     /// <inheritdoc/>
     public AccessTokenDescriptor Issue(
         UserId userId,
         UserSessionId userSessionId)
     {
-        // TODO: get from config as options
-        var issuer = "Aidelythe";
-        var audience = "Aidelythe";
-        var expiresIn = 20;
-        var signingKey = new byte[32];
+        var signingKey = Convert.FromBase64String(_accessTokenSettings.SigningKey);
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(signingKey),
@@ -33,11 +44,11 @@ public sealed class AccessTokenService : IAccessTokenService
             new Claim(ClaimTypes.Sid, $"{userSessionId}")
         ]);
 
-        var expiresAt = DateTime.UtcNow.AddMinutes(expiresIn);
+        var expiresAt = DateTime.UtcNow.AddSeconds(_accessTokenSettings.ExpiresInSeconds);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Issuer = issuer,
-            Audience = audience,
+            Issuer = _accessTokenSettings.Issuer,
+            Audience = _accessTokenSettings.Audience,
             Subject = subject,
             Expires = expiresAt,
             SigningCredentials = signingCredentials

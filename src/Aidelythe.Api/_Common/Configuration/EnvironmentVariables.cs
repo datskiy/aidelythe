@@ -1,9 +1,9 @@
-namespace Aidelythe.Api._System.Configuration;
+namespace Aidelythe.Api._Common.Configuration;
 
 /// <summary>
 /// Contains environment variable names.
 /// </summary>
-public static class EnvironmentNames
+public static class EnvironmentVariables
 {
     /// <summary>
     /// The ASP.NET Core environment variable name.

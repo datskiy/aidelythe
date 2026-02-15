@@ -1,3 +1,4 @@
+using Aidelythe.Api;
 using Aidelythe.Api._Common.Hosting;
 using Aidelythe.Api._System.Authentication;
 using Aidelythe.Api._System.Bandwidth;
@@ -10,22 +11,26 @@ using Aidelythe.Api._System.Specification;
 using Aidelythe.Api._System.Telemetry.Logging;
 using Aidelythe.Api._System.Validation;
 
-var configuration = ConfigurationInitializer.InitializeForCurrentEnvironment();
-LoggerInitializer.InitializeSerilog(configuration);
+var envConfiguration = ConfigurationInitializer.InitializeForCurrentEnvironment();
+LoggerInitializer.InitializeSerilog(envConfiguration);
 
 try
 {
     Log.Information("Application starting");
 
     var builder = WebApplication.CreateBuilder(args);
-    builder.Configuration.AddConfiguration(configuration);
+
+    var configuration = builder.Configuration;
+    configuration.AddConfiguration(envConfiguration);
+    builder.WhenDevelopment(() => configuration.AddUserSecrets<AssemblyMarker>());
 
     var services = builder.Services;
+    services.AddOptions(configuration);
     services.AddComposition();
     services.AddHttpPipeline();
-    services.AddJwtAuthentication();
+    services.AddJwtAuthentication(configuration);
     services.AddAuthorization();
-    services.AddRateLimiting();
+    services.AddRateLimiting(configuration);
     services.AddValidation();
     services.AddMediator();
     services.AddSerilog();
@@ -36,7 +41,7 @@ try
     app.UseLocalization();
     app.UseAuthentication();
     app.UseAuthorization();
-    app.WhenNotDevelopment(a => a.UseRateLimiter());
+    builder.WhenNotDevelopment(() => app.UseRateLimiter());
     app.UseRequestLogging();
     app.MapControllers();
     app.MapOpenApi();

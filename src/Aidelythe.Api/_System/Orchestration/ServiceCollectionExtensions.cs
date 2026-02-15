@@ -6,11 +6,11 @@ namespace Aidelythe.Api._System.Orchestration;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds mediator services to the specified <see cref="IServiceCollection"/>.
+    /// Adds mediator services to the specified service collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
     /// <returns>
-    /// The <see cref="IServiceCollection"/> with mediator services added.
+    /// The service collection with mediator services added.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
     public static IServiceCollection AddMediator(this IServiceCollection services)

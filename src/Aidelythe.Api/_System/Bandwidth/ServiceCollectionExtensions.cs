@@ -1,5 +1,7 @@
+using Aidelythe.Api._Common.Configuration;
 using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Api._System.Authentication.Services;
+using Aidelythe.Infrastructure._Common.Settings;
 using Aidelythe.Shared.Guards;
 using Aidelythe.Shared.Tasks;
 
@@ -11,22 +13,28 @@ namespace Aidelythe.Api._System.Bandwidth;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds rate limiting services to the specified <see cref="IServiceCollection"/>.
+    /// Adds rate-limiting services to the specified service collection.
     /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="services">The service collection to add services to.</param>
+    /// <param name="configuration">The application configuration.</param>
     /// <returns>
-    /// The <see cref="IServiceCollection"/> with rate limiting services added.
+    /// The service collection with rate-limiting services added.
     /// </returns>
-    /// <exception cref="ArgumentNullException">The <paramref name="services"/> is null.</exception>
-    public static IServiceCollection AddRateLimiting(this IServiceCollection services)
+    /// <exception cref="ArgumentNullException">
+    /// The <paramref name="services"/> or <paramref name="configuration"/> is null.
+    /// </exception>
+    public static IServiceCollection AddRateLimiting(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         ThrowIfNull(services);
+        ThrowIfNull(configuration);
 
         return services.AddRateLimiter(options =>
         {
             options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
             options.OnRejected = OverrideRejectionResponse();
-            options.GlobalLimiter = CreateFixedWindowPartitionedRateLimiter();
+            options.GlobalLimiter = CreateFixedWindowPartitionedRateLimiter(configuration);
         });
     }
 
@@ -50,12 +58,13 @@ public static class ServiceCollectionExtensions
         };
     }
 
-    private static PartitionedRateLimiter<HttpContext> CreateFixedWindowPartitionedRateLimiter()
+    private static PartitionedRateLimiter<HttpContext> CreateFixedWindowPartitionedRateLimiter(
+        IConfiguration configuration)
     {
-        // TODO: get from config as options
-        var anonymousPermitLimit = 10;
-        var authenticatedPermitLimit = 30;
-        var windowSize = TimeSpan.FromSeconds(60);
+        var rateLimitingSettings = configuration
+            .GetRequiredSection(ConfigurationSections.RateLimiting)
+            .Get<RateLimitingSettings>()
+            .ThrowIfNull();
 
         return PartitionedRateLimiter.Create<HttpContext, RateLimiterPartitionKey>(httpContext =>
             RateLimitPartition.GetFixedWindowLimiter(
@@ -63,11 +72,11 @@ public static class ServiceCollectionExtensions
                 factory: partition => new FixedWindowRateLimiterOptions
                 {
                     AutoReplenishment = true,
-                    Window = windowSize,
+                    Window = TimeSpan.FromSeconds(rateLimitingSettings.WindowSizeInSeconds),
                     QueueLimit = 0,
                     PermitLimit = partition.IsAuthenticated
-                        ? authenticatedPermitLimit
-                        : anonymousPermitLimit
+                        ? rateLimitingSettings.AuthenticatedPermitLimit
+                        : rateLimitingSettings.AnonymousPermitLimit
                 }));
     }
 
