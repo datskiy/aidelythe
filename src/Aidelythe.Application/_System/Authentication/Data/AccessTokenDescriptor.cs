@@ -5,7 +5,7 @@ namespace Aidelythe.Application._System.Authentication.Data;
 /// <summary>
 /// Represents an access token descriptor.
 /// </summary>
-public sealed record AccessTokenDescriptor
+public sealed class AccessTokenDescriptor
 {
     /// <summary>
     /// Gets the access token.

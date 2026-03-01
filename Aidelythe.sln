@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Shared", "src\Aid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Infrastructure", "src\Aidelythe.Infrastructure\Aidelythe.Infrastructure.csproj", "{1D1C4DD7-CD46-4E06-B138-BFE3C6326E6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Application.Tests", "tests\Aidelythe.Application.Tests\Aidelythe.Application.Tests.csproj", "{EE747C22-6DB5-4700-AE69-A1A26C731724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Infrastructure.Tests", "tests\Aidelythe.Infrastructure.Tests\Aidelythe.Infrastructure.Tests.csproj", "{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,8 @@ Global
 		{59CBD66A-D39B-4F27-BE52-050613347C19} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
 		{74B4250E-492D-4E7A-B986-EC1DC03B8A39} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
 		{1D1C4DD7-CD46-4E06-B138-BFE3C6326E6C} = {AA618E78-2E16-46E6-8287-B8970B3B330D}
+		{EE747C22-6DB5-4700-AE69-A1A26C731724} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
+		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,5 +53,13 @@ Global
 		{1D1C4DD7-CD46-4E06-B138-BFE3C6326E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D1C4DD7-CD46-4E06-B138-BFE3C6326E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D1C4DD7-CD46-4E06-B138-BFE3C6326E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE747C22-6DB5-4700-AE69-A1A26C731724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE747C22-6DB5-4700-AE69-A1A26C731724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE747C22-6DB5-4700-AE69-A1A26C731724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE747C22-6DB5-4700-AE69-A1A26C731724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

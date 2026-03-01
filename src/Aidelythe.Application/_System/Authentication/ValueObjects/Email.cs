@@ -50,11 +50,13 @@ public sealed record Email : FormattedValueString
     /// </returns>
     public static Email? TryParse(string email)
     {
-        return
-            string.IsNullOrWhiteSpace(email) ||
-            email.Length > MaximumLength ||
-            !FormatRegex.IsMatch(email)
-                ? null
-                : new Email(email);
+        try
+        {
+            return new Email(email);
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

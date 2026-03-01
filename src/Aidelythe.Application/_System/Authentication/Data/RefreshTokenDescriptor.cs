@@ -5,7 +5,7 @@ namespace Aidelythe.Application._System.Authentication.Data;
 /// <summary>
 /// Represents a refresh token descriptor.
 /// </summary>
-public sealed record RefreshTokenDescriptor
+public sealed class RefreshTokenDescriptor
 {
     /// <summary>
     /// Gets the refresh token.
