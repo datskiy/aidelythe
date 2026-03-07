@@ -26,6 +26,7 @@ public interface IRefreshTokenService
     /// A task that represents the asynchronous operation.
     /// The task result contains the result of the refresh token validation.
     /// </returns>
+    /// <exception cref="ArgumentNullException">The <paramref name="refreshToken"/> is null.</exception>
     Task<OneOf<UserSession, Expired, NotFound>> ValidateAsync(
         RefreshToken refreshToken,
         CancellationToken cancellationToken);

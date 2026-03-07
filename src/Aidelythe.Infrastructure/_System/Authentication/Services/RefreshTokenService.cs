@@ -56,6 +56,8 @@ public sealed class RefreshTokenService : IRefreshTokenService
         RefreshToken refreshToken,
         CancellationToken cancellationToken)
     {
+        ThrowIfNull(refreshToken);
+
         var tokenBytes = TryGetBytesFromBase64(refreshToken.Value);
         if (tokenBytes is null)
             return new NotFound();
