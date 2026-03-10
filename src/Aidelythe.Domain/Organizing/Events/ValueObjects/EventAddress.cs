@@ -13,15 +13,21 @@ public sealed record EventAddress : Address
     /// <inheritdoc/>
     public EventAddress(
         string country,
-        string? region,
-        string? city,
-        string? postalCode,
-        string? street) : base(
+        string? region = null,
+        string? city = null,
+        string? postalCode = null,
+        string? street = null) : base(
             country,
             region,
             city,
             postalCode,
             street)
     {
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"{Country}, {Region}, {City}, {PostalCode}, {Street}";
     }
 }

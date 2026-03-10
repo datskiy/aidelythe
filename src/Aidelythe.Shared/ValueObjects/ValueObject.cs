@@ -21,10 +21,4 @@ public abstract record ValueObject<T>
 
         Value = value;
     }
-
-    /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"{Value}";
-    }
 }

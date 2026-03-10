@@ -13,13 +13,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Microsoft.Extensions.Options"/>
         <Using Include="NSubstitute"/>
         <Using Include="Xunit"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Aidelythe.Infrastructure\Aidelythe.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Aidelythe.Domain\Aidelythe.Domain.csproj" />
     </ItemGroup>
 
 </Project>

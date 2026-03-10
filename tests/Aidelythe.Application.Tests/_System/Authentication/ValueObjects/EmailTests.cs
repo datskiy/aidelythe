@@ -87,4 +87,17 @@ public sealed class EmailTests
         // Assert
         Assert.True(email is not null);
     }
+
+    [Fact]
+    public void ToString_ShouldReturnEncapsulatedValue()
+    {
+        // Arrange
+        var email = new Email("user@example.com");
+
+        // Act
+        var emailString = email.ToString();
+
+        // Assert
+        Assert.Equal(emailString, email.Value);
+    }
 }

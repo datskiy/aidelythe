@@ -1,24 +1,19 @@
 namespace Aidelythe.Shared.ValueObjects;
 
 /// <summary>
-/// Represents a value object that encapsulates a string with a specific format.
+/// Represents a base value object that encapsulates a plain string.
 /// </summary>
-public abstract record FormattedValueString : PlainValueString
+public abstract record PlainValueString : ValueString
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="FormattedValueString"/> class.
+    /// Initializes a new instance of the <see cref="PlainValueString"/> class.
     /// </summary>
     /// <param name="value">The encapsulated string of the value object.</param>
-    /// <param name="formatRegex">The regular expression representing the expected format.</param>
     /// <param name="minimumLength">The minimum length of the encapsulated string.</param>
     /// <param name="maximumLength">The maximum length of the encapsulated string.</param>
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    /// <exception cref="ArgumentException">
-    /// The <paramref name="value"/> does not match the expected format.
-    /// </exception>
-    /// <exception cref="ArgumentNullException">The <paramref name="formatRegex"/> is null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// The <paramref name="value"/> is shorter than <paramref name="minimumLength"/>
     /// or longer than <paramref name="maximumLength"/>.
@@ -27,35 +22,33 @@ public abstract record FormattedValueString : PlainValueString
     /// <exception cref="ArgumentOutOfRangeException">
     /// The <paramref name="maximumLength"/> is negative or zero.
     /// </exception>
-    protected FormattedValueString(
+    protected PlainValueString(
         string value,
-        Regex formatRegex,
         int? minimumLength,
         int? maximumLength) : base(
-        value,
-        minimumLength,
-        maximumLength)
+            value,
+            minimumLength,
+            maximumLength)
     {
-        ThrowIfNull(formatRegex);
-        ThrowIfInvalidFormat(value, formatRegex);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FormattedValueString"/> class.
+    /// Initializes a new instance of the <see cref="PlainValueString"/> class.
     /// </summary>
     /// <param name="value">The encapsulated string of the value object.</param>
-    /// <param name="formatRegex">The regular expression representing the expected format.</param>
     /// <exception cref="ArgumentException">
     /// The <paramref name="value"/> is null, empty, or consists only of white-space characters.
     /// </exception>
-    /// <exception cref="ArgumentNullException">The <paramref name="formatRegex"/> is null.</exception>
-    protected FormattedValueString(
-        string value,
-        Regex formatRegex) : this(
-            value,
-            formatRegex,
-            minimumLength: null,
-            maximumLength: null)
+    protected PlainValueString(string value) : this(
+        value,
+        minimumLength: null,
+        maximumLength: null)
     {
+    }
+
+    /// <inheritdoc/>
+    public sealed override string ToString()
+    {
+        return $"{Value}";
     }
 }

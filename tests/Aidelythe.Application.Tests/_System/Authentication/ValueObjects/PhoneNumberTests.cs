@@ -74,4 +74,17 @@ public sealed class PhoneNumberTests
         // Assert
         Assert.True(phoneNumber is not null);
     }
+
+    [Fact]
+    public void ToString_ShouldReturnEncapsulatedValue()
+    {
+        // Arrange
+        var phoneNumber = new PhoneNumber("+70123456789");
+
+        // Act
+        var phoneNumberString = phoneNumber.ToString();
+
+        // Assert
+        Assert.Equal(phoneNumberString, phoneNumber.Value);
+    }
 }

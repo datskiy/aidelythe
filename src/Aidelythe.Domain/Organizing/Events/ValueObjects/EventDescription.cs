@@ -5,7 +5,7 @@ namespace Aidelythe.Domain.Organizing.Events.ValueObjects;
 /// <summary>
 /// Represents the description of an event.
 /// </summary>
-public sealed record EventDescription : ValueString
+public sealed record EventDescription : PlainValueString
 {
     /// <summary>
     /// The maximum acceptable length of the description.

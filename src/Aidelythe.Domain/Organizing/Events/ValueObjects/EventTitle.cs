@@ -5,7 +5,7 @@ namespace Aidelythe.Domain.Organizing.Events.ValueObjects;
 /// <summary>
 /// Represents the title of an event.
 /// </summary>
-public sealed record EventTitle : ValueString
+public sealed record EventTitle : PlainValueString
 {
     /// <summary>
     /// The maximum acceptable length of the title.
