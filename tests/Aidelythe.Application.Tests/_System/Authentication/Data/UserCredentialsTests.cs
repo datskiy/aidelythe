@@ -61,7 +61,7 @@ public sealed class UserCredentialsTests
             passwordHash);
 
         // Assert
-        Assert.True(userCredentials is not null);
+        Assert.NotNull(userCredentials);
     }
 
     [Fact]

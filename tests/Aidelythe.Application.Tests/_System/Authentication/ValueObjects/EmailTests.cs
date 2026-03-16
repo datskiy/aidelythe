@@ -59,7 +59,7 @@ public sealed class EmailTests
         var email = new Email(value);
 
         // Assert
-        Assert.True(email is not null);
+        Assert.NotNull(email);
     }
 
     [Fact]
@@ -72,7 +72,7 @@ public sealed class EmailTests
         var email = Email.TryParse(invalidFormatValue);
 
         // Assert
-        Assert.True(email is null);
+        Assert.Null(email);
     }
 
     [Fact]
@@ -85,7 +85,7 @@ public sealed class EmailTests
         var email = Email.TryParse(value);
 
         // Assert
-        Assert.True(email is not null);
+        Assert.NotNull(email);
     }
 
     [Fact]

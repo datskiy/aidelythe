@@ -65,6 +65,6 @@ public sealed class RefreshTokenDescriptorTests
             expiresAtUtc);
 
         // Assert
-        Assert.True(refreshTokenDescriptor is not null);
+        Assert.NotNull(refreshTokenDescriptor);
     }
 }

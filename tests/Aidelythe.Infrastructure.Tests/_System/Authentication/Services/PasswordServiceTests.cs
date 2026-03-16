@@ -31,7 +31,7 @@ public sealed class PasswordServiceTests
         var passwordHash = sut.Hash(password);
 
         // Assert
-        Assert.True(passwordHash is not null);
+        Assert.NotNull(passwordHash);
         Assert.NotEqual(password.Value, passwordHash.Value);
     }
 

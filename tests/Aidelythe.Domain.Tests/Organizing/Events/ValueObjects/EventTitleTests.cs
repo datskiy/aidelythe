@@ -46,7 +46,7 @@ public sealed class EventTitleTests
         var eventTitle = new EventTitle(value);
 
         // Assert
-        Assert.True(eventTitle is not null);
+        Assert.NotNull(eventTitle);
     }
 
     [Fact]

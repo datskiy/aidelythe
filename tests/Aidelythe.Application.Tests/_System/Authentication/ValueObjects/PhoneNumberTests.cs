@@ -46,7 +46,7 @@ public sealed class PhoneNumberTests
         var phoneNumber = new PhoneNumber(value);
 
         // Assert
-        Assert.True(phoneNumber is not null);
+        Assert.NotNull(phoneNumber);
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public sealed class PhoneNumberTests
         var phoneNumber = PhoneNumber.TryParse(invalidFormatValue);
 
         // Assert
-        Assert.True(phoneNumber is null);
+        Assert.Null(phoneNumber);
     }
 
     [Fact]
@@ -72,7 +72,7 @@ public sealed class PhoneNumberTests
         var phoneNumber = PhoneNumber.TryParse(value);
 
         // Assert
-        Assert.True(phoneNumber is not null);
+        Assert.NotNull(phoneNumber);
     }
 
     [Fact]

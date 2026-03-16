@@ -33,7 +33,7 @@ public sealed class PasswordHashTests
         var passwordHash = new PasswordHash(value);
 
         // Assert
-        Assert.True(passwordHash is not null);
+        Assert.NotNull(passwordHash);
     }
 
     [Fact]

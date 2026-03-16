@@ -50,6 +50,6 @@ public sealed class AccessTokenDescriptorTests
             expiresAtUtc);
 
         // Assert
-        Assert.True(accessTokenDescriptor is not null);
+        Assert.NotNull(accessTokenDescriptor);
     }
 }

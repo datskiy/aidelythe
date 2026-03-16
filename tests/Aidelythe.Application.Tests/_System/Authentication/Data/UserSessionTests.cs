@@ -63,7 +63,7 @@ public sealed class UserSessionTests
             expiresAtUtc);
 
         // Assert
-        Assert.True(userSession is not null);
+        Assert.NotNull(userSession);
     }
 
     [Fact]

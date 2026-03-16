@@ -170,7 +170,7 @@ public sealed class EventAddressTests
             street);
 
         // Assert
-        Assert.True(eventAddress is not null);
+        Assert.NotNull(eventAddress);
     }
 
     [Fact]

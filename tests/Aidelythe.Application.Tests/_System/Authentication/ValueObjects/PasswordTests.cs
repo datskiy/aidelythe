@@ -59,7 +59,7 @@ public sealed class PasswordTests
         var password = new Password(value);
 
         // Assert
-        Assert.True(password is not null);
+        Assert.NotNull(password);
     }
 
     [Fact]

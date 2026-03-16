@@ -46,7 +46,7 @@ public sealed class RefreshTokenTests
         var refreshToken = new RefreshToken(value);
 
         // Assert
-        Assert.True(refreshToken is not null);
+        Assert.NotNull(refreshToken);
     }
 
     [Fact]

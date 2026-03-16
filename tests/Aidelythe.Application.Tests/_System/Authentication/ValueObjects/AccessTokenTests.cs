@@ -33,7 +33,7 @@ public sealed class AccessTokenTests
         var accessToken = new AccessToken(value);
 
         // Assert
-        Assert.True(accessToken is not null);
+        Assert.NotNull(accessToken);
     }
 
     [Fact]

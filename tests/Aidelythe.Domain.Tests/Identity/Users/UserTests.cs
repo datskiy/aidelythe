@@ -11,6 +11,6 @@ public sealed class UserTests
         var user = User.Register();
 
         // Assert
-        Assert.True(user is not null);
+        Assert.NotNull(user);
     }
 }

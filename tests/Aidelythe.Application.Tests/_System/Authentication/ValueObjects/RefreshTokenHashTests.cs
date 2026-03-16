@@ -33,7 +33,7 @@ public sealed class RefreshTokenHashTests
         var refreshTokenHash = new RefreshTokenHash(value);
 
         // Assert
-        Assert.True(refreshTokenHash is not null);
+        Assert.NotNull(refreshTokenHash);
     }
 
     [Fact]

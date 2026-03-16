@@ -46,7 +46,7 @@ public sealed class EventDescriptionTests
         var eventDescription = new EventDescription(value);
 
         // Assert
-        Assert.True(eventDescription is not null);
+        Assert.NotNull(eventDescription);
     }
 
     [Fact]

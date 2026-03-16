@@ -19,7 +19,7 @@ public sealed class AccessTokenServiceTests
         var accessTokenDescriptor = sut.Issue(userId, userSessionId);
 
         // Assert
-        Assert.True(accessTokenDescriptor is not null);
+        Assert.NotNull(accessTokenDescriptor);
     }
 
     private AccessTokenService CreateSut()

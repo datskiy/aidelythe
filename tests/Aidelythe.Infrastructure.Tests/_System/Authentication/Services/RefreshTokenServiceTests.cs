@@ -24,7 +24,7 @@ public sealed class RefreshTokenServiceTests
         var refreshTokenDescriptor = sut.Generate();
 
         // Assert
-        Assert.True(refreshTokenDescriptor is not null);
+        Assert.NotNull(refreshTokenDescriptor);
     }
 
     [Fact]

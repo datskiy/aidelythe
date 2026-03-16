@@ -3,7 +3,7 @@ namespace Aidelythe.Shared.Strings;
 /// <summary>
 /// Provides extension methods for strings.
 /// </summary>
-public static class StringExtensions // TODO: cover with unit tests and test edge cases
+public static class StringExtensions
 {
     /// <summary>
     /// Masks the middle part of the string with a fixed number of mask characters,

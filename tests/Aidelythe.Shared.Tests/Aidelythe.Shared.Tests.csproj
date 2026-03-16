@@ -12,11 +12,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Using Include="System.Text.RegularExpressions"/>
         <Using Include="Xunit"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Aidelythe.Domain\Aidelythe.Domain.csproj" />
+      <ProjectReference Include="..\..\src\Aidelythe.Shared\Aidelythe.Shared.csproj" />
     </ItemGroup>
-
+    
 </Project>
