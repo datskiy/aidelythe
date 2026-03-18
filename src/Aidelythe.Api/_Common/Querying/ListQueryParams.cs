@@ -12,9 +12,6 @@ public abstract class ListQueryParams
     private const int DefaultOffset = 0;
     private const int DefaultLimit = 50;
 
-    private readonly string? _searchText;
-    private readonly string? _sortBy;
-
     /// <summary>
     /// Gets the number of entries to skip before returning the first entry.
     /// Defaults to 0 if not explicitly set.
@@ -40,8 +37,8 @@ public abstract class ListQueryParams
     [MaxLength(FilteringScheme.MaximumSearchTextLength)]
     public string? SearchText
     {
-        get => _searchText;
-        init => _searchText = NormalizeSearchText(value);
+        get;
+        init => field = NormalizeSearchText(value);
     }
 
     /// <summary>
@@ -59,8 +56,8 @@ public abstract class ListQueryParams
     [RegularExpression(SortByPolicies.FormatPattern)]
     public string? SortBy
     {
-        get => _sortBy;
-        init => _sortBy = NormalizeSortBy(value);
+        get;
+        init => field = NormalizeSortBy(value);
     }
 
     private static string? NormalizeSearchText(string? searchText)

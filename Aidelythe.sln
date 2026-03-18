@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Domain.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Shared.Tests", "tests\Aidelythe.Shared.Tests\Aidelythe.Shared.Tests.csproj", "{9B44AA0C-8A9D-42F5-ABDA-5ECC7ED36E05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aidelythe.Api.Tests", "tests\Aidelythe.Api.Tests\Aidelythe.Api.Tests.csproj", "{06F8D3EF-BE85-47DD-86CC-38085193DFB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,7 @@ Global
 		{8A3C04A7-2CC5-4F43-94A7-88E00CEBECB0} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
 		{16A7C5AE-F491-4D81-8BE2-023D9DFB1BED} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
 		{9B44AA0C-8A9D-42F5-ABDA-5ECC7ED36E05} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
+		{06F8D3EF-BE85-47DD-86CC-38085193DFB1} = {81083165-9584-4E56-8AB0-4393EE2AAA0B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E1A4FA2-DAF1-4AF8-9029-67B871BA6A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -75,5 +78,9 @@ Global
 		{9B44AA0C-8A9D-42F5-ABDA-5ECC7ED36E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B44AA0C-8A9D-42F5-ABDA-5ECC7ED36E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B44AA0C-8A9D-42F5-ABDA-5ECC7ED36E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06F8D3EF-BE85-47DD-86CC-38085193DFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06F8D3EF-BE85-47DD-86CC-38085193DFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06F8D3EF-BE85-47DD-86CC-38085193DFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06F8D3EF-BE85-47DD-86CC-38085193DFB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
