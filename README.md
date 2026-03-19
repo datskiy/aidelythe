@@ -19,6 +19,8 @@ Features and structure may change frequently.
 - Serilog
 - Mapperly
 - OneOf
+- xUnit
+- NSubstitute
 
 
 ## Folder Structure
