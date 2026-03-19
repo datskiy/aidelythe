@@ -2,13 +2,14 @@ using Aidelythe.Application._Common.Persistence;
 using Aidelythe.Application._System.Authentication.Commands;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.ValueObjects;
+using Aidelythe.Domain.Identity.Users.ValueObjects;
 
 namespace Aidelythe.Application._System.Authentication.Handlers;
 
 /// <summary>
 /// Represents a command handler for logging out the specified user session.
 /// </summary>
-public sealed class LogoutHandler : IRequestHandler<LogoutCommand>
+public sealed partial class LogoutHandler : IRequestHandler<LogoutCommand>
 {
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
@@ -60,16 +61,19 @@ public sealed class LogoutHandler : IRequestHandler<LogoutCommand>
         var userSession = await _userSessionRepository.GetAsync(userSessionId, cancellationToken);
         if (userSession is null)
         {
-            _logger.LogInformation("Logout attempted for non-existent session {UserSessionId}", userSessionId);
+            LogSessionNotFound(userSessionId);
             return;
         }
 
         await _userSessionRepository.DeleteAsync(userSessionId, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation(
-            "User {UserId} successfully logged out of the session {UserSessionId}",
-            userSession.UserId,
-            userSessionId);
+        LogUserLoggedOut(userSession.UserId, userSessionId);
     }
+
+    [LoggerMessage(LogLevel.Information, "Logout attempted for non-existent session {UserSessionId}")]
+    partial void LogSessionNotFound(UserSessionId userSessionId);
+
+    [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged out of the session {UserSessionId}")]
+    partial void LogUserLoggedOut(UserId userId, UserSessionId userSessionId);
 }

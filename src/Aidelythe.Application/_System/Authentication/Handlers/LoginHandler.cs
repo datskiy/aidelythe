@@ -16,7 +16,7 @@ namespace Aidelythe.Application._System.Authentication.Handlers;
 /// <summary>
 /// Represents a command handler for logging in a user.
 /// </summary>
-public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
+public sealed partial class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
 {
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
@@ -90,10 +90,7 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
         var userCredentials = await GetUserCredentialsAsync(request.Login, cancellationToken);
         if (userCredentials is null)
         {
-            _logger.LogInformation(
-                "Login attempt for {LoginMask} failed due to an invalid login",
-                request.Login.MaskEnding());
-
+            LogInvalidCredentials(request.Login.MaskEnding());
             return new InvalidCredentials();
         }
 
@@ -110,15 +107,12 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
                 userCredentials.UpdatePasswordHash(newPasswordHash);
                 await _userCredentialsRepository.UpdateAsync(userCredentials, cancellationToken);
 
-                _logger.LogInformation("Password hash rehashed for {UserId}", userCredentials.UserId);
+                LogPasswordRehashed(userCredentials.UserId);
                 return await GenerateTokensAndSaveChangesAsync(userCredentials.UserId, cancellationToken);
             },
             async failure =>
             {
-                _logger.LogInformation(
-                    "Login attempt for {LoginMask} failed due to an invalid password",
-                    request.Login.MaskEnding());
-
+                LogInvalidPassword(request.Login.MaskEnding());
                 return await new InvalidCredentials().ToTask();
             });
     }
@@ -154,7 +148,19 @@ public sealed class LoginHandler : IRequestHandler<LoginCommand, LoginResult>
 
         var accessTokenDescriptor = _accessTokenService.Issue(userId, userSession.Id);
 
-        _logger.LogInformation("User {UserId} successfully logged in", userId);
+        LogUserLoggedIn(userId);
         return TokenPairDetails.Create(refreshTokenDescriptor, accessTokenDescriptor);
     }
+
+    [LoggerMessage(LogLevel.Information, "Login attempt for {LoginMask} failed due to an invalid login")]
+    partial void LogInvalidCredentials(string loginMask);
+
+    [LoggerMessage(LogLevel.Information, "Password hash rehashed for {UserId}")]
+    partial void LogPasswordRehashed(UserId userId);
+
+    [LoggerMessage(LogLevel.Information, "Login attempt for {LoginMask} failed due to an invalid password")]
+    partial void LogInvalidPassword(string loginMask);
+
+    [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged in")]
+    partial void LogUserLoggedIn(UserId userId);
 }

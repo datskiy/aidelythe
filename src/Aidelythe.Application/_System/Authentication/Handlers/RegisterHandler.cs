@@ -8,6 +8,7 @@ using Aidelythe.Application._System.Authentication.Results;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users;
+using Aidelythe.Domain.Identity.Users.ValueObjects;
 using Aidelythe.Shared.Nullable;
 
 namespace Aidelythe.Application._System.Authentication.Handlers;
@@ -15,7 +16,7 @@ namespace Aidelythe.Application._System.Authentication.Handlers;
 /// <summary>
 /// Represents a command handler for registering a user.
 /// </summary>
-public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterResult>
+public sealed partial class RegisterHandler : IRequestHandler<RegisterCommand, RegisterResult>
 {
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
@@ -104,7 +105,10 @@ public sealed class RegisterHandler : IRequestHandler<RegisterCommand, RegisterR
         await _userCredentialsRepository.AddAsync(userCredentials, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation("User {UserId} successfully registered", user.Id);
+        LogUserRegistered(user.Id);
         return user.Id.Value;
     }
+
+    [LoggerMessage(LogLevel.Information, "User {UserId} successfully registered")]
+    partial void LogUserRegistered(UserId userId);
 }

@@ -7,6 +7,7 @@ using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Results;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
+using Aidelythe.Domain.Identity.Users.ValueObjects;
 using Aidelythe.Shared.Strings;
 using Aidelythe.Shared.Tasks;
 
@@ -15,7 +16,7 @@ namespace Aidelythe.Application._System.Authentication.Handlers;
 /// <summary>
 /// Represents a command handler for logging in a user.
 /// </summary>
-public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResult>
+public sealed partial class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResult>
 {
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
@@ -82,18 +83,12 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
             async userSession => await RefreshTokensAndSaveChangesAsync(userSession, cancellationToken),
             async expired =>
             {
-                _logger.LogInformation(
-                    "Refresh attempt failed due to an expired token: {TokenMask}",
-                    request.RefreshToken.MaskMiddle());
-
+                LogExpiredToken(request.RefreshToken.MaskMiddle());
                 return await new InvalidToken().ToTask();
             },
             async notFound =>
             {
-                _logger.LogInformation(
-                    "Refresh attempt failed due to an invalid token: {TokenMask}",
-                    request.RefreshToken.MaskMiddle());
-
+                LogInvalidToken(request.RefreshToken.MaskMiddle());
                 return await new InvalidToken().ToTask();
             });
     }
@@ -110,7 +105,16 @@ public sealed class RefreshHandler : IRequestHandler<RefreshCommand, RefreshResu
 
         var accessTokenDescriptor = _accessTokenService.Issue(userSession.UserId, userSession.Id);
 
-        _logger.LogInformation("User {UserId} successfully refreshed the token pair", userSession.UserId);
+        LogTokenPairRefreshed(userSession.UserId);
         return TokenPairDetails.Create(newRefreshTokenDescriptor, accessTokenDescriptor);
     }
+
+    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an expired token: {TokenMask}")]
+    partial void LogExpiredToken(string tokenMask);
+
+    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an invalid token: {TokenMask}")]
+    partial void LogInvalidToken(string tokenMask);
+
+    [LoggerMessage(LogLevel.Information, "User {UserId} successfully refreshed the token pair")]
+    partial void LogTokenPairRefreshed(UserId userId);
 }

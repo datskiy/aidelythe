@@ -47,7 +47,7 @@ public static class ServiceCollectionExtensions
             if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
             {
                 var retryAfterSeconds = Math.Max((int)Math.Ceiling(retryAfter.TotalSeconds), 1);
-                httpContext.Response.Headers.RetryAfter = $"{retryAfterSeconds}"; // TODO: check the bug after .NET upd
+                httpContext.Response.Headers.RetryAfter = $"{retryAfterSeconds}";
             }
 
             return httpContext.Response

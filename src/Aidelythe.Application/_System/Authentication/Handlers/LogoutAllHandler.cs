@@ -8,7 +8,7 @@ namespace Aidelythe.Application._System.Authentication.Handlers;
 /// <summary>
 /// Represents a command handler for logging out all user sessions.
 /// </summary>
-public sealed class LogoutAllHandler : IRequestHandler<LogoutAllCommand>
+public sealed partial class LogoutAllHandler : IRequestHandler<LogoutAllCommand>
 {
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
@@ -60,16 +60,19 @@ public sealed class LogoutAllHandler : IRequestHandler<LogoutAllCommand>
         var userSessionCount = await _userSessionRepository.CountAsync(userId, cancellationToken);
         if (userSessionCount == 0)
         {
-            _logger.LogInformation("Logout-all attempted for user {UserId} with 0 sessions", userId);
+            LogNoSessionsFound(userId);
             return;
         }
 
         await _userSessionRepository.DeleteAsync(userId, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation(
-            "User {UserId} successfully logged out of {SessionCount} sessions",
-            userId,
-            userSessionCount);
+        LogUserLoggedOutAll(userId, userSessionCount);
     }
+
+    [LoggerMessage(LogLevel.Information, "Logout-all attempted for user {UserId} with 0 sessions")]
+    partial void LogNoSessionsFound(UserId userId);
+
+    [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged out of {SessionCount} sessions")]
+    partial void LogUserLoggedOutAll(UserId userId, int sessionCount);
 }
