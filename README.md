@@ -11,8 +11,16 @@ Features and structure may change frequently.
 
 ## Tech Stack
 
-- .NET 9
+- .NET 10
 - ASP.NET Core Web API
+- MediatR
+- FluentValidation
+- Scalar
+- Serilog
+- Mapperly
+- OneOf
+- xUnit
+- NSubstitute
 
 
 ## Folder Structure
@@ -26,10 +34,3 @@ Aidelythe/
 ├── .gitignore           # Git-ignored files
 └── .gitattributes       # Git attributes
 ```
-
-
-##  License
-
-This project is licensed under the MIT License.  
-You're free to use, copy, modify, and distribute it — but attribution is required.  
-See ```LICENSE.md``` for details.

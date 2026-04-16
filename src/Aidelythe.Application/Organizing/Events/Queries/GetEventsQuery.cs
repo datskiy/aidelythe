@@ -1,0 +1,36 @@
+using Aidelythe.Application._Common.Paging;
+using Aidelythe.Application._Common.Querying;
+using Aidelythe.Application._Common.Sorting;
+using Aidelythe.Application.Organizing.Events.Projections;
+
+namespace Aidelythe.Application.Organizing.Events.Queries;
+
+/// <summary>
+/// Represents a query to retrieve a paginated list of event summaries.
+/// </summary>
+public sealed class GetEventsQuery : GetListQuery, IRequest<PagedCollection<EventSummary>>
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetEventsQuery"/> class.
+    /// </summary>
+    /// <param name="userId">The unique identifier of the user requesting the list of event summaries.</param>
+    /// <param name="offset">The starting index of the current page in the collection of items.</param>
+    /// <param name="limit">The number of items to return in the current page.</param>
+    /// <param name="searchText">Optional text used to filter the results of the query.</param>
+    /// <param name="sortFieldQueries">Optional sorting field queries that define the order of the items.</param>
+    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="offset"/> is negative.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="limit"/> is less than 1.</exception>
+    public GetEventsQuery(
+        Guid userId,
+        int offset,
+        int limit,
+        string? searchText = null,
+        IReadOnlyCollection<SortFieldQuery>? sortFieldQueries = null) : base(
+            userId,
+            offset,
+            limit,
+            searchText,
+            sortFieldQueries)
+    {
+    }
+}

@@ -1,13 +1,99 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>5ca1c6c2-9f73-4a16-9650-91b83b9172e0</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
+        <PackageReference Include="FluentValidation" Version="12.1.1" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+        <PackageReference Include="MediatR" Version="12.5.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.3" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+        <PackageReference Include="OneOf" Version="3.0.271" />
+        <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.12.40" />
+        <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
+        <Using Include="FluentValidation"/>
+        <Using Include="FluentValidation.Resources"/>
+        <Using Include="FluentValidation.Results"/>
+        <Using Include="MediatR"/>
+        <Using Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+        <Using Include="Microsoft.AspNetCore.Authorization"/>
+        <Using Include="Microsoft.AspNetCore.Mvc"/>
+        <Using Include="Microsoft.AspNetCore.Mvc.Controllers"/>
+        <Using Include="Microsoft.AspNetCore.Mvc.Filters"/>
+        <Using Include="Microsoft.AspNetCore.RateLimiting"/>
+        <Using Include="Microsoft.IdentityModel.Tokens"/>
+        <Using Include="Microsoft.OpenApi"/>
+        <Using Include="OneOf"/>
+        <Using Include="Riok.Mapperly.Abstractions"/>
+        <Using Include="Serilog"/>
+        <Using Include="Serilog.Context"/>
+        <Using Include="Scalar.AspNetCore"/>
+        <Using Include="System.ArgumentException" Static="True"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.Collections.ObjectModel"/>
+        <Using Include="System.ComponentModel.DataAnnotations"/>
+        <Using Include="System.Diagnostics.CodeAnalysis"/>
+        <Using Include="System.Globalization"/>
+        <Using Include="System.Linq.Expressions"/>
+        <Using Include="System.Net.Mime"/>
+        <Using Include="System.Reflection"/>
+        <Using Include="System.Security.Claims"/>
+        <Using Include="System.Text.Json.Serialization"/>
+        <Using Include="System.Text.RegularExpressions"/>
+        <Using Include="System.Threading.RateLimiting"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Aidelythe.Application\Aidelythe.Application.csproj" />
+      <ProjectReference Include="..\Aidelythe.Infrastructure\Aidelythe.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="_Common\Http\Resources\ProblemTypeLinks.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ProblemTypeLinks.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Organizing\Events\Resources\EventProblemDetails.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>EventProblemDetails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="_Common\Validation\ValidationErrorMessages.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ValidationErrorMessages.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="_System\Authentication\Resources\AuthenticationProblemDetails.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>RegistrationProblemDetails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="_Common\Http\Resources\ProblemTypeLinks.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ProblemTypeLinks.resx</DependentUpon>
+      </Compile>
+      <Compile Update="_Common\Validation\ValidationErrorMessages.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ValidationErrorMessages.resx</DependentUpon>
+      </Compile>
+      <Compile Update="_System\Authentication\Resources\AuthenticationProblemDetails.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AuthenticationProblemDetails.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

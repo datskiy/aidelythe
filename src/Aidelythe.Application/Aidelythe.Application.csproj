@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.5.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.3" />
+      <PackageReference Include="OneOf" Version="3.0.271" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
+        <Using Include="Aidelythe.Shared.Time.DateTimeGuardHelper" Static="True"/>
+        <Using Include="MediatR"/>
+        <Using Include="Microsoft.Extensions.Logging"/>
+        <Using Include="OneOf"/>
+        <Using Include="System.ArgumentException" Static="True"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
+        <Using Include="System.Collections"/>
+        <Using Include="System.Text.RegularExpressions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Aidelythe.Domain\Aidelythe.Domain.csproj" />
+      <ProjectReference Include="..\Aidelythe.Shared\Aidelythe.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Organizing\Events\" />
+    </ItemGroup>
+
+</Project>

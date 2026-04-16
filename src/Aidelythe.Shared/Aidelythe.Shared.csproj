@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="Aidelythe.Shared.Strings.StringGuardHelper" Static="True"/>
+        <Using Include="Aidelythe.Shared.Time.DateTimeGuardHelper" Static="True"/>
+        <Using Include="System.ArgumentException" Static="True"/>
+        <Using Include="System.ArgumentNullException" Static="True"/>
+        <Using Include="System.ArgumentOutOfRangeException" Static="True"/>
+        <Using Include="System.Collections"/>
+        <Using Include="System.Runtime.CompilerServices"/>
+        <Using Include="System.Text.RegularExpressions"/>
+    </ItemGroup>
+    
+</Project>
