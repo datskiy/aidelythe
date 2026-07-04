@@ -1,5 +1,3 @@
-using Aidelythe.Shared.Guards;
-
 namespace Aidelythe.Api._System.Localization;
 
 /// <summary>
@@ -7,24 +5,20 @@ namespace Aidelythe.Api._System.Localization;
 /// </summary>
 public static class SupportedCultures
 {
-    /// <summary>
-    /// The American English culture.
-    /// </summary>
-    public const string EnUs = "en-US";
-
-    /// <summary>
-    /// The Russian culture.
-    /// </summary>
-    public const string RuRu = "ru-RU";
+    private const string EnUs = "en-US";
+    private const string RuRu = "ru-RU";
 
     /// <summary>
     /// Gets an array containing all supported cultures.
     /// </summary>
     public static string[] All { get; } =
-        typeof(SupportedCultures)
-            .GetFields(BindingFlags.Public | BindingFlags.Static)
-            .Select(fieldInfo => (string)fieldInfo
-                .GetRawConstantValue()
-                .ThrowIfNull())
-            .ToArray();
+    [
+        EnUs,
+        RuRu
+    ];
+
+    /// <summary>
+    /// Gets the default culture.
+    /// </summary>
+    public static string Default => EnUs;
 }

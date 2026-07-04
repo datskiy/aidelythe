@@ -18,10 +18,9 @@ public static class ApplicationBuilderExtensions
     {
         ThrowIfNull(app);
 
-        return app
-            .UseRequestLocalization(options => options
+        return app.UseRequestLocalization(options => options
             .AddSupportedCultures(SupportedCultures.All)
             .AddSupportedUICultures(SupportedCultures.All)
-            .SetDefaultCulture(SupportedCultures.EnUs));
+            .SetDefaultCulture(SupportedCultures.Default));
     }
 }

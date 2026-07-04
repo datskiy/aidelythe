@@ -14,7 +14,7 @@ public static class ApplicationBuilderExtensions
     /// The configured application with the logging middleware added.
     /// </returns>
     /// <exception cref="ArgumentNullException">The <paramref name="app"/> is null.</exception>
-    public static IApplicationBuilder UseRequestLogging(this IApplicationBuilder app)
+    public static IApplicationBuilder UseRequestLogContext(this IApplicationBuilder app)
     {
         ThrowIfNull(app);
 

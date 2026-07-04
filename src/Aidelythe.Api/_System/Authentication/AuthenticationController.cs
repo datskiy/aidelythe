@@ -138,7 +138,7 @@ public sealed class AuthenticationController : AnonymousApiController
     [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Logout(CancellationToken cancellationToken)
     {
-        var userSessionContext = _userSessionContextAccessor.UserSessionContext.ThrowIfNull();
+        var userSessionContext = _userSessionContextAccessor.Context.ThrowIfNull();
 
         var command = new LogoutCommand(userSessionContext.UserSessionId);
         await _mediator.Send(command, cancellationToken);
@@ -161,7 +161,7 @@ public sealed class AuthenticationController : AnonymousApiController
     [ProducesResponseType(typeof(UnauthorizedResponse), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LogoutAll(CancellationToken cancellationToken)
     {
-        var userSessionContext = _userSessionContextAccessor.UserSessionContext.ThrowIfNull();
+        var userSessionContext = _userSessionContextAccessor.Context.ThrowIfNull();
 
         var command = new LogoutAllCommand(userSessionContext.UserId);
         await _mediator.Send(command, cancellationToken);

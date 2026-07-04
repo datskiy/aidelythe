@@ -18,7 +18,7 @@ public abstract class AuthorizedApiController : BaseApiController
             var userSessionContextAccessor = HttpContext.RequestServices
                 .GetRequiredService<IUserSessionContextAccessor>();
 
-            return userSessionContextAccessor.UserSessionContext?.UserId
+            return userSessionContextAccessor.Context?.UserId
                ?? throw new InvalidOperationException(
                    "User session context is not available for unauthenticated requests.");
         }

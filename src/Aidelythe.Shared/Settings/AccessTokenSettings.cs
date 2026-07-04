@@ -1,4 +1,4 @@
-namespace Aidelythe.Infrastructure._Common.Settings;
+namespace Aidelythe.Shared.Settings;
 
 /// <summary>
 /// Represents settings for configuring access tokens.

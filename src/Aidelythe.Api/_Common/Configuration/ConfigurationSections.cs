@@ -19,4 +19,9 @@ public static class ConfigurationSections
     /// The <c>RateLimiting</c> configuration section.
     /// </summary>
     public const string RateLimiting = "RateLimiting";
+
+    /// <summary>
+    /// The <c>Maintenance</c> configuration section.
+    /// </summary>
+    public const string Maintenance = "Maintenance";
 }

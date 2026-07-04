@@ -1,8 +1,8 @@
 using Aidelythe.Api._Common.Configuration;
 using Aidelythe.Api._Common.Http.Metadata;
 using Aidelythe.Api._Common.Http.Responses;
-using Aidelythe.Infrastructure._Common.Settings;
 using Aidelythe.Shared.Guards;
+using Aidelythe.Shared.Settings;
 
 namespace Aidelythe.Api._System.Authentication;
 

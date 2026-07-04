@@ -11,5 +11,5 @@ public interface IUserSessionContextAccessor
     /// <remarks>
     /// May be null if no user session is currently active.
     /// </remarks>
-    UserSessionContext? UserSessionContext { get; }
+    UserSessionContext? Context { get; }
 }

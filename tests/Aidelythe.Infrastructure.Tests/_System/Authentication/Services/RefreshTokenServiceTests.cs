@@ -3,8 +3,8 @@ using Aidelythe.Application._System.Authentication.Data;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users.ValueObjects;
-using Aidelythe.Infrastructure._Common.Settings;
 using Aidelythe.Infrastructure._System.Authentication.Services;
+using Aidelythe.Shared.Settings;
 
 namespace Aidelythe.Infrastructure.Tests._System.Authentication.Services;
 
@@ -129,6 +129,7 @@ public sealed class RefreshTokenServiceTests
 
         return new RefreshTokenService(
             _userSessionRepository,
+            TimeProvider.System,
             Options.Create(settings));
     }
 

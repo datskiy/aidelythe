@@ -40,8 +40,8 @@ public sealed class RequestLogContextMiddleware
         ThrowIfNull(userSessionContextAccessor);
 
         var clientIp = httpContext.Connection.RemoteIpAddress.ThrowIfNull();
-        var userId = userSessionContextAccessor.UserSessionContext?.UserId;
-        var userSessionId = userSessionContextAccessor.UserSessionContext?.UserSessionId;
+        var userId = userSessionContextAccessor.Context?.UserId;
+        var userSessionId = userSessionContextAccessor.Context?.UserSessionId;
 
         using (LogContext.PushProperty("ClientIp", $"{clientIp}", destructureObjects: false))
         using (LogContext.PushProperty("UserId", $"{userId}", destructureObjects: false))

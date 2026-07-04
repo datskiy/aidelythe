@@ -2,9 +2,11 @@ using Aidelythe.Api._System.Authentication.Services;
 using Aidelythe.Application._Common.Persistence;
 using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Services;
+using Aidelythe.Application.Organizing.Events.Repositories;
 using Aidelythe.Infrastructure._System.Authentication.Repositories;
 using Aidelythe.Infrastructure._System.Authentication.Services;
 using Aidelythe.Infrastructure._System.Persistence;
+using Aidelythe.Infrastructure.Organizing.Events.Repositories;
 
 namespace Aidelythe.Api._System.Composition;
 
@@ -26,10 +28,7 @@ public static class ServiceCollectionExtensions
         ThrowIfNull(services);
 
         services.AddHttpContextAccessor();
-
-        services.AddTransient<IPasswordService, PasswordService>();
-        services.AddTransient<IAccessTokenService, AccessTokenService>();
-        services.AddTransient<IRefreshTokenService, RefreshTokenService>();
+        services.AddSingleton(TimeProvider.System);
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserSessionContextAccessor, UserSessionContextAccessor>();
@@ -37,6 +36,11 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserCredentialsRepository, UserCredentialsRepository>();
         services.AddScoped<IUserSessionRepository, UserSessionRepository>();
+        services.AddScoped<IEventRepository, EventRepository>();
+
+        services.AddTransient<IPasswordService, PasswordService>();
+        services.AddTransient<IAccessTokenService, AccessTokenService>();
+        services.AddTransient<IRefreshTokenService, RefreshTokenService>();
 
         return services;
     }

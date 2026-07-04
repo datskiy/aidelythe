@@ -7,7 +7,7 @@ namespace Aidelythe.Api._System.Configuration;
 /// </summary>
 public static class ConfigurationInitializer
 {
-    private const string AppSettingsPath = "_System/Configuration/Settings";
+    private const string AppSettingsPath = "_System/Configuration/Settings/appsettings";
 
     /// <summary>
     /// Initializes the application configuration based on the current environment.
@@ -28,11 +28,11 @@ public static class ConfigurationInitializer
         return new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(
-                $"{AppSettingsPath}/appsettings.json",
+                $"{AppSettingsPath}.json",
                 optional: false,
                 reloadOnChange: true)
             .AddJsonFile(
-                $"{AppSettingsPath}/appsettings.{currentEnvironment}.json",
+                $"{AppSettingsPath}.{currentEnvironment}.json",
                 optional: false,
                 reloadOnChange: true)
             .Build();

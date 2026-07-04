@@ -7,6 +7,7 @@ using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
 using Aidelythe.Api._System.Localization;
 using Aidelythe.Api._System.Orchestration;
+using Aidelythe.Api._System.Scheduling;
 using Aidelythe.Api._System.Specification;
 using Aidelythe.Api._System.Telemetry.Logging;
 using Aidelythe.Api._System.Validation;
@@ -34,6 +35,7 @@ try
     services.AddValidation();
     services.AddMediator();
     services.AddSerilog();
+    services.AddHangfire(configuration);
     services.AddApiSpecification();
 
     var app = builder.Build();
@@ -42,10 +44,13 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
     builder.WhenNotDevelopment(() => app.UseRateLimiter());
-    app.UseRequestLogging();
+    app.UseRequestLogContext();
+    app.UseHangfireDashboard();
     app.MapControllers();
     app.MapOpenApi();
     app.MapScalarApiReference();
+
+    BackgroundJobScheduler.ScheduleRecurringJobs();
 
     Log.Information("Application started");
 

@@ -1,5 +1,5 @@
 using Aidelythe.Api._Common.Configuration;
-using Aidelythe.Infrastructure._Common.Settings;
+using Aidelythe.Shared.Settings;
 
 namespace Aidelythe.Api._System.Configuration;
 
@@ -37,6 +37,10 @@ public static class ServiceCollectionExtensions
         services.AddConfiguredOptions<RateLimitingSettings>(
             configuration,
             ConfigurationSections.RateLimiting);
+
+        services.AddConfiguredOptions<MaintenanceSettings>(
+            configuration,
+            ConfigurationSections.Maintenance);
 
         return services;
     }

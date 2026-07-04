@@ -1,8 +1,8 @@
 using Aidelythe.Api._Common.Configuration;
 using Aidelythe.Api._Common.Http.Responses;
 using Aidelythe.Api._System.Authentication.Services;
-using Aidelythe.Infrastructure._Common.Settings;
 using Aidelythe.Shared.Guards;
+using Aidelythe.Shared.Settings;
 using Aidelythe.Shared.Tasks;
 
 namespace Aidelythe.Api._System.Bandwidth;
@@ -85,12 +85,12 @@ public static class ServiceCollectionExtensions
         var userSessionContextAccessor = httpContext.RequestServices
             .GetRequiredService<IUserSessionContextAccessor>();
 
-        return userSessionContextAccessor.UserSessionContext is null
+        return userSessionContextAccessor.Context is null
             ? new RateLimiterPartitionKey(
                 Value: $"{httpContext.Connection.RemoteIpAddress.ThrowIfNull()}",
                 IsAuthenticated: false)
             : new RateLimiterPartitionKey(
-                Value: $"{userSessionContextAccessor.UserSessionContext.UserId}",
+                Value: $"{userSessionContextAccessor.Context.UserId}",
                 IsAuthenticated: true);
     }
 }

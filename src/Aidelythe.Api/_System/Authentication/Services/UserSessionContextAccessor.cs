@@ -10,7 +10,7 @@ public sealed class UserSessionContextAccessor : IUserSessionContextAccessor
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     /// <inheritdoc/>
-    public UserSessionContext? UserSessionContext { get; }
+    public UserSessionContext? Context { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserSessionContextAccessor"/> class.
@@ -23,7 +23,7 @@ public sealed class UserSessionContextAccessor : IUserSessionContextAccessor
 
         _httpContextAccessor = httpContextAccessor;
 
-        UserSessionContext = GetUserSessionContext();
+        Context = GetUserSessionContext();
     }
 
     private UserSessionContext? GetUserSessionContext()
