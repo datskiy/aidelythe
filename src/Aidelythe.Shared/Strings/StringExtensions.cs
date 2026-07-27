@@ -21,7 +21,9 @@ public static class StringExtensions
     /// <exception cref="ArgumentOutOfRangeException">
     /// The <paramref name="visiblePrefixLength"/> or <paramref name="visibleSuffixLength"/> is negative.
     /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="maskCount"/> is negative or zero.
+    /// </exception>
     public static string MaskMiddle(
         this string? str,
         int visiblePrefixLength = 3,
@@ -46,7 +48,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Masks the ending of a string with a fixed number of mask characters,
+    /// Masks the ending of the string with a fixed number of mask characters,
     /// revealing only the beginning.
     /// </summary>
     /// <param name="str">The string to be masked.</param>
@@ -58,8 +60,11 @@ public static class StringExtensions
     /// otherwise, an empty string.
     /// </returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// The <paramref name="visiblePrefixLength"/> is negative.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="maskCount"/> is negative or zero.</exception>
+    /// The <paramref name="visiblePrefixLength"/> is negative.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="maskCount"/> is negative or zero.
+    /// </exception>
     public static string MaskEnding(
         this string? str,
         int visiblePrefixLength = 3,
@@ -69,4 +74,3 @@ public static class StringExtensions
         return str.MaskMiddle(visiblePrefixLength, visibleSuffixLength: 0, maskChar, maskCount);
     }
 }
-

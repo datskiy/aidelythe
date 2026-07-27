@@ -60,19 +60,13 @@ public sealed partial class LogoutHandler : IRequestHandler<LogoutCommand>
 
         var userSession = await _userSessionRepository.GetAsync(userSessionId, cancellationToken);
         if (userSession is null)
-        {
-            LogSessionNotFound(userSessionId);
             return;
-        }
 
         await _userSessionRepository.DeleteAsync(userSessionId, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         LogUserLoggedOut(userSession.UserId, userSessionId);
     }
-
-    [LoggerMessage(LogLevel.Information, "Logout attempted for non-existent session {UserSessionId}")]
-    partial void LogSessionNotFound(UserSessionId userSessionId);
 
     [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged out of the session {UserSessionId}")]
     partial void LogUserLoggedOut(UserId userId, UserSessionId userSessionId);

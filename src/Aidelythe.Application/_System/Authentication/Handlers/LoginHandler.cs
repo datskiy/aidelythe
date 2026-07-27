@@ -148,8 +148,9 @@ public sealed partial class LoginHandler : IRequestHandler<LoginCommand, LoginRe
 
         var accessTokenDescriptor = _accessTokenService.Issue(userId, userSession.Id);
 
-        LogUserLoggedIn(userId);
-        return TokenPairDetails.Create(refreshTokenDescriptor, accessTokenDescriptor);
+        return TokenPairDetails.Create(
+            refreshTokenDescriptor,
+            accessTokenDescriptor);
     }
 
     [LoggerMessage(LogLevel.Information, "Login attempt for {LoginMask} failed due to an invalid login")]
@@ -160,7 +161,4 @@ public sealed partial class LoginHandler : IRequestHandler<LoginCommand, LoginRe
 
     [LoggerMessage(LogLevel.Information, "Login attempt for {LoginMask} failed due to an invalid password")]
     partial void LogInvalidPassword(string loginMask);
-
-    [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged in")]
-    partial void LogUserLoggedIn(UserId userId);
 }

@@ -7,7 +7,6 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <Using Include="Aidelythe.Shared.Time.DateTimeGuardHelper" Static="True" />
         <Using Include="Microsoft.AspNetCore.Identity" />
         <Using Include="Microsoft.Extensions.Options" />
         <Using Include="Microsoft.IdentityModel.JsonWebTokens" />

@@ -52,8 +52,7 @@ public sealed class RefreshTokenService : IRefreshTokenService
 
         var expiresAt = _timeProvider
             .GetUtcNow()
-            .AddSeconds(_refreshTokenSettings.ExpiresInSeconds)
-            .UtcDateTime;
+            .AddSeconds(_refreshTokenSettings.ExpiresInSeconds);
 
         return new RefreshTokenDescriptor(
             refreshToken,

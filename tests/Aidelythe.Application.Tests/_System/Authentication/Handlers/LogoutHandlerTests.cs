@@ -68,7 +68,7 @@ public sealed class LogoutHandlerTests
                 UserSessionId.New(),
                 UserId.New(),
                 new RefreshTokenHash("hashed-refresh-token"),
-                DateTime.UtcNow.AddSeconds(1)));
+                DateTimeOffset.UtcNow.AddSeconds(1)));
 
         // Act
         await sut.Handle(

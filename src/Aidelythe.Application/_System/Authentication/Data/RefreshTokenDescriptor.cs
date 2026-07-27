@@ -20,7 +20,7 @@ public sealed class RefreshTokenDescriptor
     /// <summary>
     /// Gets the date and time when the refresh token expires.
     /// </summary>
-    public DateTime ExpiresAt { get; }
+    public DateTimeOffset ExpiresAt { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RefreshTokenDescriptor"/> class.
@@ -31,15 +31,13 @@ public sealed class RefreshTokenDescriptor
     /// <exception cref="ArgumentNullException">
     /// The <paramref name="token"/> or <paramref name="hash"/> is null.
     /// </exception>
-    /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
     public RefreshTokenDescriptor(
         RefreshToken token,
         RefreshTokenHash hash,
-        DateTime expiresAt)
+        DateTimeOffset expiresAt)
     {
         ThrowIfNull(token);
         ThrowIfNull(hash);
-        ThrowIfNotUtc(expiresAt);
 
         Token = token;
         Hash = hash;

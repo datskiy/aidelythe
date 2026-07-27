@@ -27,7 +27,7 @@ public sealed class UserSession
     /// <summary>
     /// Gets the date and time when the refresh token expires.
     /// </summary>
-    public DateTime ExpiresAt { get; private set; }
+    public DateTimeOffset ExpiresAt { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserSession"/> class.
@@ -37,15 +37,13 @@ public sealed class UserSession
     /// <param name="tokenHash">The hashed refresh token.</param>
     /// <param name="expiresAt">The date and time when the refresh token expires.</param>
     /// <exception cref="ArgumentNullException">The <paramref name="tokenHash"/> is null.</exception>
-    /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
     public UserSession(
         UserSessionId id,
         UserId userId,
         RefreshTokenHash tokenHash,
-        DateTime expiresAt)
+        DateTimeOffset expiresAt)
     {
         ThrowIfNull(tokenHash);
-        ThrowIfNotUtc(expiresAt);
 
         Id = id;
         UserId = userId;
@@ -67,7 +65,7 @@ public sealed class UserSession
     public static UserSession Create(
         UserId userId,
         RefreshTokenHash tokenHash,
-        DateTime expiresAt)
+        DateTimeOffset expiresAt)
     {
         return new UserSession(UserSessionId.New(), userId, tokenHash, expiresAt);
     }
@@ -89,13 +87,11 @@ public sealed class UserSession
     /// <param name="tokenHash">The new hashed refresh token.</param>
     /// <param name="expiresAt">The date and time when the new refresh token expires.</param>
     /// <exception cref="ArgumentNullException">The <paramref name="tokenHash"/> is null.</exception>
-    /// <exception cref="ArgumentException">The <paramref name="expiresAt"/> is not in UTC.</exception>
     public void RotateToken(
         RefreshTokenHash tokenHash,
-        DateTime expiresAt)
+        DateTimeOffset expiresAt)
     {
         ThrowIfNull(tokenHash);
-        ThrowIfNotUtc(expiresAt);
 
         TokenHash = tokenHash;
         ExpiresAt = expiresAt;

@@ -29,23 +29,23 @@ public sealed class EventSummaryResponse
     /// Gets the date and time when the event starts.
     /// </summary>
     [JsonPropertyName("startsAt")]
-    public DateTime StartsAt { get; init; }
+    public DateTimeOffset StartsAt { get; init; }
 
     /// <summary>
     /// Gets the date and time when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
-    public DateTime? EndsAt { get; init; }
+    public DateTimeOffset? EndsAt { get; init; }
 
     /// <summary>
     /// Gets the date and time when the event was created.
     /// </summary>
     [JsonPropertyName("createdAt")]
-    public DateTime CreatedAt { get; init; }
+    public DateTimeOffset CreatedAt { get; init; }
 
     /// <summary>
     /// Gets the date and time when the event was last updated.
     /// </summary>
     [JsonPropertyName("lastUpdatedAt")]
-    public DateTime? LastUpdatedAt { get; init; }
+    public DateTimeOffset? LastUpdatedAt { get; init; }
 }

@@ -1,5 +1,3 @@
-using Aidelythe.Domain.Identity.Users;
-
 namespace Aidelythe.Application.Organizing.Events.Repositories;
 
 /// <summary>
@@ -16,8 +14,7 @@ public interface IEventRepository // TODO: use GenericRepository
     /// A task that represents the asynchronous operation.
     /// The task result contains the number of deleted events purged.
     /// </returns>
-    /// <exception cref="ArgumentException">The <paramref name="cutoff"/> is not in UTC.</exception>
     Task<int> PurgeDeletedOlderThanAsync(
-        DateTime cutoff,
+        DateOnly cutoff,
         CancellationToken cancellationToken);
 }

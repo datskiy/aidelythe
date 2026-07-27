@@ -59,19 +59,13 @@ public sealed partial class LogoutAllHandler : IRequestHandler<LogoutAllCommand>
 
         var userSessionCount = await _userSessionRepository.CountAsync(userId, cancellationToken);
         if (userSessionCount == 0)
-        {
-            LogNoSessionsFound(userId);
             return;
-        }
 
         await _userSessionRepository.DeleteAsync(userId, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         LogUserLoggedOutAll(userId, userSessionCount);
     }
-
-    [LoggerMessage(LogLevel.Information, "Logout-all attempted for user {UserId} with 0 sessions")]
-    partial void LogNoSessionsFound(UserId userId);
 
     [LoggerMessage(LogLevel.Information, "User {UserId} successfully logged out of {SessionCount} sessions")]
     partial void LogUserLoggedOutAll(UserId userId, int sessionCount);

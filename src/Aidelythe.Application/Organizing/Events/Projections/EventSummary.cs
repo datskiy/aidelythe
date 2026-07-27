@@ -25,22 +25,22 @@ public sealed class EventSummary
     /// <summary>
     /// Gets the date and time when the event starts.
     /// </summary>
-    public DateTime StartsAt { get; }
+    public DateTimeOffset StartsAt { get; }
 
     /// <summary>
     /// Gets the date and time when the event ends.
     /// </summary>
-    public DateTime? EndsAt { get; }
+    public DateTimeOffset? EndsAt { get; }
 
     /// <summary>
     /// Gets the date and time when the event was created.
     /// </summary>
-    public DateTime CreatedAt { get; }
+    public DateTimeOffset CreatedAt { get; }
 
     /// <summary>
     /// Gets the date and time when the event was last updated.
     /// </summary>
-    public DateTime? LastUpdatedAt { get; }
+    public DateTimeOffset? LastUpdatedAt { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EventSummary"/> class.
@@ -59,10 +59,10 @@ public sealed class EventSummary
         Guid id,
         string title,
         AddressSummary location,
-        DateTime startsAt,
-        DateTime? endsAt,
-        DateTime createdAt,
-        DateTime? lastUpdatedAt)
+        DateTimeOffset startsAt,
+        DateTimeOffset? endsAt,
+        DateTimeOffset createdAt,
+        DateTimeOffset? lastUpdatedAt)
     {
         ThrowIfNull(title);
         ThrowIfNull(location);

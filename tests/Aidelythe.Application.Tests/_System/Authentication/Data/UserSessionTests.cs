@@ -13,7 +13,7 @@ public sealed class UserSessionTests
         var userSessionId = UserSessionId.New();
         var userId = UserId.New();
         var nullRefreshTokenHash = (RefreshTokenHash?)null;
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         // Act
         var tryCreate = () => new UserSession(
@@ -27,33 +27,13 @@ public sealed class UserSessionTests
     }
 
     [Fact]
-    public void Ctor_WhenExpiresAtIsNotUtc_ShouldThrowArgumentException()
-    {
-        // Arrange
-        var userSessionId = UserSessionId.New();
-        var userId = UserId.New();
-        var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtLocal = DateTime.Now.AddSeconds(1);
-
-        // Act
-        var tryCreate = () => new UserSession(
-            userSessionId,
-            userId,
-            refreshTokenHash,
-            expiresAtLocal);
-
-        // Assert
-        Assert.Throws<ArgumentException>(tryCreate);
-    }
-
-    [Fact]
     public void Ctor_WhenArgumentsAreValid_ShouldReturnUserSession()
     {
         // Arrange
         var userSessionId = UserSessionId.New();
         var userId = UserId.New();
         var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         // Act
         var userSession = new UserSession(
@@ -74,7 +54,7 @@ public sealed class UserSessionTests
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(-1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(-1));
 
         // Act
         var isTokenExpired = userSession.IsTokenExpired();
@@ -91,7 +71,7 @@ public sealed class UserSessionTests
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(1));
 
         // Act
         var isTokenExpired = userSession.IsTokenExpired();
@@ -108,10 +88,10 @@ public sealed class UserSessionTests
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(1));
 
         var nullRefreshTokenHash = (RefreshTokenHash?)null;
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         // Act
         var tryRotateToken = () => userSession.RotateToken(
@@ -123,28 +103,6 @@ public sealed class UserSessionTests
     }
 
     [Fact]
-    public void RotateToken_WhenExpiresAtIsNotUtc_ShouldThrowArgumentException()
-    {
-        // Arrange
-        var userSession = new UserSession(
-            UserSessionId.New(),
-            UserId.New(),
-            new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
-
-        var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtLocal = DateTime.Now.AddSeconds(1);
-
-        // Act
-        var tryRotateToken = () => userSession.RotateToken(
-            refreshTokenHash,
-            expiresAtLocal);
-
-        // Assert
-        Assert.Throws<ArgumentException>(tryRotateToken);
-    }
-
-    [Fact]
     public void RotateToken_WhenArgumentsAreValid_ShouldRotateToken()
     {
         // Arrange
@@ -152,10 +110,10 @@ public sealed class UserSessionTests
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(1));
 
         var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         // Act
         userSession.RotateToken(

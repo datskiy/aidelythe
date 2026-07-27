@@ -12,8 +12,8 @@ public sealed class TokenDetailsResponse
     public required string Token { get; init; }
 
     /// <summary>
-    /// Gets the expiration time of the token in seconds.
+    /// Gets the date and time when the token expires.
     /// </summary>
-    [JsonPropertyName("expiresIn")]
-    public int ExpiresIn { get; init; }
+    [JsonPropertyName("expiresAt")]
+    public DateTimeOffset ExpiresAt { get; init; }
 }

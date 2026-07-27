@@ -11,7 +11,7 @@ public sealed class RefreshTokenDescriptorTests
         // Arrange
         var refreshToken = new RefreshToken("refresh-token");
         var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         var nullRefreshToken = (RefreshToken?)null;
         var nullRefreshTokenHash = (RefreshTokenHash?)null;
@@ -33,30 +33,12 @@ public sealed class RefreshTokenDescriptorTests
     }
 
     [Fact]
-    public void Ctor_WhenExpiresAtIsNotUtc_ShouldThrowArgumentException()
-    {
-        // Arrange
-        var refreshToken = new RefreshToken("refresh-token");
-        var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtLocal = DateTime.Now.AddSeconds(1);
-
-        // Act
-        var tryCreate = () => new RefreshTokenDescriptor(
-            refreshToken,
-            refreshTokenHash,
-            expiresAtLocal);
-
-        // Assert
-        Assert.Throws<ArgumentException>(tryCreate);
-    }
-
-    [Fact]
     public void Ctor_WhenArgumentsAreValid_ShouldReturnRefreshTokenDescriptor()
     {
         // Arrange
         var refreshToken = new RefreshToken("refresh-token");
         var refreshTokenHash = new RefreshTokenHash("hashed-refresh-token");
-        var expiresAtUtc = DateTime.UtcNow.AddSeconds(1);
+        var expiresAtUtc = DateTimeOffset.UtcNow.AddSeconds(1);
 
         // Act
         var refreshTokenDescriptor = new RefreshTokenDescriptor(

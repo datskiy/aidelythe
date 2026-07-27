@@ -35,11 +35,11 @@ public sealed class CreateEventRequest
     /// </summary>
     [JsonPropertyName("startsAt")]
     [Required]
-    public DateTime? StartsAt { get; init; }
+    public DateTimeOffset? StartsAt { get; init; }
 
     /// <summary>
     /// Gets the date and time when the event ends.
     /// </summary>
     [JsonPropertyName("endsAt")]
-    public DateTime? EndsAt { get; init; }
+    public DateTimeOffset? EndsAt { get; init; }
 }

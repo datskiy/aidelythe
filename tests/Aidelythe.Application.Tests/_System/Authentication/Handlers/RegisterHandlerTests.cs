@@ -58,15 +58,52 @@ public sealed class RegisterHandlerTests
     }
 
     [Fact]
-    public async Task Register_WhenUserIsAlreadyRegistered_ShouldReturnAlreadyExists()
+    public async Task Register_WhenUserIsAlreadyRegisteredByEmail_ShouldReturnAlreadyExists()
     {
         // Arrange
         var sut = CreateSut();
         var command = CreateRegisterCommandStub();
 
         _userCredentialsRepository
-            .ExistsByEmailOrPhoneNumberAsync(
+            .ExistsAsync(
                 Arg.Any<Email>(),
+                Arg.Any<CancellationToken>())
+            .Returns(true);
+
+        _userCredentialsRepository
+            .ExistsAsync(
+                Arg.Any<PhoneNumber>(),
+                Arg.Any<CancellationToken>())
+            .Returns(false);
+
+        // Act
+        var result = await sut.Handle(
+            command,
+            _cancellationToken);
+
+        // Assert
+        Assert.IsType<AlreadyExists>(result.Union.Value);
+
+        await _unitOfWork
+            .DidNotReceive()
+            .SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Register_WhenUserIsAlreadyRegisteredByPhoneNumber_ShouldReturnAlreadyExists()
+    {
+        // Arrange
+        var sut = CreateSut();
+        var command = CreateRegisterCommandStub();
+
+        _userCredentialsRepository
+            .ExistsAsync(
+                Arg.Any<Email>(),
+                Arg.Any<CancellationToken>())
+            .Returns(false);
+
+        _userCredentialsRepository
+            .ExistsAsync(
                 Arg.Any<PhoneNumber>(),
                 Arg.Any<CancellationToken>())
             .Returns(true);
@@ -92,8 +129,13 @@ public sealed class RegisterHandlerTests
         var command = CreateRegisterCommandStub();
 
         _userCredentialsRepository
-            .ExistsByEmailOrPhoneNumberAsync(
+            .ExistsAsync(
                 Arg.Any<Email>(),
+                Arg.Any<CancellationToken>())
+            .Returns(false);
+
+        _userCredentialsRepository
+            .ExistsAsync(
                 Arg.Any<PhoneNumber>(),
                 Arg.Any<CancellationToken>())
             .Returns(false);
@@ -127,13 +169,15 @@ public sealed class RegisterHandlerTests
 
     private static RegisterCommand CreateRegisterCommandStub(bool useEmptyCredentials = false)
     {
-        var email = useEmptyCredentials
-            ? null
-            : "user@example.com";
+        if (useEmptyCredentials)
+            return new RegisterCommand(
+            email: null,
+            phoneNumber: null,
+            password: "admin694201337");
 
         return new RegisterCommand(
-            email,
-            phoneNumber: null,
+            "user@example.com",
+            phoneNumber: "+70123456789",
             password: "admin694201337");
     }
 }

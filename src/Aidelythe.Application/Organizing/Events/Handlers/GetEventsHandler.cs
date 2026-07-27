@@ -34,26 +34,26 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
                 Guid.CreateVersion7(),
                 "My title summary #1",
                 new AddressSummary("My country", "My region", "My city"),
-                new DateTime(2026, 2, 1),
-                new DateTime(2026, 2, 7),
-                new DateTime(2026, 2, 1),
-                new DateTime(2026, 2, 7)),
+                new DateTimeOffset(2026, 2, 1, 13, 37, 22, TimeSpan.Zero),
+                new DateTimeOffset(2026, 2, 7, 0, 0, 0, TimeSpan.Zero),
+                new DateTimeOffset(2026, 2, 1, 0, 0, 0, TimeSpan.Zero),
+                new DateTimeOffset(2026, 2, 7, 0, 0, 0, TimeSpan.Zero)),
             new EventSummary(
                 Guid.CreateVersion7(),
                 "My title summary #2",
                 new AddressSummary("Not my country", "Not my region", null),
-                new DateTime(2027, 07, 07),
+                new DateTimeOffset(2027, 07, 07, 0, 0, 0, TimeSpan.Zero),
                 null,
-                new DateTime(2026, 2, 1),
+                new DateTimeOffset(2026, 2, 1, 10, 5, 0, TimeSpan.Zero),
                 null),
             new EventSummary(
                 Guid.CreateVersion7(),
                 "My title summary #3",
                 new AddressSummary("Random ass country", "Random ass region", "Random ass city"),
-                new DateTime(2027, 06, 13),
+                new DateTimeOffset(2027, 06, 13, 11, 5, 0, TimeSpan.Zero),
                 null,
-                DateTime.Now,
-                DateTime.Now)
+                DateTimeOffset.UtcNow,
+                DateTimeOffset.UtcNow.AddDays(1))
         };
 
         var pagedCollection = new PagedCollection<EventSummary>(

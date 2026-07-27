@@ -101,20 +101,20 @@ public sealed class RefreshHandlerTests
                 UserSessionId.New(),
                 UserId.New(),
                 new RefreshTokenHash("hashed-refresh-token"),
-                DateTime.UtcNow.AddSeconds(1)));
+                DateTimeOffset.UtcNow.AddSeconds(1)));
 
         _refreshTokenService
             .Generate()
             .Returns(new RefreshTokenDescriptor(
                 new RefreshToken("refresh-token"),
                 new RefreshTokenHash("hashed-refresh-token"),
-                expiresAt: DateTime.UtcNow.AddSeconds(1)));
+                expiresAt: DateTimeOffset.UtcNow.AddSeconds(1)));
 
         _accessTokenService
             .Issue(Arg.Any<UserId>(), Arg.Any<UserSessionId>())
             .Returns(new AccessTokenDescriptor(
                 new AccessToken("access-token"),
-                expiresAt: DateTime.UtcNow.AddSeconds(1)));
+                expiresAt: DateTimeOffset.UtcNow.AddSeconds(1)));
 
         // Act
         var result = await sut.Handle(

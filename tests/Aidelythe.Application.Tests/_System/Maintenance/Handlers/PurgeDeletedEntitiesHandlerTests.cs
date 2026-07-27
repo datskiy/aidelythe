@@ -38,7 +38,7 @@ public sealed class PurgeDeletedEntitiesHandlerTests
         var command = new PurgeDeletedEntitiesCommand();
 
         _eventRepository
-            .PurgeDeletedOlderThanAsync(Arg.Any<DateTime>(), Arg.Any<CancellationToken>())
+            .PurgeDeletedOlderThanAsync(Arg.Any<DateOnly>(), Arg.Any<CancellationToken>())
             .Returns(3);
 
         // Act

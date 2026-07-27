@@ -11,13 +11,23 @@ namespace Aidelythe.Infrastructure._System.Authentication.Repositories;
 public sealed class UserCredentialsRepository : IUserCredentialsRepository
 {
     /// <inheritdoc/>
-    public Task<bool> ExistsByEmailOrPhoneNumberAsync(
-        Email? email,
-        PhoneNumber? phoneNumber,
+    public Task<bool> ExistsAsync(
+        Email email,
         CancellationToken cancellationToken)
     {
-        if (email is null && phoneNumber is null)
-            throw new ArgumentException("At least one checking criteria must be provided.");
+        ThrowIfNull(email);
+
+        // TODO: implement
+
+        return Task.FromResult(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<bool> ExistsAsync(
+        PhoneNumber phoneNumber,
+        CancellationToken cancellationToken)
+    {
+        ThrowIfNull(phoneNumber);
 
         // TODO: implement
 

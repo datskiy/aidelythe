@@ -9,21 +9,31 @@ namespace Aidelythe.Application._System.Authentication.Repositories;
 public interface IUserCredentialsRepository // TODO: use GenericRepository
 {
     /// <summary>
-    /// Determines whether a user exists with the specified email or phone number.
+    /// Determines whether a user exists with the specified email.
     /// </summary>
-    /// <param name="email">The email address to check.</param>
-    /// <param name="phoneNumber">The phone number to check.</param>
+    /// <param name="email">The email address to look up.</param>
     /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a boolean indicating whether a user exists with the specified email or phone number.
+    /// The task result contains a boolean indicating whether a user exists with the specified email.
     /// </returns>
-    /// <exception cref="ArgumentException">
-    /// Both <paramref name="email"/> and <paramref name="phoneNumber"/> are null.
-    /// </exception>
-    Task<bool> ExistsByEmailOrPhoneNumberAsync(
-        Email? email,
-        PhoneNumber? phoneNumber,
+    /// <exception cref="ArgumentNullException"> The <paramref name="email"/> is null.</exception>
+    Task<bool> ExistsAsync(
+        Email email,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Determines whether a user exists with the specified phone number.
+    /// </summary>
+    /// <param name="phoneNumber">The phone number to look up.</param>
+    /// <param name="cancellationToken">A token used to cancel the asynchronous operation.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a boolean indicating whether a user exists with the specified phone number.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"> The <paramref name="phoneNumber"/> is null.</exception>
+    Task<bool> ExistsAsync(
+        PhoneNumber phoneNumber,
         CancellationToken cancellationToken);
 
     /// <summary>

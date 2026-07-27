@@ -67,10 +67,10 @@ public sealed partial class PurgeDeletedEntitiesHandler : IRequestHandler<PurgeD
 
         // TODO: ask and add distributed locking
 
-        var cutoff = _timeProvider
+        var cutoff = DateOnly.FromDateTime(_timeProvider
             .GetUtcNow()
             .AddDays(-_maintenanceSettings.DeletedEntityRetentionDays)
-            .UtcDateTime;
+            .UtcDateTime);
 
         var deletedCount = await _eventRepository.PurgeDeletedOlderThanAsync(
             cutoff,
@@ -81,6 +81,6 @@ public sealed partial class PurgeDeletedEntitiesHandler : IRequestHandler<PurgeD
         LogEventsPurged(deletedCount, cutoff);
     }
 
-    [LoggerMessage(LogLevel.Information, "Purged {DeletedCount} deleted events older than {CutoffUtc}")]
-    private partial void LogEventsPurged(int deletedCount, DateTime cutoffUtc);
+    [LoggerMessage(LogLevel.Information, "Purged {DeletedCount} deleted events older than {Cutoff}")]
+    private partial void LogEventsPurged(int deletedCount, DateOnly cutoff);
 }

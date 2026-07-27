@@ -8,8 +8,8 @@ using Aidelythe.Application._System.Authentication.Results;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
 using Aidelythe.Domain.Identity.Users;
-using Aidelythe.Domain.Identity.Users.ValueObjects;
 using Aidelythe.Shared.Nullable;
+using Aidelythe.Shared.Strings;
 
 namespace Aidelythe.Application._System.Authentication.Handlers;
 
@@ -75,20 +75,38 @@ public sealed partial class RegisterHandler : IRequestHandler<RegisterCommand, R
         ThrowIfNull(request);
 
         // TODO: ask and add distributed locking
+        // TODO: mb create two separate endpoints for email and phone number in the future
 
         if (request.Email is null && request.PhoneNumber is null)
             return new MissingContactMethod();
 
         var email = request.Email.IfNotNull(email => new Email(email));
+        if (email is not null)
+        {
+            var isUserAlreadyRegisteredByEmail = await _userCredentialsRepository.ExistsAsync(
+                email,
+                cancellationToken);
+
+            if (isUserAlreadyRegisteredByEmail)
+            {
+                LogUserAlreadyRegisteredByEmail(email.Value.MaskEnding());
+                return new AlreadyExists();
+            }
+        }
+
         var phoneNumber = request.PhoneNumber.IfNotNull(phoneNumber => new PhoneNumber(phoneNumber));
+        if (phoneNumber is not null)
+        {
+            var isUserAlreadyRegisteredByPhoneNumber = await _userCredentialsRepository.ExistsAsync(
+                phoneNumber,
+                cancellationToken);
 
-        var isUserAlreadyRegistered = await _userCredentialsRepository.ExistsByEmailOrPhoneNumberAsync(
-            email,
-            phoneNumber,
-            cancellationToken);
-
-        if (isUserAlreadyRegistered)
-            return new AlreadyExists();
+            if (isUserAlreadyRegisteredByPhoneNumber)
+            {
+                LogUserAlreadyRegisteredByPhoneNumber(phoneNumber.Value.MaskMiddle());
+                return new AlreadyExists();
+            }
+        }
 
         var user = User.Register();
         await _userRepository.AddAsync(user, cancellationToken);
@@ -105,10 +123,12 @@ public sealed partial class RegisterHandler : IRequestHandler<RegisterCommand, R
         await _userCredentialsRepository.AddAsync(userCredentials, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        LogUserRegistered(user.Id);
         return user.Id.Value;
     }
 
-    [LoggerMessage(LogLevel.Information, "User {UserId} successfully registered")]
-    partial void LogUserRegistered(UserId userId);
+    [LoggerMessage(LogLevel.Information, "Registration attempt rejected for existing user by email {EmailMask}")]
+    partial void LogUserAlreadyRegisteredByEmail(string emailMask);
+
+    [LoggerMessage(LogLevel.Information, "Registration attempt rejected for existing user by phone number {PhoneNumberMask}")]
+    partial void LogUserAlreadyRegisteredByPhoneNumber(string phoneNumberMask);
 }

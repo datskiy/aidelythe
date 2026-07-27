@@ -37,10 +37,10 @@ public sealed class GetEventHandler : IRequestHandler<GetEventQuery, EventDetail
                 "Test city",
                 "Test postal code",
                 "Test street"),
-            new DateTime(2026, 1, 1),
-            new DateTime(2026, 1, 7),
-            DateTime.Now.AddDays(-1),
-            DateTime.Now);
+            new DateTimeOffset(2026, 1, 11, 22, 17, 33, TimeSpan.Zero),
+            new DateTimeOffset(2026, 1, 7, 17, 5, 49, TimeSpan.Zero),
+            DateTimeOffset.UtcNow.AddDays(-1),
+            DateTimeOffset.UtcNow);
 
         return await Task.FromResult(eventDetails);
     }

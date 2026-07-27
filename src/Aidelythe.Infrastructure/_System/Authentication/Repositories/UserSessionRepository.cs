@@ -21,7 +21,7 @@ public sealed class UserSessionRepository : IUserSessionRepository
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("hashed-token"),
-            DateTime.UtcNow.AddDays(14)))!;
+            DateTimeOffset.UtcNow.AddDays(14)))!;
     }
 
     public Task<UserSession?> GetAsync(
@@ -36,7 +36,7 @@ public sealed class UserSessionRepository : IUserSessionRepository
             UserSessionId.New(),
             UserId.New(),
             refreshTokenHash,
-            DateTime.UtcNow.AddDays(14)))!;
+            DateTimeOffset.UtcNow.AddDays(14)))!;
     }
 
     public Task<int> CountAsync(

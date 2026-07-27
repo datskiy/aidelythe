@@ -8,9 +8,8 @@ namespace Aidelythe.Infrastructure.Organizing.Events.Repositories;
 public sealed class EventRepository : IEventRepository
 {
     /// <inheritdoc/>
-    public Task<int> PurgeDeletedOlderThanAsync(DateTime cutoff, CancellationToken cancellationToken)
+    public Task<int> PurgeDeletedOlderThanAsync(DateOnly cutoff, CancellationToken cancellationToken)
     {
-        ThrowIfNotUtc(cutoff);
         // TODO: implement
 
         return Task.FromResult(67);

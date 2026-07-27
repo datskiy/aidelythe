@@ -139,6 +139,6 @@ public sealed class RefreshTokenServiceTests
             UserSessionId.New(),
             UserId.New(),
             new RefreshTokenHash("TWFueSBoYW5kcyBtYWtlIGxpZ2h0IHdvcmsu"),
-            DateTime.UtcNow.AddSeconds(isExpired ? -1 : 1));
+            DateTimeOffset.UtcNow.AddSeconds(isExpired ? -1 : 1));
     }
 }

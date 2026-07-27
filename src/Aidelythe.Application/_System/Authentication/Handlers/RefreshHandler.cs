@@ -7,7 +7,6 @@ using Aidelythe.Application._System.Authentication.Repositories;
 using Aidelythe.Application._System.Authentication.Results;
 using Aidelythe.Application._System.Authentication.Services;
 using Aidelythe.Application._System.Authentication.ValueObjects;
-using Aidelythe.Domain.Identity.Users.ValueObjects;
 using Aidelythe.Shared.Strings;
 using Aidelythe.Shared.Tasks;
 
@@ -88,7 +87,7 @@ public sealed partial class RefreshHandler : IRequestHandler<RefreshCommand, Ref
             },
             async notFound =>
             {
-                LogInvalidToken(request.RefreshToken.MaskMiddle());
+                LogUnknownToken(request.RefreshToken.MaskMiddle());
                 return await new InvalidToken().ToTask();
             });
     }
@@ -105,16 +104,12 @@ public sealed partial class RefreshHandler : IRequestHandler<RefreshCommand, Ref
 
         var accessTokenDescriptor = _accessTokenService.Issue(userSession.UserId, userSession.Id);
 
-        LogTokenPairRefreshed(userSession.UserId);
         return TokenPairDetails.Create(newRefreshTokenDescriptor, accessTokenDescriptor);
     }
 
-    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an expired token: {TokenMask}")]
+    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an expired token {TokenMask}")]
     partial void LogExpiredToken(string tokenMask);
 
-    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an invalid token: {TokenMask}")]
-    partial void LogInvalidToken(string tokenMask);
-
-    [LoggerMessage(LogLevel.Information, "User {UserId} successfully refreshed the token pair")]
-    partial void LogTokenPairRefreshed(UserId userId);
+    [LoggerMessage(LogLevel.Information, "Refresh attempt failed due to an unknown token {TokenMask}")]
+    partial void LogUnknownToken(string tokenMask);
 }

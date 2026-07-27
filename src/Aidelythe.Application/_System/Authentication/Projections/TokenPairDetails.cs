@@ -1,5 +1,4 @@
 using Aidelythe.Application._System.Authentication.Data;
-using Aidelythe.Shared.Time;
 
 namespace Aidelythe.Application._System.Authentication.Projections;
 
@@ -46,11 +45,11 @@ public sealed class TokenPairDetails
 
         var refreshTokenDetails = new TokenDetails(
             refreshTokenDescriptor.Token.Value,
-            refreshTokenDescriptor.ExpiresAt.GetSecondsUntilNowUtc());
+            refreshTokenDescriptor.ExpiresAt);
 
         var accessTokenDetails = new TokenDetails(
             accessTokenDescriptor.Token.Value,
-            accessTokenDescriptor.ExpiresAt.GetSecondsUntilNowUtc());
+            accessTokenDescriptor.ExpiresAt);
 
         return new TokenPairDetails(refreshTokenDetails, accessTokenDetails);
     }

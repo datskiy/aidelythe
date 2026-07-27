@@ -215,13 +215,13 @@ public sealed class LoginHandlerTests
         return new RefreshTokenDescriptor(
             new RefreshToken("refresh-token"),
             new RefreshTokenHash("hashed-refresh-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(1));
     }
 
     private static AccessTokenDescriptor CreateAccessTokenDescriptorStub()
     {
         return new AccessTokenDescriptor(
             new AccessToken("access-token"),
-            expiresAt: DateTime.UtcNow.AddSeconds(1));
+            expiresAt: DateTimeOffset.UtcNow.AddSeconds(1));
     }
 }

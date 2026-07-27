@@ -39,10 +39,10 @@ public sealed class UpdateEventHandler : IRequestHandler<UpdateEventCommand, Upd
                  "Updated city",
                  "Updated postal code",
                  "Updated street"),
-             new DateTime(2026, 1, 1),
-             new DateTime(2026, 1, 7),
-             DateTime.Now.AddDays(-1),
-             DateTime.Now);
+             new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero),
+             new DateTimeOffset(2026, 1, 7, 0, 0, 0, TimeSpan.Zero),
+             DateTimeOffset.UtcNow.AddDays(-1),
+             DateTimeOffset.UtcNow);
 
         return await Task.FromResult(updatedEvent);
     }

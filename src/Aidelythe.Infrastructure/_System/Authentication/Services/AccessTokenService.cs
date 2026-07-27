@@ -54,15 +54,14 @@ public sealed class AccessTokenService : IAccessTokenService
 
         var expiresAt = _timeProvider
             .GetUtcNow()
-            .AddSeconds(_accessTokenSettings.ExpiresInSeconds)
-            .UtcDateTime;
+            .AddSeconds(_accessTokenSettings.ExpiresInSeconds);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Issuer = _accessTokenSettings.Issuer,
             Audience = _accessTokenSettings.Audience,
             Subject = subject,
-            Expires = expiresAt,
+            Expires = expiresAt.UtcDateTime,
             SigningCredentials = signingCredentials
         };
 

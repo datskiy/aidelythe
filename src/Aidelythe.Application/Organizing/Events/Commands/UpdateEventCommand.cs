@@ -36,12 +36,12 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
     /// <summary>
     /// Gets the date and time when the event starts.
     /// </summary>
-    public DateTime StartsAt { get; }
+    public DateTimeOffset StartsAt { get; }
 
     /// <summary>
     /// Gets the date and time when the event ends.
     /// </summary>
-    public DateTime? EndsAt { get; }
+    public DateTimeOffset? EndsAt { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateEventCommand"/> class.
@@ -62,8 +62,8 @@ public sealed class UpdateEventCommand : IRequest<UpdateEventResult>
         string title,
         string? description,
         DefineAddressCommand location,
-        DateTime startsAt,
-        DateTime? endsAt)
+        DateTimeOffset startsAt,
+        DateTimeOffset? endsAt)
     {
         ThrowIfNull(title);
         ThrowIfNull(location);
