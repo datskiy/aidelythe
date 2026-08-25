@@ -9,7 +9,7 @@ namespace Aidelythe.Api._System.Configuration;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds configuration options to the specified service collection.
+    /// Adds configuration options to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add configuration options to.</param>
     /// <param name="configuration">The application configuration.</param>

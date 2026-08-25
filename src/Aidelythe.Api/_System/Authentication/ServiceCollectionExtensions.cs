@@ -12,7 +12,7 @@ namespace Aidelythe.Api._System.Authentication;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds JWT authentication services to the specified service collection.
+    /// Adds JWT authentication services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <param name="configuration">The application configuration.</param>

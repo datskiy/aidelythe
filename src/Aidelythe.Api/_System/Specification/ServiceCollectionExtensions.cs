@@ -6,7 +6,7 @@ namespace Aidelythe.Api._System.Specification;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds API specification services to the specified service collection.
+    /// Adds API specification services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <returns>

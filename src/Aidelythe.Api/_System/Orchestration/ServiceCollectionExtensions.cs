@@ -6,7 +6,7 @@ namespace Aidelythe.Api._System.Orchestration;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds mediator services to the specified service collection.
+    /// Adds mediator services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <returns>

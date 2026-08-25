@@ -6,6 +6,7 @@ using Aidelythe.Api._System.Composition;
 using Aidelythe.Api._System.Configuration;
 using Aidelythe.Api._System.Http;
 using Aidelythe.Api._System.Localization;
+using Aidelythe.Api._System.Monitoring;
 using Aidelythe.Api._System.Orchestration;
 using Aidelythe.Api._System.Scheduling;
 using Aidelythe.Api._System.Specification;
@@ -37,6 +38,7 @@ try
     services.AddSerilog();
     services.AddHangfire(configuration);
     services.AddApiSpecification();
+    services.AddHealthChecks(configuration);
 
     var app = builder.Build();
     app.UseHttpsRedirection();
@@ -49,6 +51,7 @@ try
     app.MapControllers();
     app.MapOpenApi();
     app.MapScalarApiReference();
+    app.MapHealthChecks();
 
     BackgroundJobScheduler.ScheduleRecurringJobs();
 

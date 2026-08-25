@@ -16,7 +16,7 @@ namespace Aidelythe.Api._System.Composition;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds composition services to the specified service collection.
+    /// Adds composition services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <returns>

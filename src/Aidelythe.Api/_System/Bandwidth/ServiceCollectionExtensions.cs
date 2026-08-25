@@ -13,7 +13,7 @@ namespace Aidelythe.Api._System.Bandwidth;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds rate-limiting services to the specified service collection.
+    /// Adds rate-limiting services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <param name="configuration">The application configuration.</param>

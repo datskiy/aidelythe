@@ -8,7 +8,7 @@ namespace Aidelythe.Api._System.Http;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds HTTP pipeline services to the specified service collection.
+    /// Adds HTTP pipeline services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <returns>

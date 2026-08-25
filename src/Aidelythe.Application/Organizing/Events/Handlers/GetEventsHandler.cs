@@ -27,6 +27,7 @@ public sealed class GetEventsHandler : IRequestHandler<GetEventsQuery, PagedColl
         ThrowIfNull(request);
 
         // TODO: implement
+        // TODO: add distributed caching
 
         var eventSummaries = new[]
         {

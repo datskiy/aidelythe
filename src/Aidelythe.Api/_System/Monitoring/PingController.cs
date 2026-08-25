@@ -18,6 +18,6 @@ public sealed class PingController : AnonymousApiController
     [ProducesResponseType(typeof(string),StatusCodes.Status200OK)]
     public IActionResult Ping()
     {
-        return Ok("pong");
+        return Ok("Pong");
     }
 }

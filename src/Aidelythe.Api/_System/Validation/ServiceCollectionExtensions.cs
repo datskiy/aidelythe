@@ -8,7 +8,7 @@ namespace Aidelythe.Api._System.Validation;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds validation services to the specified service collection
+    /// Adds validation services to the service collection
     /// and configures global validation options.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>

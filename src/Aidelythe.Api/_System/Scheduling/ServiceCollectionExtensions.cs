@@ -8,7 +8,7 @@ namespace Aidelythe.Api._System.Scheduling;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds Hangfire services to the specified service collection.
+    /// Adds Hangfire services to the service collection.
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <param name="configuration">The application configuration.</param>
